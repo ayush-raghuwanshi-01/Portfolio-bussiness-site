@@ -1,5 +1,18 @@
 import { Github, Linkedin, Sparkles } from "lucide-react";
-import NavLink from "@/components/NavLink";
+import { cn } from "@/lib/utils";
+
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    className={cn(
+      "relative text-sm text-muted-foreground transition-colors hover:text-foreground",
+      "after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-primary after:transition-all hover:after:w-full",
+    )}
+  >
+    {children}
+  </a>
+);
+
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
