@@ -26,11 +26,12 @@ const Navbar = () => {
           <span>Ayush<span className="text-primary">.</span></span>
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
-          <NavLink href="#work">Work</NavLink>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#services">Services</NavLink>
-          <NavLink href="#contact">Contact</NavLink>
+        <div className="hidden items-center gap-7 md:flex">
+          <NavLink href="/#work">Work</NavLink>
+          <NavLink href="/#services">Services</NavLink>
+          <NavLink href="/testimonials">Testimonials</NavLink>
+          <NavLink href="/#community">Community</NavLink>
+          <NavLink href="/#booking">Book a call</NavLink>
         </div>
 
         <div className="flex items-center gap-2">
@@ -53,7 +54,7 @@ const Navbar = () => {
             <Linkedin className="h-4 w-4" />
           </a>
           <Button asChild variant="hero" size="sm" className="hidden sm:inline-flex">
-            <a href="#contact">Hire Me</a>
+            <a href="/#booking">Book a call</a>
           </Button>
         </div>
       </nav>
