@@ -66,19 +66,17 @@ const Projects = () => {
     <section id="work" className="surface-dark relative py-28">
       <div className="container">
         <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary-glow">
-            Selected Work
-          </span>
-          <h2 className="mt-4 text-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
-            Products built with <span className="hl">intent.</span>
+          <span className="eyebrow">Selected Work · 2024 — 2026</span>
+          <h2 className="mt-6 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[88px]">
+            Products built with <em className="hl-ember not-italic">intent.</em>
           </h2>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-foreground/70">
             Four flagship builds — every project is a craft of <span className="hl-soft">code</span>,
-            <span className="hl-soft"> design</span> and <span className="hl-soft">growth</span>. Hover to pause the reel.
+            <span className="hl-soft"> design</span> and <span className="hl-soft">growth</span>. Hover any card to pause the reel.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-10">
+        <div className="mx-auto mt-20 flex max-w-6xl flex-col gap-10">
           {projects.map((p, i) => (
             <ProjectCard key={p.title} project={p} index={i} />
           ))}
@@ -155,21 +153,21 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         {/* Body */}
         <div className={reversed ? "lg:order-1 lg:pr-2" : "lg:pl-2"}>
           <div className="flex items-start justify-between gap-4">
-            <h3 className="text-display text-3xl font-semibold sm:text-4xl lg:text-[42px]">
+            <h3 className="font-serif-display text-4xl text-foreground sm:text-5xl lg:text-[56px]">
               <span className="hl">{project.title}</span>
             </h3>
-            <span className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-foreground/80 transition-all duration-500 group-hover:border-primary/50 group-hover:bg-primary/20 group-hover:text-primary-foreground">
+            <span className="mt-2 grid h-12 w-12 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-foreground/80 transition-all duration-500 group-hover:border-ember/60 group-hover:bg-ember/20 group-hover:text-ember-glow">
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </span>
           </div>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/75">
+          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/75">
             {project.desc}
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((s) => (
               <span
                 key={s}
-                className="rounded-md border border-primary/25 bg-primary/10 px-2.5 py-1 font-mono text-[11px] tracking-tight text-primary-glow"
+                className="rounded-md border border-ember/30 bg-ember/10 px-2.5 py-1 font-mono text-[11px] tracking-tight text-ember-glow"
               >
                 {s}
               </span>

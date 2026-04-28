@@ -62,11 +62,11 @@ const Community = () => {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           {/* LEFT — copy + CTA */}
           <div className="animate-fade-up">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-glow">The inside room</span>
-            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-              Build in public with <span className="hl">other young founders</span>.
+            <span className="eyebrow">The inside room · Free</span>
+            <h2 className="mt-5 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[68px]">
+              Build in public with <em className="hl not-italic">other young founders.</em>
             </h2>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/80">
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-foreground/80">
               A private community where I drop <span className="hl-soft">AI playbooks</span>, live build sessions, client roasts, and discount codes —
               before anything goes public. Free to join, no fluff, only operators.
             </p>
@@ -74,15 +74,15 @@ const Community = () => {
             <div className="mt-8 grid grid-cols-3 gap-3">
               {STATS.map((s) => (
                 <div key={s.v} className="glass rounded-2xl p-4 text-center magnetic">
-                  <s.icon className="mx-auto h-4 w-4 text-primary" />
-                  <div className="mt-2 font-display text-lg font-semibold text-gradient">{s.k}</div>
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{s.v}</div>
+                  <s.icon className="mx-auto h-4 w-4 text-ember-glow" />
+                  <div className="mt-2 font-serif-display text-3xl text-foreground">{s.k}</div>
+                  <div className="text-[10px] uppercase tracking-wider text-foreground/60">{s.v}</div>
                 </div>
               ))}
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="hero" size="xl">
+              <Button asChild variant="ember" size="xl">
                 <a href="#booking">
                   Join the community <ArrowUpRight className="h-4 w-4" />
                 </a>

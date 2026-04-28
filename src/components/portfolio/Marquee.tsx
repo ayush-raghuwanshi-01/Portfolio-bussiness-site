@@ -1,14 +1,18 @@
 const items = [
-  "React", "Next.js", "TypeScript", "Tailwind", "Node.js", "Supabase",
+  "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Supabase",
   "Framer Motion", "Performance Marketing", "Brand Strategy", "SEO", "AI Integrations", "Figma",
 ];
 
 const Marquee = () => (
-  <div className="relative overflow-hidden border-y border-border/50 py-6">
-    <div className="flex w-max animate-marquee gap-12 pr-12">
+  <div className="relative overflow-hidden border-y border-border/60 bg-card/30 py-7 backdrop-blur">
+    <div className="flex w-max animate-marquee gap-10 pr-10">
       {[...items, ...items].map((it, i) => (
-        <span key={i} className="font-display text-sm uppercase tracking-[0.2em] text-muted-foreground">
-          {it} <span className="ml-12 text-primary/60">✦</span>
+        <span
+          key={i}
+          className="inline-flex items-center gap-10 font-display text-[13px] font-medium uppercase tracking-[0.22em] text-foreground/55"
+        >
+          {it}
+          <span className="text-ember/60">✦</span>
         </span>
       ))}
     </div>

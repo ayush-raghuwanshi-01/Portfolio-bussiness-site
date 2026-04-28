@@ -39,6 +39,11 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        ember: {
+          DEFAULT: "hsl(var(--ember))",
+          glow: "hsl(var(--ember-glow))",
+          soft: "hsl(var(--ember-soft))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -66,15 +71,18 @@ export default {
       fontFamily: {
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
         display: ['"Space Grotesk"', '"Inter"', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
+        'gradient-ember': 'var(--gradient-ember)',
         'gradient-aurora': 'var(--gradient-aurora)',
         'gradient-card': 'var(--gradient-card)',
       },
       boxShadow: {
         glow: 'var(--shadow-glow)',
+        ember: 'var(--shadow-ember)',
         elegant: 'var(--shadow-elegant)',
         glass: 'var(--shadow-glass)',
       },

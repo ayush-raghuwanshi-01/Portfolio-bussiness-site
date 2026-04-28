@@ -38,14 +38,12 @@ const Services = () => (
 
         <div className="relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <span className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" /> Hire me · Affordable founder rates
-            </span>
-            <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Hire a young founder, <br />
-              <span className="hl">not a slow, expensive agency.</span>
+            <span className="eyebrow">Hire me · Founder rates</span>
+            <h2 className="mt-5 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[80px]">
+              Hire a <em className="hl-ember not-italic">young founder</em>,
+              <br /> not a slow, expensive agency.
             </h2>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-foreground/85">
+            <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-foreground/85">
               I build <span className="hl-soft">websites</span>, <span className="hl-soft">software</span> and
               <span className="hl-soft"> SaaS</span> — then use <span className="hl-soft">AI</span> to run your business alongside you. One obsessive operator,
               startup-friendly pricing, and a partner who actually picks up the phone.
@@ -61,7 +59,7 @@ const Services = () => (
             </div>
 
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button asChild variant="hero" size="lg">
+              <Button asChild variant="ember" size="lg">
                 <a href="#contact">
                   Get a free quote <ArrowUpRight className="h-4 w-4" />
                 </a>
