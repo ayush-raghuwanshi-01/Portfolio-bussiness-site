@@ -37,12 +37,10 @@ const About = () => (
         </div>
       </div>
 <div>
-  <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-    About
-  </span>
+  <span className="eyebrow">About · The operator</span>
 
-  <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-    A passionate <span className="hl">Software Engineer</span> shaping ideas into reality.
+  <h2 className="mt-5 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[72px]">
+    A passionate <em className="hl not-italic">Software Engineer</em> shaping ideas into reality.
   </h2>
 
   <p className="mt-5 text-[15px] leading-relaxed text-foreground/80">
