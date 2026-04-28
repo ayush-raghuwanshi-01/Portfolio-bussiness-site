@@ -9,7 +9,7 @@ const traits = [
 ];
 
 const About = () => (
-  <section id="about" className="relative py-28">
+  <section id="about" className="surface-light relative py-28">
     <div className="container grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <div className="relative">
         <div className="glass relative overflow-hidden rounded-3xl p-3">
