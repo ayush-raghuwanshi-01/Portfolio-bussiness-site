@@ -89,7 +89,7 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
         <p className="pl-8 text-sm leading-relaxed text-foreground/90">"{t.quote}"</p>
         <div className="mt-4 flex items-center justify-between border-t border-border/50 pt-4">
           <div>
-            <div className="font-display text-sm font-semibold">{t.name}</div>
+            <div className="font-display text-sm font-semibold"><span className="hl">{t.name}</span></div>
             <div className="text-xs text-muted-foreground">{t.role}</div>
           </div>
           <span className="font-mono text-[10px] uppercase tracking-widest text-primary">Verified</span>
