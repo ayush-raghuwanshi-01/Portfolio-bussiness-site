@@ -71,15 +71,18 @@ export default {
       fontFamily: {
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
         display: ['"Space Grotesk"', '"Inter"', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
+        'gradient-ember': 'var(--gradient-ember)',
         'gradient-aurora': 'var(--gradient-aurora)',
         'gradient-card': 'var(--gradient-card)',
       },
       boxShadow: {
         glow: 'var(--shadow-glow)',
+        ember: 'var(--shadow-ember)',
         elegant: 'var(--shadow-elegant)',
         glass: 'var(--shadow-glass)',
       },
