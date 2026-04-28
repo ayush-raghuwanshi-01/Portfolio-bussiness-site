@@ -1,5 +1,6 @@
 import { Github, Linkedin, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png"
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <a
@@ -14,16 +15,20 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 );
 
 import { Button } from "@/components/ui/button";
+import { log } from "console";
 
 const Navbar = () => {
   return (
     <header className="fixed inset-x-0 top-4 z-50 mx-auto w-[min(1180px,94%)]">
       <nav className="glass flex items-center justify-between rounded-2xl px-4 py-3 sm:px-6">
         <a href="#home" className="flex items-center gap-2 font-display text-base font-semibold">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-primary shadow-glow">
-            <Sparkles className="h-4 w-4 text-primary-foreground" />
+          <span className="pt-2 bg-white items-center justify-center flex h-14 w-16 place-items-center rounded-lg ">
+            <img 
+             src={logo}
+             width={60}
+             height={60}
+             />
           </span>
-          <span>Ayush<span className="text-primary">.</span></span>
         </a>
 
         <div className="hidden items-center gap-7 md:flex">

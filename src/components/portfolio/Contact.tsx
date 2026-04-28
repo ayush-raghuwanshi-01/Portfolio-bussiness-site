@@ -14,25 +14,26 @@ const Contact = () => (
             Slide into my inbox or DM. I reply to every message personally — usually within 24 hours.
           </p>
 
-          <a
-            href="mailto:hello@ayush.dev"
-            className="mt-9 inline-flex items-center gap-3 rounded-full bg-gradient-primary px-6 py-4 font-display text-lg font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
-          >
-            <Mail className="h-5 w-5" />
-            hello@ayush.dev
-            <ArrowUpRight className="h-5 w-5" />
-          </a>
+         <a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushtechguide@gmail.com&su=Let's Talk: AI, Business & Modern Tech&body=Hi Ayush,%0D%0A%0D%0AI'd like to chat about AI, business, and modern tech. Specifically, my query regarding the new tech world is:%0D%0A%0D%0A[Enter your query here]%0D%0A%0D%0ABest regards,"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-9 inline-flex items-center gap-3 rounded-full bg-gradient-primary px-6 py-4 font-display text-lg font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]"
+>
+  <Mail className="h-5 w-5" />
+  ayushtechguide@gmail.com
+  <ArrowUpRight className="h-5 w-5" />
+</a>
 
           <div className="mt-8 flex items-center justify-center gap-3">
-            <SocialLink href="https://www.linkedin.com/" label="LinkedIn" icon={Linkedin} />
+            <SocialLink href="https://in.linkedin.com/in/ayush-raghuwanshi-248532254" label="LinkedIn" icon={Linkedin} />
             <SocialLink href="https://github.com/" label="GitHub" icon={Github} />
           </div>
         </div>
       </div>
 
-      <footer className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/50 pt-8 text-sm text-muted-foreground sm:flex-row">
+      <footer className="mt-12 flex flex-col items-center justify-center gap-4 border-t border-border/50 pt-8 text-sm text-muted-foreground sm:flex-row">
         <div>© {new Date().getFullYear()} Ayush. Crafted in dark mode.</div>
-        <div className="font-mono text-xs uppercase tracking-widest">Glassmorphism · Electric Indigo</div>
       </footer>
     </div>
   </section>

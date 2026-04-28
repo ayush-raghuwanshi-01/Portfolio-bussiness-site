@@ -165,9 +165,18 @@ const Booking = () => {
 
                 <div className="mt-8 rounded-2xl border border-primary/30 bg-primary/10 p-4">
                   <div className="font-display text-sm font-semibold text-foreground">Prefer a quick DM?</div>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Email <a href="mailto:hello@ayush.dev" className="text-primary underline-offset-4 hover:underline">hello@ayush.dev</a> — usually replies in &lt; 6h.
-                  </p>
+     <p className="mt-1 text-xs text-muted-foreground">
+  Email{" "}
+  <a 
+    href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushtechguide@gmail.com&su=Let's Talk: AI, Business & Modern Tech&body=Hi Ayush,%0D%0A%0D%0AI'd like to chat about AI, business, and modern tech. Specifically, my query regarding the new tech world is:%0D%0A%0D%0A[Enter your query here]%0D%0A%0D%0ABest regards,"
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="text-primary underline-offset-4 hover:underline"
+  >
+    ayushtechguide@gmail.com
+  </a> 
+  — usually replies in &lt; 6h.
+</p>
                 </div>
               </div>
             </div>

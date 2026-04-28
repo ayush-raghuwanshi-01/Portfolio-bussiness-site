@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Quote, Play, Star } from "lucide-react";
+import team from "@/assets/team-deepak.png"
 
 type Testimonial = {
   name: string;
@@ -12,16 +13,16 @@ type Testimonial = {
 // Public, hotlinkable sample MP4s (placeholders) — replace with real client videos later
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Riya Malhotra",
-    role: "Founder, Asklytics.in",
-    quote: "Ayush shipped our MVP in 9 days. The AI workflows alone save us 20+ hours a week.",
-    poster: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=70",
+    name: "Deepak Tripathi",
+    role: "Founder & Lead Engineer of Asklytics.in",
+    quote: "Despite facing numerous technical hurdles and research roadblocks during development, we persevered under the guidance of Deepak Sir to bring **asklytics.in** to life. Our platform breaks down the barriers of complex data science, empowering anyone to transform raw information into actionable insights with ease.",
+    poster: team, // Ensure 'team' is imported correctly (e.g., import team from './assets/team.png')
     videoSrc: "https://cdn.coverr.co/videos/coverr-a-woman-typing-on-her-laptop-7766/1080p.mp4",
   },
   {
-    name: "Karan Shah",
-    role: "Director, Prabha Foundation",
-    quote: "Felt like working with a full agency — except faster, cheaper, and way more obsessed.",
+    name: "Shubham Mishra",
+    role: "Machine Learning enthusiast",
+    quote: "A specialist in training and deploying high-performance models, Shubham is the engine behind our AI capabilities. They played a critical role in navigating the research hurdles of the project, ensuring our models remain accurate and accessible for every user.",
     poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=70",
     videoSrc: "https://cdn.coverr.co/videos/coverr-a-man-talking-to-the-camera-2649/1080p.mp4",
   },
@@ -103,12 +104,12 @@ const Testimonials = ({ compact = false }: { compact?: boolean }) => {
     <section id="testimonials" className="relative py-24">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center animate-fade-up">
-          <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Client love</span>
+          <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Our Team</span>
           <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Real founders. <span className="text-gradient">Real wins.</span>
+            Real Growth. <span className="text-gradient">Real wins.</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Hit play — or just scroll. Every card autoplays on view, muted and looped.
+           Our team thrives on a culture of continuous learning and collaborative problem-solving, where every challenge is met with shared expertise to sharpen our individual skills and accelerate our collective growth.
           </p>
         </div>
 

@@ -1,37 +1,37 @@
 import { ArrowUpRight, BarChart3, HeartHandshake, ShoppingBag } from "lucide-react";
-import asklytics from "@/assets/project-asklytics.jpg";
-import prabha from "@/assets/project-prabha.jpg";
-import three from "@/assets/project-three.jpg";
+import asklytics from "@/assets/asklytics-project.png";
+import prabha from "@/assets/Ecommerse-project.png";
+import three from "@/assets/gym-project.png";
 
 const projects = [
   {
-    tag: "Flagship · Founder",
+    tag: "Tech lead and Co-Founder",
     title: "Asklytics.in",
-    desc: "An AI-driven analytics platform that turns raw user feedback into product decisions. Built end-to-end — from brand to backend.",
+    desc: "An AI-driven data analytics platform that Perfect for business users who need instant data insights without waiting for technical teams or learning complex tools.",
     icon: BarChart3,
     image: asklytics,
     link: "https://asklytics.in",
-    stack: ["Next.js", "Supabase", "AI", "Stripe"],
+    stack: ["React.js", "Python Fast API", "AI", "Cloud"],
     featured: true,
   },
   {
-    tag: "Flagship · Tech Lead",
-    title: "Prabha Foundation",
-    desc: "Digital backbone for a growing nonprofit — donations, volunteer ops, and a story-first website that lifted contributions by 3.4×.",
+    tag: "Tech Lead",
+    title: "Ecommerse Store",
+    desc: "A high-performance, modular e-commerce engine designed to scale your storefront with seamless API integrations and lightning-fast checkout experiences.",
     icon: HeartHandshake,
     image: prabha,
     link: "#",
-    stack: ["React", "Razorpay", "Sanity", "SEO"],
+    stack: ["React", "UI/UX", "Responsive", "SEO"],
     featured: true,
   },
   {
-    tag: "Client · D2C",
-    title: "Premium D2C Storefront",
-    desc: "Headless commerce build with a brand-first art direction. 2.1× conversion uplift after redesign + paid funnel rework.",
+    tag: "Gym Management Software",
+    title: "AI Gym Management Software (Saas)",
+    desc: "Our team is now working on a Saas (Software as a service) product soon launch in the market. This product is specially for Gym  Owner who want's to  manage their members by this software in very affordable price.",
     icon: ShoppingBag,
     image: three,
     link: "#",
-    stack: ["Shopify", "Remix", "Meta Ads"],
+    stack: ["Python Fast API", "React", "AI"],
     featured: false,
   },
 ];
@@ -117,7 +117,7 @@ const ProjectCard = ({ project, large = false }: { project: typeof projects[numb
 
 const ProjectCallout = () => (
   <div className="glass-strong relative flex flex-col justify-between overflow-hidden rounded-3xl p-8">
-    <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-gradient-primary opacity-30 blur-3xl" />
+    <div className="absolute -right-10 -top-10 h-20 w-20 rounded-full bg-gradient-primary opacity-30 blur-3xl" />
     <div>
       <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">+ Many more</span>
       <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight">

@@ -1,11 +1,11 @@
 import { ArrowDown, Github, Linkedin, Sparkles, Bot, Code2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
-import ayushCutout from "@/assets/ayush-cutout.png";
+import ayushCutout from "@/assets/ayush-main.png";
 
 const Hero = () => {
   return (
-    <section id="home" className="relative isolate flex min-h-screen items-center overflow-hidden pt-28 pb-16">
+    <section id="home" className="relative isolate flex min-h-screen items-center overflow-hidden pt-32 pb-16">
       {/* Video background placeholder */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -28,7 +28,7 @@ const Hero = () => {
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
           {/* LEFT — copy */}
           <div className="animate-fade-up text-center lg:text-left">
-            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1 text-xs font-medium text-muted-foreground">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
@@ -36,7 +36,7 @@ const Hero = () => {
               Young founder · Booking projects this month
             </span>
 
-            <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[76px]">
+            <h1 className="mt-2 font-display text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-[62px]">
               I build <span className="text-gradient">websites, software & SaaS</span> — and run your business with AI.
             </h1>
 
@@ -86,7 +86,7 @@ const Hero = () => {
 
           {/* RIGHT — cutout photo */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5]">
+            <div className="relative aspect-[5/5]">
               {/* halo */}
               <div className="absolute inset-x-6 bottom-0 top-12 rounded-[40px] bg-gradient-primary opacity-30 blur-3xl" />
               <div className="absolute inset-0 rounded-[36px] bg-gradient-aurora opacity-40 blur-2xl" />
@@ -137,8 +137,8 @@ const Hero = () => {
         {/* Stats glass row */}
         <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
           {[
-            { k: "30+", v: "Projects shipped" },
-            { k: "12", v: "Brands served" },
+            { k: "10+", v: "Projects shipped" },
+            { k: "5", v: "Brands served" },
             { k: "5×", v: "Faster with AI" },
             { k: "100%", v: "Client retention" },
           ].map((s) => (
