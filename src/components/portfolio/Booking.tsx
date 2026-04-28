@@ -59,16 +59,16 @@ const Booking = () => {
   };
 
   return (
-    <section id="booking" className="relative py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 grid-bg opacity-30" />
+    <section id="booking" className="surface-blue relative py-28">
+      <div className="pointer-events-none absolute inset-0 -z-10 grid-bg opacity-20" />
       <div className="container">
         <div className="mx-auto max-w-2xl text-center animate-fade-up">
-          <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Book a free call</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-glow">Book a free call</span>
           <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Let's <span className="text-gradient">map your build</span> in 20 minutes.
+            Let's <span className="hl">map your build</span> in 20 minutes.
           </h2>
-          <p className="mt-4 text-muted-foreground">
-            Pick a slot, tell me about the project, and I'll come prepared with a scope, timeline, and honest price.
+          <p className="mt-4 text-[15px] leading-relaxed text-foreground/80">
+            Pick a slot, tell me about the project, and I'll come prepared with a <span className="hl-soft">scope</span>, <span className="hl-soft">timeline</span> and an <span className="hl-soft">honest price</span>.
           </p>
         </div>
 
