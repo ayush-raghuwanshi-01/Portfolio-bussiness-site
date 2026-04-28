@@ -85,12 +85,17 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "ss01", "cv11";
+    font-feature-settings: "ss01", "cv11", "ss02";
+    letter-spacing: -0.011em;
     background-image:
       radial-gradient(1200px 600px at 10% -10%, hsl(244 92% 30% / 0.35), transparent 60%),
       radial-gradient(900px 500px at 100% 10%, hsl(280 90% 35% / 0.25), transparent 60%),
       radial-gradient(800px 600px at 50% 110%, hsl(220 90% 35% / 0.25), transparent 60%);
     background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.025em;
   }
 
   ::selection {
