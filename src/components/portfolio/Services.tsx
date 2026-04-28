@@ -58,8 +58,10 @@ const Services = () => (
               ))}
             </div>
 
+            <div class
+            ></div>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button asChild variant="hero" size="lg">
+              <Button asChild variant="ember" size="lg">
                 <a href="#contact">
                   Get a free quote <ArrowUpRight className="h-4 w-4" />
                 </a>
