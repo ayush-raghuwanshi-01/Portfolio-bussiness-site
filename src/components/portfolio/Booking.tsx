@@ -59,7 +59,7 @@ const Booking = () => {
   };
 
   return (
-    <section id="booking" className="surface-blue relative py-28">
+    <section id="booking" className="surface-light relative py-28">
       <div className="pointer-events-none absolute inset-0 -z-10 grid-bg opacity-20" />
       <div className="container">
         <div className="mx-auto max-w-2xl text-center animate-fade-up">

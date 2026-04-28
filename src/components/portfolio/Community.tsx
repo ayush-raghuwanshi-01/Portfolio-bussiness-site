@@ -53,7 +53,7 @@ const STATS = [
 
 const Community = () => {
   return (
-    <section id="community" className="surface-mid relative py-28">
+    <section id="community" className="surface-dark relative py-28">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-10 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl animate-blob" />
       </div>
