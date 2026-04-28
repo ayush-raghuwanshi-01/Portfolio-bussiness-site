@@ -37,13 +37,13 @@ const Hero = () => {
             </span>
 
             <h1 className="mt-2 font-display text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-[62px]">
-              I build <span className="text-gradient">websites, software & SaaS</span> — and run your business with AI.
+              I build <span className="hl">websites, software & SaaS</span> — and run your business with <span className="hl">AI</span>.
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg lg:mx-0">
-              Hey, I'm <span className="text-foreground font-medium">Ayush</span> — a young entrepreneur, full-stack developer
-              and growth marketer. I design, build and <span className="text-foreground">manage</span> digital products for
-              founders & brands at <span className="text-foreground">honest, affordable prices</span>. One operator. Agency-grade output. AI-powered speed.
+            <p className="mx-auto mt-6 max-w-2xl text-base text-foreground/80 sm:text-lg lg:mx-0">
+              Hey, I'm <span className="hl">Ayush</span> — a young entrepreneur, full-stack developer
+              and growth marketer. I design, build and <span className="hl-soft">manage</span> digital products for
+              founders & brands at <span className="hl-soft">honest, affordable prices</span>. One operator. Agency-grade output. AI-powered speed.
             </p>
 
             {/* offer chips */}
