@@ -134,7 +134,7 @@ const Booking = () => {
 
               <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3 pt-2">
                 <p className="text-xs text-muted-foreground">No spam. No auto-responders. Replied to personally.</p>
-                <Button type="submit" variant="hero" size="lg" disabled={submitting}>
+                <Button type="submit" variant="ember" size="lg" disabled={submitting}>
                   <Send className="h-4 w-4" /> {submitting ? "Sending…" : "Book my slot"}
                 </Button>
               </div>
