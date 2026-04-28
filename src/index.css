@@ -113,6 +113,26 @@
     box-shadow: var(--shadow-glass), inset 0 1px 0 0 hsl(var(--glass-highlight));
   }
 
+  /* Tri-tone section surfaces */
+  .surface-light {
+    background: linear-gradient(180deg, hsl(var(--surface-light)) 0%, hsl(230 25% 92%) 100%);
+    color: hsl(var(--surface-light-foreground));
+  }
+  .surface-mid {
+    background: linear-gradient(180deg, hsl(var(--surface-mid)) 0%, hsl(240 22% 11%) 100%);
+    color: hsl(var(--surface-mid-foreground));
+  }
+  .surface-dark {
+    background: linear-gradient(180deg, hsl(var(--surface-dark)) 0%, hsl(240 32% 4%) 100%);
+    color: hsl(var(--foreground));
+  }
+
+  .text-display {
+    font-family: '"Space Grotesk"', '"Inter"', sans-serif;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
   .glass-strong {
     background: linear-gradient(145deg, hsl(240 30% 12% / 0.75), hsl(240 30% 6% / 0.55));
     backdrop-filter: blur(28px) saturate(180%);
