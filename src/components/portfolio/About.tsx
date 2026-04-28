@@ -37,22 +37,23 @@ const About = () => (
         </div>
       </div>
 <div>
-  <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">
+  <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
     About
   </span>
 
   <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-    A passionate <span className="text-gradient">Software Engineer</span> shaping ideas into reality.
+    A passionate <span className="hl">Software Engineer</span> shaping ideas into reality.
   </h2>
 
-  <p className="mt-5 text-muted-foreground">
-    I specialize in frontend, backend, and database management, building products and software that solve real-world problems.
-    With a strong passion for AI and emerging technologies, I constantly explore innovative ways to create smarter digital solutions.
-    I actively work in freelancing, helping businesses grow through modern websites, automation, and scalable systems.
+  <p className="mt-5 text-[15px] leading-relaxed text-foreground/80">
+    I specialize in <span className="hl-soft">frontend</span>, <span className="hl-soft">backend</span> and
+    <span className="hl-soft"> database</span> management, building products and software that solve real-world problems.
+    With a strong passion for <span className="hl-soft">AI</span> and emerging technologies, I constantly explore innovative ways to create smarter digital solutions.
+    I actively work in freelancing, helping businesses grow through modern websites, automation and scalable systems.
     I also focus on partnership-driven business growth models that create long-term value.
-    As the Co-Founder of <span className="text-foreground">Asklytics</span> and Founder of
-    <span className="text-foreground"> ZenWebStudio</span>, I help startups and small businesses establish a strong online presence.
-    My mission is to build impactful technology that drives growth, efficiency, and success.
+    As the Co-Founder of <span className="hl">Asklytics</span> and Founder of
+    <span className="hl"> ZenWebStudio</span>, I help startups and small businesses establish a strong online presence.
+    My mission is to build impactful technology that drives growth, efficiency and success.
   </p>
 
   <div className="mt-8 grid gap-3 sm:grid-cols-3">
