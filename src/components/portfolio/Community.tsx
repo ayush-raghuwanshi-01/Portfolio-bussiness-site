@@ -53,7 +53,7 @@ const STATS = [
 
 const Community = () => {
   return (
-    <section id="community" className="relative py-28">
+    <section id="community" className="surface-mid relative py-28">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-10 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl animate-blob" />
       </div>
@@ -62,12 +62,12 @@ const Community = () => {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           {/* LEFT — copy + CTA */}
           <div className="animate-fade-up">
-            <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">The inside room</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-glow">The inside room</span>
             <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-              Build in public with <span className="text-gradient">other young founders</span>.
+              Build in public with <span className="hl">other young founders</span>.
             </h2>
-            <p className="mt-5 max-w-xl text-muted-foreground">
-              A private community where I drop AI playbooks, live build sessions, client roasts, and discount codes —
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/80">
+              A private community where I drop <span className="hl-soft">AI playbooks</span>, live build sessions, client roasts, and discount codes —
               before anything goes public. Free to join, no fluff, only operators.
             </p>
 

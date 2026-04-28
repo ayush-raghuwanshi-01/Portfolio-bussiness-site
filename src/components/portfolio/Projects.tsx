@@ -63,24 +63,22 @@ const projects: Project[] = [
 
 const Projects = () => {
   return (
-    <section id="work" className="relative py-28">
+    <section id="work" className="surface-dark relative py-28">
       <div className="container">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">
-              Selected Work
-            </span>
-            <h2 className="mt-4 text-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
-              Products built with <span className="text-gradient">intent.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-[15px] leading-relaxed text-muted-foreground">
-            Four flagship builds — every project is a craft of code, design, and growth strategy.
-            Hover to pause the reel.
+        <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary-glow">
+            Selected Work
+          </span>
+          <h2 className="mt-4 text-display text-4xl font-semibold sm:text-5xl lg:text-6xl">
+            Products built with <span className="hl">intent.</span>
+          </h2>
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+            Four flagship builds — every project is a craft of <span className="hl-soft">code</span>,
+            <span className="hl-soft"> design</span> and <span className="hl-soft">growth</span>. Hover to pause the reel.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-7 md:grid-cols-2">
+        <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-10">
           {projects.map((p, i) => (
             <ProjectCard key={p.title} project={p} index={i} />
           ))}
@@ -99,9 +97,11 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     if (paused) return;
     const id = setInterval(() => {
       setActive((a) => (a + 1) % project.images.length);
-    }, 2600 + index * 250); // slight stagger so cards don't switch in unison
+    }, 2600 + index * 250);
     return () => clearInterval(id);
   }, [paused, project.images.length, index]);
+
+  const reversed = index % 2 === 1;
 
   return (
     <a
@@ -110,83 +110,72 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       rel="noreferrer"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="group glass hover-lift relative block overflow-hidden rounded-3xl p-5 sm:p-6"
+      className="group glass hover-lift relative block w-full overflow-hidden rounded-[32px] p-5 sm:p-7"
     >
-      {/* Accent glow */}
       <div
-        className={`pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-br ${project.accent} opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100`}
+        className={`pointer-events-none absolute -inset-px rounded-[32px] bg-gradient-to-br ${project.accent} opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100`}
       />
 
-      {/* Image stage */}
-      <div className="relative overflow-hidden rounded-2xl border border-border/60 aspect-[16/10]">
-        {project.images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt={`${project.title} preview ${i + 1}`}
-            loading="lazy"
-            className={`absolute inset-0 h-full w-full object-cover transition-all duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              i === active
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-[1.06]"
-            }`}
-          />
-        ))}
-
-        {/* Gradient veil */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
-        <div
-          className={`pointer-events-none absolute inset-0 bg-gradient-to-tr ${project.accent} mix-blend-overlay opacity-60`}
-        />
-
-        {/* Floating tag */}
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md">
-          <Icon className="h-3 w-3 text-primary-glow" />
-          {project.tag}
-        </span>
-
-        {/* Counter */}
-        <span className="absolute right-3 top-3 rounded-full border border-white/15 bg-black/40 px-2 py-0.5 font-mono text-[10px] text-white/80 backdrop-blur-md">
-          {String(active + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}
-        </span>
-
-        {/* Progress dots */}
-        <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-          {project.images.map((_, i) => (
-            <span
+      <div className={`relative grid items-center gap-7 lg:gap-10 ${reversed ? "lg:grid-cols-[0.9fr_1.1fr]" : "lg:grid-cols-[1.1fr_0.9fr]"}`}>
+        {/* Image stage */}
+        <div className={`relative overflow-hidden rounded-2xl border border-border/60 aspect-[16/10] ${reversed ? "lg:order-2" : ""}`}>
+          {project.images.map((src, i) => (
+            <img
               key={i}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                i === active ? "w-6 bg-primary-glow" : "w-1.5 bg-white/40"
+              src={src}
+              alt={`${project.title} preview ${i + 1}`}
+              loading="lazy"
+              className={`absolute inset-0 h-full w-full object-cover transition-all duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                i === active ? "opacity-100 scale-100" : "opacity-0 scale-[1.06]"
               }`}
             />
           ))}
-        </div>
-      </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/5 to-transparent" />
+          <div className={`pointer-events-none absolute inset-0 bg-gradient-to-tr ${project.accent} mix-blend-overlay opacity-50`} />
 
-      {/* Body */}
-      <div className="mt-5 flex items-start justify-between gap-4">
-        <div>
-          <h3 className="text-display text-2xl font-semibold sm:text-[26px]">
-            {project.title}
-          </h3>
-          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white/95 backdrop-blur-md">
+            <Icon className="h-3 w-3 text-primary-glow" />
+            {project.tag}
+          </span>
+          <span className="absolute right-3 top-3 rounded-full border border-white/15 bg-black/45 px-2 py-0.5 font-mono text-[10px] text-white/85 backdrop-blur-md">
+            {String(active + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}
+          </span>
+          <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+            {project.images.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  i === active ? "w-7 bg-primary-glow" : "w-1.5 bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className={reversed ? "lg:order-1 lg:pr-2" : "lg:pl-2"}>
+          <div className="flex items-start justify-between gap-4">
+            <h3 className="text-display text-3xl font-semibold sm:text-4xl lg:text-[42px]">
+              <span className="hl">{project.title}</span>
+            </h3>
+            <span className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-foreground/80 transition-all duration-500 group-hover:border-primary/50 group-hover:bg-primary/20 group-hover:text-primary-foreground">
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </span>
+          </div>
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/75">
             {project.desc}
           </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.stack.map((s) => (
+              <span
+                key={s}
+                className="rounded-md border border-primary/25 bg-primary/10 px-2.5 py-1 font-mono text-[11px] tracking-tight text-primary-glow"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
-        <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-muted-foreground transition-all duration-500 group-hover:border-primary/50 group-hover:bg-primary/15 group-hover:text-primary-foreground">
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </span>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {project.stack.map((s) => (
-          <span
-            key={s}
-            className="rounded-md border border-border/60 bg-background/40 px-2 py-0.5 font-mono text-[10.5px] tracking-tight text-muted-foreground"
-          >
-            {s}
-          </span>
-        ))}
       </div>
     </a>
   );
