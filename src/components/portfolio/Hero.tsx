@@ -5,8 +5,8 @@ import ayushCutout from "@/assets/ayush-main.png";
 
 const Hero = () => {
   return (
-    <section id="home" className="relative isolate flex min-h-screen items-center overflow-hidden pt-32 pb-16">
-      {/* Video background placeholder */}
+    <section id="home" className="surface-light relative isolate flex min-h-screen items-center overflow-hidden pt-32 pb-16">
+      {/* Soft light background */}
       <div className="absolute inset-0 -z-10">
         <img
           src={heroBg}
@@ -14,10 +14,10 @@ const Hero = () => {
           aria-hidden="true"
           width={1920}
           height={1080}
-          className="absolute inset-0 h-full w-full object-cover opacity-60"
+          className="absolute inset-0 h-full w-full object-cover opacity-15"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background" />
-        <div className="absolute inset-0 grid-bg opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+        <div className="absolute inset-0 grid-bg opacity-30" />
       </div>
 
       {/* Floating glass orbs */}
