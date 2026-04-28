@@ -153,21 +153,21 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         {/* Body */}
         <div className={reversed ? "lg:order-1 lg:pr-2" : "lg:pl-2"}>
           <div className="flex items-start justify-between gap-4">
-            <h3 className="text-display text-3xl font-semibold sm:text-4xl lg:text-[42px]">
+            <h3 className="font-serif-display text-4xl text-foreground sm:text-5xl lg:text-[56px]">
               <span className="hl">{project.title}</span>
             </h3>
-            <span className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-foreground/80 transition-all duration-500 group-hover:border-primary/50 group-hover:bg-primary/20 group-hover:text-primary-foreground">
+            <span className="mt-2 grid h-12 w-12 shrink-0 place-items-center rounded-full border border-border/60 bg-secondary/40 text-foreground/80 transition-all duration-500 group-hover:border-ember/60 group-hover:bg-ember/20 group-hover:text-ember-glow">
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </span>
           </div>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/75">
+          <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/75">
             {project.desc}
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((s) => (
               <span
                 key={s}
-                className="rounded-md border border-primary/25 bg-primary/10 px-2.5 py-1 font-mono text-[11px] tracking-tight text-primary-glow"
+                className="rounded-md border border-ember/30 bg-ember/10 px-2.5 py-1 font-mono text-[11px] tracking-tight text-ember-glow"
               >
                 {s}
               </span>
