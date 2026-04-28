@@ -1,14 +1,14 @@
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 
 const Contact = () => (
-  <section id="contact" className="relative py-28">
+  <section id="contact" className="surface-dark relative py-28">
     <div className="container">
       <div className="glass relative overflow-hidden rounded-[32px] p-10 text-center sm:p-16">
         <div className="pointer-events-none absolute inset-0 bg-gradient-aurora opacity-50" />
         <div className="relative mx-auto max-w-3xl">
-          <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Let's build</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-glow">Let's build</span>
           <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-6xl">
-            Have a brand worth <span className="text-gradient">obsessing over?</span>
+            Have a brand worth <span className="hl">obsessing over?</span>
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
             Slide into my inbox or DM. I reply to every message personally — usually within 24 hours.
