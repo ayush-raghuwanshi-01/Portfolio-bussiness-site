@@ -104,11 +104,11 @@ const Testimonials = ({ compact = false }: { compact?: boolean }) => {
     <section id="testimonials" className="surface-light relative py-24">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center animate-fade-up">
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Our Team</span>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Real Growth. <span className="hl">Real wins.</span>
+          <span className="eyebrow justify-center">Our Team · The Operators</span>
+          <h2 className="mt-5 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[72px]">
+            Real Growth. <em className="hl-ember not-italic">Real wins.</em>
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-foreground/75">
+          <p className="mt-5 text-[15px] leading-relaxed text-foreground/75">
            Our team thrives on a culture of <span className="hl-soft">continuous learning</span> and <span className="hl-soft">collaborative problem-solving</span>, where every challenge is met with shared expertise to sharpen our individual skills and accelerate our collective growth.
           </p>
         </div>
