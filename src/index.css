@@ -28,7 +28,11 @@
     --secondary-foreground: 230 20% 96%;
 
     --muted: 240 18% 12%;
-    --muted-foreground: 230 14% 70%;
+    --muted-foreground: 230 18% 82%;
+
+    /* Blue tri-tone surface */
+    --surface-blue: 224 70% 18%;
+    --surface-blue-foreground: 210 40% 98%;
 
     --accent: 264 90% 70%;
     --accent-foreground: 230 20% 98%;
