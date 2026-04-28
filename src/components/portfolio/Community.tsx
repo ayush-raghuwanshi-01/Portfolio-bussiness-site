@@ -62,12 +62,12 @@ const Community = () => {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           {/* LEFT — copy + CTA */}
           <div className="animate-fade-up">
-            <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">The inside room</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary-glow">The inside room</span>
             <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-              Build in public with <span className="text-gradient">other young founders</span>.
+              Build in public with <span className="hl">other young founders</span>.
             </h2>
-            <p className="mt-5 max-w-xl text-muted-foreground">
-              A private community where I drop AI playbooks, live build sessions, client roasts, and discount codes —
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/80">
+              A private community where I drop <span className="hl-soft">AI playbooks</span>, live build sessions, client roasts, and discount codes —
               before anything goes public. Free to join, no fluff, only operators.
             </p>
 
