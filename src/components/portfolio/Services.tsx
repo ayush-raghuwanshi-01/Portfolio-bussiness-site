@@ -43,11 +43,11 @@ const Services = () => (
             </span>
             <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Hire a young founder, <br />
-              <span className="text-gradient">not a slow, expensive agency.</span>
+              <span className="hl">not a slow, expensive agency.</span>
             </h2>
-            <p className="mt-6 max-w-xl text-muted-foreground">
-              I build <span className="text-foreground">websites, software and SaaS</span> — then use{" "}
-              <span className="text-foreground">AI to run your business</span> alongside you. One obsessive operator,
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-foreground/85">
+              I build <span className="hl-soft">websites</span>, <span className="hl-soft">software</span> and
+              <span className="hl-soft"> SaaS</span> — then use <span className="hl-soft">AI</span> to run your business alongside you. One obsessive operator,
               startup-friendly pricing, and a partner who actually picks up the phone.
             </p>
 
