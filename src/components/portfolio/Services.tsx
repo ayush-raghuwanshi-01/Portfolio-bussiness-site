@@ -58,8 +58,6 @@ const Services = () => (
               ))}
             </div>
 
-            <div class
-            ></div>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild variant="ember" size="lg">
                 <a href="#contact">
