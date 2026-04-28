@@ -29,7 +29,7 @@ const deliverables = [
 ];
 
 const Services = () => (
-  <section id="services" className="relative py-28">
+  <section id="services" className="surface-blue relative py-28">
     <div className="container">
       <div className="glass-strong relative overflow-hidden rounded-[32px] p-8 sm:p-14">
         {/* aurora */}
