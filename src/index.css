@@ -4,10 +4,17 @@
 
 @layer base {
   :root {
-    --background: 240 30% 4%;
-    --foreground: 230 20% 96%;
+    /* Tri-tone palette: deep indigo-black, mid slate, soft pearl */
+    --background: 240 28% 5%;
+    --foreground: 230 25% 97%;
 
-    --card: 240 25% 8%;
+    --surface-light: 230 30% 96%;
+    --surface-light-foreground: 240 30% 10%;
+    --surface-mid: 240 18% 14%;
+    --surface-mid-foreground: 230 20% 92%;
+    --surface-dark: 240 30% 6%;
+
+    --card: 240 24% 9%;
     --card-foreground: 230 20% 96%;
 
     --popover: 240 25% 8%;
@@ -21,7 +28,7 @@
     --secondary-foreground: 230 20% 96%;
 
     --muted: 240 18% 12%;
-    --muted-foreground: 230 12% 65%;
+    --muted-foreground: 230 14% 70%;
 
     --accent: 264 90% 70%;
     --accent-foreground: 230 20% 98%;
