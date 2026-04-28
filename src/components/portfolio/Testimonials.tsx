@@ -101,15 +101,15 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
 
 const Testimonials = ({ compact = false }: { compact?: boolean }) => {
   return (
-    <section id="testimonials" className="relative py-24">
+    <section id="testimonials" className="surface-light relative py-24">
       <div className="container">
         <div className="mx-auto max-w-2xl text-center animate-fade-up">
-          <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Our Team</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Our Team</span>
           <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Real Growth. <span className="text-gradient">Real wins.</span>
+            Real Growth. <span className="hl">Real wins.</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">
-           Our team thrives on a culture of continuous learning and collaborative problem-solving, where every challenge is met with shared expertise to sharpen our individual skills and accelerate our collective growth.
+          <p className="mt-4 text-[15px] leading-relaxed text-foreground/75">
+           Our team thrives on a culture of <span className="hl-soft">continuous learning</span> and <span className="hl-soft">collaborative problem-solving</span>, where every challenge is met with shared expertise to sharpen our individual skills and accelerate our collective growth.
           </p>
         </div>
 
