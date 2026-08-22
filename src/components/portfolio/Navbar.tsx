@@ -3,6 +3,14 @@ import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { trackEvent, AnalyticsEvents } from "@/lib/analytics";
+
+const COMPANY_NAME = "ZenWebStudio";
+
+const SOCIAL_LINKS = {
+  github: "https://github.com/zenwebstudio",
+  linkedin: "https://linkedin.com/company/zenwebstudio",
+};
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <a
@@ -18,30 +26,33 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
+  const handleCTAClick = () => {
+    trackEvent(AnalyticsEvents.NAV_CTA_CLICKED, { location: "navbar" });
+  };
+
   return (
     <header className="fixed inset-x-0 top-4 z-50 mx-auto w-[min(1240px,94%)]">
       <nav className="glass-strong flex items-center justify-between rounded-full px-3 py-2 sm:px-4">
         <a href="#home" className="flex items-center gap-2 pl-1">
           <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-white shadow-glass">
-            <img src={logo} alt="Ayush" width={40} height={40} className="h-7 w-7 object-contain" />
+            <img src={logo} alt={COMPANY_NAME} width={40} height={40} className="h-7 w-7 object-contain" />
           </span>
           <span className="hidden font-display text-sm font-semibold tracking-tight sm:block">
-            Ayush<span className="text-ember">.</span>
+            {COMPANY_NAME}<span className="text-ember">.</span>
           </span>
         </a>
 
-        {/* Center pill nav */}
         <div className="hidden items-center gap-1 md:flex">
           <NavLink href="/#work">Work</NavLink>
           <NavLink href="/#services">Services</NavLink>
-          <NavLink href="/testimonials">Team</NavLink>
-          <NavLink href="/#community">Community</NavLink>
-          <NavLink href="/#booking">Book a call</NavLink>
+          <NavLink href="/#team">Team</NavLink>
+          <NavLink href="/#testimonials">Testimonials</NavLink>
+          <NavLink href="/#booking">Book a Call</NavLink>
         </div>
 
         <div className="flex items-center gap-2">
           <a
-            href="https://github.com/"
+            href={SOCIAL_LINKS.github}
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
@@ -50,7 +61,7 @@ const Navbar = () => {
             <Github className="h-4 w-4" />
           </a>
           <a
-            href="https://www.linkedin.com/"
+            href={SOCIAL_LINKS.linkedin}
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
@@ -59,7 +70,7 @@ const Navbar = () => {
             <Linkedin className="h-4 w-4" />
           </a>
           <Button asChild variant="ember" size="sm" className="hidden rounded-full sm:inline-flex">
-            <a href="/#booking">Hire Me →</a>
+            <a href="#booking" onClick={handleCTAClick}>Start a Project →</a>
           </Button>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -71,15 +82,14 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile sheet */}
       {open && (
         <div className="glass-strong mt-2 flex flex-col gap-1 rounded-3xl p-4 md:hidden">
           {[
             { h: "/#work", l: "Work" },
             { h: "/#services", l: "Services" },
-            { h: "/testimonials", l: "Team" },
-            { h: "/#community", l: "Community" },
-            { h: "/#booking", l: "Book a call" },
+            { h: "/#team", l: "Team" },
+            { h: "/#testimonials", l: "Testimonials" },
+            { h: "/#booking", l: "Book a Call" },
           ].map((i) => (
             <a
               key={i.h}
@@ -91,7 +101,7 @@ const Navbar = () => {
             </a>
           ))}
           <Button asChild variant="ember" size="sm" className="mt-2 rounded-full">
-            <a href="/#booking" onClick={() => setOpen(false)}>Hire Me →</a>
+            <a href="#booking" onClick={() => { setOpen(false); handleCTAClick(); }}>Start a Project →</a>
           </Button>
         </div>
       )}

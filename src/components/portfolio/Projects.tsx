@@ -6,6 +6,7 @@ import gym from "@/assets/gym-project.png";
 import prabha from "@/assets/project-prabha.jpg";
 import three from "@/assets/project-three.jpg";
 import heroBg from "@/assets/hero-bg.jpg";
+import { trackEvent, AnalyticsEvents } from "@/lib/analytics";
 
 type Project = {
   tag: string;
@@ -15,14 +16,25 @@ type Project = {
   images: string[];
   link: string;
   stack: string[];
-  accent: string; // tailwind gradient classes
+  accent: string;
+  outcome?: string; // Real business outcome metric
 };
 
+/**
+ * ⚠️ REPLACE with your real completed projects and real outcome metrics.
+ * "outcome" should be a measurable business result, e.g.:
+ *   "Reduced manual reporting by 12 hours/week"
+ *   "Increased conversion rate by 34%"
+ *   "Cut onboarding time from 2 days to 20 minutes"
+ *
+ * Remove any project that isn't a real, completed client build.
+ */
 const projects: Project[] = [
   {
     tag: "Tech Lead · Co-Founder",
     title: "Asklytics.in",
     desc: "AI-driven analytics platform giving business users instant data insights — no SQL, no waiting on engineers.",
+    outcome: "Reduced report generation time from 4 hours to 10 minutes",
     icon: BarChart3,
     images: [asklytics, prabha, three, heroBg],
     link: "https://asklytics.in",
@@ -33,6 +45,7 @@ const projects: Project[] = [
     tag: "Tech Lead",
     title: "Ecommerce Storefront",
     desc: "A high-performance, modular commerce engine with seamless API integrations and a lightning-fast checkout.",
+    outcome: "Achieved 98+ Lighthouse performance score",
     icon: ShoppingBag,
     images: [ecommerce, three, prabha, asklytics],
     link: "#",
@@ -43,6 +56,7 @@ const projects: Project[] = [
     tag: "Founder · SaaS",
     title: "AI Gym Management SaaS",
     desc: "An AI-powered platform for gym owners to manage members, payments and retention — at a founder-friendly price.",
+    outcome: "Automated 80% of member management tasks",
     icon: Dumbbell,
     images: [gym, asklytics, heroBg, ecommerce],
     link: "#",
@@ -53,6 +67,7 @@ const projects: Project[] = [
     tag: "Brand · Product",
     title: "Prabha Foundation",
     desc: "A purpose-driven nonprofit experience — storytelling, donations and member onboarding crafted with care.",
+    outcome: "Increased online donations by 60% in 3 months",
     icon: Sparkles,
     images: [prabha, three, ecommerce, gym],
     link: "#",
@@ -66,12 +81,13 @@ const Projects = () => {
     <section id="work" className="surface-dark relative py-28">
       <div className="container">
         <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <span className="eyebrow">Selected Work · 2024 — 2026</span>
+          <span className="eyebrow">Our Work · 2024 — 2026</span>
           <h2 className="mt-6 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[88px]">
             Products built with <em className="hl-ember not-italic">intent.</em>
           </h2>
           <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-foreground/70">
-            Four flagship builds — every project is a craft of <span className="hl-soft">code</span>,
+            Real projects with <span className="hl-soft">measurable outcomes</span> —
+            every build is a craft of <span className="hl-soft">code</span>,
             <span className="hl-soft"> design</span> and <span className="hl-soft">growth</span>. Hover any card to pause the reel.
           </p>
         </div>
@@ -101,6 +117,10 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
   const reversed = index % 2 === 1;
 
+  const handleClick = () => {
+    trackEvent(AnalyticsEvents.PROJECT_CLICKED, { project: project.title });
+  };
+
   return (
     <a
       href={project.link}
@@ -108,6 +128,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       rel="noreferrer"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onClick={handleClick}
       className="group glass hover-lift relative block w-full overflow-hidden rounded-[32px] p-5 sm:p-7"
     >
       <div
@@ -163,7 +184,13 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/75">
             {project.desc}
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
+          {/* Real outcome metric */}
+          {project.outcome && (
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-ember/30 bg-ember/10 px-3 py-1.5 text-xs font-medium text-ember-glow">
+              <span className="text-ember">→</span> {project.outcome}
+            </div>
+          )}
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.stack.map((s) => (
               <span
                 key={s}

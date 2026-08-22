@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 
 const TestimonialsPage = () => {
   useEffect(() => {
-    document.title = "Client Testimonials — Ayush";
-    const desc = "Watch real founders talk about building websites, SaaS and AI workflows with Ayush.";
+    document.title = "Client Testimonials — ZenWebStudio";
+    const desc = "Real results from real clients who've built websites, software and SaaS with the ZenWebStudio team.";
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -29,11 +29,10 @@ const TestimonialsPage = () => {
           <div className="mx-auto max-w-3xl text-center animate-fade-up">
             <span className="text-xs font-medium uppercase tracking-[0.25em] text-primary">Testimonials</span>
             <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight sm:text-6xl">
-              Founders who <span className="text-gradient">bet on me</span> early.
+              Clients who <span className="text-gradient">trust our team.</span>
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-muted-foreground">
-              Short, unscripted videos from clients who've shipped real products with me. Cards autoplay on view —
-              click any card to dive in.
+              Real quotes from founders and businesses who've shipped real products with us.
             </p>
             <div className="mt-7 flex justify-center">
               <Button asChild variant="glass" size="lg">

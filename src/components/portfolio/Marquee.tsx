@@ -1,6 +1,7 @@
 const items = [
   "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Supabase",
-  "Framer Motion", "Performance Marketing", "Brand Strategy", "SEO", "AI Integrations", "Figma",
+  "Python", "FastAPI", "PostgreSQL", "AWS", "Brand Strategy", "SEO",
+  "AI Integrations", "Figma", "Stripe", "Growth Marketing",
 ];
 
 const Marquee = () => (
