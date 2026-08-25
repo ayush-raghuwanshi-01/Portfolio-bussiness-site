@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Dialog,
@@ -9,22 +9,11 @@ import {
 } from "@/components/ui/dialog";
 import { LeadForm } from "@/components/site/LeadForm";
 import { serviceOptions, site, type ServiceOption } from "@/lib/site";
+import { LeadDialogContext, useLeadDialog } from "@/contexts/LeadDialogContext";
 
-type LeadDialogContextValue = {
-  openLeadDialog: (service?: ServiceOption) => void;
-};
-
-const LeadDialogContext = createContext<LeadDialogContextValue | null>(null);
+export { useLeadDialog };
 
 const OPEN_HASHES = new Set(["#book", "#start", "#project"]);
-
-export const useLeadDialog = () => {
-  const ctx = useContext(LeadDialogContext);
-  if (!ctx) {
-    throw new Error("useLeadDialog must be used within LeadDialogProvider");
-  }
-  return ctx;
-};
 
 export const LeadDialogProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);

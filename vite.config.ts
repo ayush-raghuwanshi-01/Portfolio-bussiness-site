@@ -18,6 +18,18 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     allowedHosts: [".e2b.app", "localhost"],
   },
+  build: {
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-motion": ["framer-motion"],
+          "vendor-ui": ["lucide-react", "sonner", "clsx", "tailwind-merge"],
+        },
+      },
+    },
+  },
   plugins: [react(), leadsApi(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {

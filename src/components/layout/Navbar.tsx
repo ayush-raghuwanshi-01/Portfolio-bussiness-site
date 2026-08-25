@@ -25,8 +25,15 @@ export const Navbar = () => {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
@@ -39,7 +46,7 @@ export const Navbar = () => {
           scrolled && "shadow-elegant",
         )}
       >
-        <Link to="/" aria-label="Zenvio Labs home" className="pl-1">
+        <Link to="/" aria-label="Zenvio Labs home" className="pl-1" onClick={() => setOpen(false)}>
           <Logo
             wordmark
             className={cn(
@@ -77,6 +84,7 @@ export const Navbar = () => {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
+            aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
             className={cn(
               "grid h-10 w-10 place-items-center rounded-full border md:hidden",
@@ -89,20 +97,36 @@ export const Navbar = () => {
       </nav>
 
       {open && (
-        <div className="glass-strong absolute left-3 right-3 top-[4.6rem] flex flex-col gap-1 rounded-3xl p-4 md:hidden">
-          {navLinks.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="rounded-2xl px-4 py-3 text-sm font-medium text-foreground/85 hover:bg-secondary/60"
+        <>
+          <div
+            className="fixed inset-0 z-[-1] bg-black/40 backdrop-blur-sm md:hidden"
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+          <div
+            id="mobile-nav"
+            className="glass-strong absolute left-3 right-3 top-[4.6rem] flex flex-col gap-1 rounded-3xl p-4 md:hidden shadow-elegant"
+          >
+            {navLinks.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setOpen(false)}
+                className="rounded-2xl px-4 py-3 text-sm font-medium text-foreground/85 hover:bg-secondary/60 active:bg-secondary"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <StartProjectButton
+              source="navbar-mobile"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => setOpen(false)}
             >
-              {item.label}
-            </Link>
-          ))}
-          <StartProjectButton source="navbar-mobile" size="sm" className="mt-2">
-            Start a Project
-          </StartProjectButton>
-        </div>
+              Start a Project
+            </StartProjectButton>
+          </div>
+        </>
       )}
     </header>
   );

@@ -24,7 +24,7 @@ export const Hero = () => (
   <section className="surface-paper relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
     {/* Background Image & High-Clarity Overlay System */}
     <div className="pointer-events-none absolute inset-0">
-      <img src={heroLight} alt="" className="h-full w-full object-cover object-[center_30%]" />
+      <img src={heroLight} alt="" aria-hidden="true" className="h-full w-full object-cover object-[center_30%]" />
       <div className="absolute inset-0 bg-gradient-to-r from-[hsl(36_32%_97%/0.96)] via-[hsl(36_28%_97%/0.88)] to-[hsl(36_28%_97%/0.55)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-[hsl(36_22%_94%)] via-transparent to-[hsl(36_32%_97%/0.35)]" />
     </div>

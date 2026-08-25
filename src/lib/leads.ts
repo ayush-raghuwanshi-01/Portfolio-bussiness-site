@@ -65,7 +65,7 @@ const persistViaApi = async (lead: LeadInsert): Promise<boolean> => {
     });
     if (!res.ok) return false;
     const body = await res.json().catch(() => ({}));
-    return Boolean(body.notified?.email);
+    return Boolean(body.ok || body.success || body.notified?.email);
   } catch {
     return false;
   }

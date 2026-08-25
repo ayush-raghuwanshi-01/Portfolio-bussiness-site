@@ -8,9 +8,14 @@
       name="description"
       content="Zenvio Labs builds websites and business software for companies across India. Websites start at ₹5,000. WhatsApp +91 95845 59972."
     />
+    <meta
+      name="keywords"
+      content="website development, business software, custom web apps, mobile apps, React, Next.js, product studio India, websites from 5000"
+    />
     <meta name="author" content="Zenvio Labs" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B0D14" />
+    <meta name="format-detection" content="telephone=no" />
     <link rel="canonical" href="https://zenwebstudio.com/" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -19,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -31,6 +36,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://zenwebstudio.com/" />
     <meta property="og:image" content="https://zenwebstudio.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Zenvio Labs — Websites & business software" />
     <meta property="og:site_name" content="Zenvio Labs" />
     <meta property="og:locale" content="en_IN" />
 
@@ -41,24 +49,57 @@
       content="Websites from ₹5,000. Business software and mobile apps, quoted after a call."
     />
     <meta name="twitter:image" content="https://zenwebstudio.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Zenvio Labs — Websites & business software" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Zenvio Labs",
-        "url": "https://zenwebstudio.com/",
-        "email": "zenwebstudio.in@gmail.com",
-        "telephone": "+91-95845-59972",
-        "image": "https://zenwebstudio.com/og-image.jpg",
-        "description": "Studio for websites and business software. Websites start at ₹5,000.",
-        "priceRange": "₹₹",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "IN"
-        },
-        "areaServed": "India",
-        "serviceType": ["Website design", "Custom software development", "Mobile app development"]
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://zenwebstudio.com/#organization",
+            "name": "Zenvio Labs",
+            "url": "https://zenwebstudio.com/",
+            "email": "zenwebstudio.in@gmail.com",
+            "telephone": "+91-95845-59972",
+            "logo": "https://zenwebstudio.com/apple-touch-icon.png",
+            "image": "https://zenwebstudio.com/og-image.jpg",
+            "description": "Studio for websites and business software. Websites start at ₹5,000.",
+            "areaServed": "India",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-95845-59972",
+              "contactType": "sales",
+              "availableLanguage": ["English", "Hindi"]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://zenwebstudio.com/#website",
+            "url": "https://zenwebstudio.com/",
+            "name": "Zenvio Labs",
+            "publisher": {
+              "@id": "https://zenwebstudio.com/#organization"
+            }
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://zenwebstudio.com/#service",
+            "name": "Zenvio Labs",
+            "url": "https://zenwebstudio.com/",
+            "email": "zenwebstudio.in@gmail.com",
+            "telephone": "+91-95845-59972",
+            "image": "https://zenwebstudio.com/og-image.jpg",
+            "description": "Studio for websites and business software. Websites start at ₹5,000.",
+            "priceRange": "₹₹",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "IN"
+            },
+            "areaServed": "India",
+            "serviceType": ["Website design", "Custom software development", "Mobile app development"]
+          }
+        ]
       }
     </script>
   </head>

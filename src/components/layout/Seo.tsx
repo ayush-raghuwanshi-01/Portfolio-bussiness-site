@@ -6,6 +6,7 @@ type SeoProps = {
   description?: string;
   path?: string;
   image?: string;
+  keywords?: string;
 };
 
 const upsert = (selector: string, create: () => HTMLElement) => {
@@ -17,7 +18,13 @@ const upsert = (selector: string, create: () => HTMLElement) => {
   return el;
 };
 
-export const Seo = ({ title, description = site.description, path = "/", image }: SeoProps) => {
+export const Seo = ({
+  title,
+  description = site.description,
+  path = "/",
+  image,
+  keywords,
+}: SeoProps) => {
   const fullTitle = pageTitle(title);
   const url = absoluteUrl(path);
   const ogImage = image || `${site.url}/og-image.jpg`;
@@ -32,6 +39,15 @@ export const Seo = ({ title, description = site.description, path = "/", image }
     });
     desc.setAttribute("content", description);
 
+    if (keywords) {
+      const kw = upsert('meta[name="keywords"]', () => {
+        const m = document.createElement("meta");
+        m.setAttribute("name", "keywords");
+        return m;
+      });
+      kw.setAttribute("content", keywords);
+    }
+
     const pairs: Array<[string, string, string]> = [
       ["property", "og:title", fullTitle],
       ["property", "og:description", description],
@@ -39,9 +55,12 @@ export const Seo = ({ title, description = site.description, path = "/", image }
       ["property", "og:image", ogImage],
       ["property", "og:type", "website"],
       ["property", "og:site_name", site.name],
+      ["property", "og:locale", "en_IN"],
+      ["property", "og:image:alt", fullTitle],
       ["name", "twitter:title", fullTitle],
       ["name", "twitter:description", description],
       ["name", "twitter:image", ogImage],
+      ["name", "twitter:image:alt", fullTitle],
       ["name", "twitter:card", "summary_large_image"],
     ];
 
@@ -60,7 +79,7 @@ export const Seo = ({ title, description = site.description, path = "/", image }
       return l;
     }) as HTMLLinkElement;
     canonical.href = url;
-  }, [fullTitle, description, url, ogImage]);
+  }, [fullTitle, description, url, ogImage, keywords]);
 
   return null;
 };

@@ -1,8 +1,9 @@
 import { Mail, Phone, Clock, MapPin } from "lucide-react";
 import { Seo } from "@/components/layout/Seo";
 import { PageHero } from "@/components/site/PageHero";
-import { Section } from "@/components/site/Section";
-import { StartProjectButton } from "@/components/site/StartProjectButton";
+import { Section, SectionHeading } from "@/components/site/Section";
+import { LeadForm } from "@/components/site/LeadForm";
+import { Reveal } from "@/components/site/Reveal";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import { mailHref, site, whatsappHref } from "@/lib/site";
 
@@ -20,12 +21,7 @@ const ContactPage = () => (
           WhatsApp or email. <em className="hl-ember not-italic">We reply.</em>
         </>
       }
-      body="Send the project form — it reaches both. Or write to us directly. We work with clients across India."
-      actions={
-        <StartProjectButton source="contact-hero" size="xl">
-          Start a project
-        </StartProjectButton>
-      }
+      body="Send the project form below, or write to us directly on WhatsApp or email. We work with clients across India."
     />
 
     <Section surface="mid">
@@ -33,7 +29,7 @@ const ContactPage = () => (
         <a
           href={whatsappHref()}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           onClick={() => trackEvent(AnalyticsEvents.WHATSAPP_CLICKED, { source: "contact-page" })}
           className="glass flex items-start gap-3 rounded-2xl p-5 transition-colors hover:border-ember/40"
         >
@@ -74,6 +70,26 @@ const ContactPage = () => (
             </div>
           </div>
         </div>
+      </div>
+    </Section>
+
+    <Section surface="paper">
+      <SectionHeading
+        align="center"
+        eyebrow="Send a message"
+        title={
+          <>
+            Tell us about <em className="hl-ember not-italic">your project.</em>
+          </>
+        }
+        body={`Name, phone, city, and what you need. It goes directly to our WhatsApp and ${site.email}. We reply within ${site.responseTime}.`}
+      />
+      <div className="mx-auto mt-10 max-w-xl">
+        <Reveal>
+          <div className="glass-strong rounded-[28px] p-6 sm:p-8">
+            <LeadForm />
+          </div>
+        </Reveal>
       </div>
     </Section>
   </>
