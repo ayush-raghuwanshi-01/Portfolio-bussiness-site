@@ -12,6 +12,9 @@ export const WorkCard = ({ item, detailed = false }: { item: CaseStudy; detailed
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
       <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+        <span className="rounded-full border border-white/20 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur">
+          {item.kind === "client" ? "Client" : "Studio build"}
+        </span>
         {item.types.map((type) => (
           <span
             key={type}
@@ -36,11 +39,11 @@ export const WorkCard = ({ item, detailed = false }: { item: CaseStudy; detailed
             <dd className="mt-1 text-foreground/75">{item.problem}</dd>
           </div>
           <div>
-            <dt className="font-display text-xs uppercase tracking-wider text-ember">Solution</dt>
+            <dt className="font-display text-xs uppercase tracking-wider text-ember">What we built</dt>
             <dd className="mt-1 text-foreground/75">{item.solution}</dd>
           </div>
           <div>
-            <dt className="font-display text-xs uppercase tracking-wider text-ember">Outcome</dt>
+            <dt className="font-display text-xs uppercase tracking-wider text-ember">Note</dt>
             <dd className="mt-1 text-ember">{item.outcome}</dd>
           </div>
         </dl>

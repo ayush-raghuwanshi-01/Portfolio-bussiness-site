@@ -8,48 +8,47 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     name: "Ayush Raghuwanshi",
-    role: "Co-Founder & Tech Lead",
-    focus: "Product architecture, web platforms, and delivery.",
+    role: "Co-founder & tech lead",
+    focus: "Scope, web platforms, and delivery.",
     initials: "AR",
   },
   {
     name: "Deepak Tripathi",
-    role: "Co-Founder & Lead Engineer",
-    focus: "Full-stack systems, SaaS backends, and reliability.",
+    role: "Co-founder & lead engineer",
+    focus: "Full-stack systems and reliability.",
     initials: "DT",
   },
   {
     name: "Shubham Mishra",
-    role: "AI & Applied ML Engineer",
-    focus: "Practical model integration inside real products.",
+    role: "Engineer",
+    focus: "Product features and practical AI inside real software.",
     initials: "SM",
   },
 ];
 
 export const values = [
   {
-    title: "Ship in weeks, not quarters",
-    body: "A small studio means short feedback loops. You see working software every week — not a slide deck about software.",
+    title: "Say the price",
+    body: "If we can quote it, we do. If we cannot, we say so and book a call. We do not hide behind “get a proposal”.",
   },
   {
-    title: "Transparent by default",
-    body: "Scope, stack, and price are written down before we start. If something changes, you hear it from the people writing the code.",
+    title: "Ship something you can open",
+    body: "You get a link, not a slide deck. Websites in days. Software in weeks, with a demo each week.",
   },
   {
-    title: "Product thinking, not ticket-taking",
-    body: "We challenge weak requirements. The job is a product customers can use, not a backlog of disconnected tasks.",
+    title: "Refuse the wrong job",
+    body: "We will tell you when a Play Store app is the wrong spend, or when a ₹5,000 site is enough.",
   },
   {
     title: "You own the work",
-    body: "Repos, keys, designs, and cloud accounts stay in your name. We are a studio, not a hostage situation.",
+    body: "Domain, code, and cloud accounts stay in your name. We work inside them.",
   },
 ];
 
 export const principles = [
-  "Type-safe TypeScript across web, mobile, and API",
-  "Design systems instead of one-off screens",
-  "Multi-tenant and billing considered on day one for SaaS",
-  "Observability, staging, and rollbacks before launch",
-  "Accessibility and performance as acceptance criteria",
-  "Security basics: least privilege, secrets hygiene, audit trails",
+  "Plain language in scope and WhatsApp — no filler",
+  "Mobile-first websites; software only when it earns its keep",
+  "TypeScript for web, mobile, and API",
+  "You own domain, repo, and accounts before we call it launched",
+  "A human reply within 24 hours",
 ];

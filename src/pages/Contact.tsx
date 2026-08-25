@@ -10,18 +10,22 @@ const ContactPage = () => (
   <>
     <Seo
       title="Contact"
-      description="Start a project with ZenWebStudio. Company email hello@zenwebstudio.com. We reply within 24 hours."
+      description={`Contact Zenvio Labs. WhatsApp ${site.phoneDisplay} or email ${site.email}. We reply within 24 hours.`}
       path="/contact"
     />
     <PageHero
       eyebrow="Contact"
       title={
         <>
-          Tell us what you want to <em className="hl-ember not-italic">ship.</em>
+          WhatsApp or email. <em className="hl-ember not-italic">We reply.</em>
         </>
       }
-      body="One Start a Project form for the whole site — name, email, number, and the service you need. Or reach the studio directly."
-      actions={<StartProjectButton source="contact-hero" size="xl">Start a Project</StartProjectButton>}
+      body="Send the project form — it reaches both. Or write to us directly. We work with clients across India."
+      actions={
+        <StartProjectButton source="contact-hero" size="xl">
+          Start a project
+        </StartProjectButton>
+      }
     />
 
     <Section surface="mid">
@@ -37,19 +41,16 @@ const ContactPage = () => (
             <Phone className="h-4 w-4" />
           </span>
           <div>
-            <div className="font-display text-sm font-semibold">WhatsApp the studio</div>
+            <div className="font-display text-sm font-semibold">WhatsApp</div>
             <div className="mt-1 text-sm text-foreground/65">{site.phoneDisplay}</div>
           </div>
         </a>
-        <a
-          href={mailHref()}
-          className="glass flex items-start gap-3 rounded-2xl p-5 transition-colors hover:border-ember/40"
-        >
+        <a href={mailHref()} className="glass flex items-start gap-3 rounded-2xl p-5 transition-colors hover:border-ember/40">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground">
             <Mail className="h-4 w-4" />
           </span>
           <div>
-            <div className="font-display text-sm font-semibold">Company email</div>
+            <div className="font-display text-sm font-semibold">Email</div>
             <div className="mt-1 text-sm text-foreground/65">{site.email}</div>
           </div>
         </a>
@@ -67,8 +68,10 @@ const ContactPage = () => (
             <MapPin className="h-4 w-4 text-ember" />
           </span>
           <div>
-            <div className="font-display text-sm font-semibold">Where we work</div>
-            <div className="mt-1 text-sm text-foreground/65">{site.location}</div>
+            <div className="font-display text-sm font-semibold">Studio</div>
+            <div className="mt-1 text-sm text-foreground/65">
+              {site.location}. Work across India.
+            </div>
           </div>
         </div>
       </div>

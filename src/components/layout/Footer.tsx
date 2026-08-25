@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { site } from "@/lib/site";
 import { services } from "@/data/services";
@@ -14,29 +14,9 @@ export const Footer = () => {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/65">
-              A product studio for web apps, mobile apps, SaaS platforms, and cloud management. We
-              scope honestly, ship weekly, and stay on the line after launch.
+              A studio for websites and business software. {site.startingPriceNote} You own the domain
+              and the code.
             </p>
-            <div className="mt-6 flex gap-2">
-              <a
-                href={site.social.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="ZenWebStudio on GitHub"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border/70 text-foreground/70 transition-colors hover:border-ember/50 hover:text-ember"
-              >
-                <Github className="h-4 w-4" />
-              </a>
-              <a
-                href={site.social.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="ZenWebStudio on Linkedin"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border/70 text-foreground/70 transition-colors hover:border-ember/50 hover:text-ember"
-              >
-                <Linkedin className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
           <div className="lg:col-span-2">
@@ -49,11 +29,6 @@ export const Footer = () => {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link to="/services#offers" className="transition-colors hover:text-foreground">
-                  Offers
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -124,9 +99,9 @@ export const Footer = () => {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-border/50 pt-6 text-xs text-foreground/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.legalName}. All rights reserved.
+            © {year} {site.legalName}. {site.location}.
           </p>
-          <p>Web · Mobile · SaaS · Cloud · Reply within {site.responseTime}.</p>
+          <p>Websites from {site.startingPrice} · Reply within {site.responseTime}.</p>
         </div>
       </div>
     </footer>

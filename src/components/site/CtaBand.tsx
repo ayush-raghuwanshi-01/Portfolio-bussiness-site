@@ -5,8 +5,8 @@ import { StartProjectButton } from "@/components/site/StartProjectButton";
 import { site } from "@/lib/site";
 
 export const CtaBand = ({
-  title = "Ready to start the build?",
-  body = `Open the project form. We come back with a surface, a timeline, and a written next step — ${site.offer} ${site.offerLabel}.`,
+  title = "Tell us what you need.",
+  body = `One form. It reaches our WhatsApp and email. Websites start at ${site.startingPrice}. We reply within ${site.responseTime}.`,
 }: {
   title?: string;
   body?: string;
@@ -19,14 +19,12 @@ export const CtaBand = ({
           <div className="relative grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <span className="eyebrow">Next step</span>
-              <h2 className="mt-5 font-serif-display text-4xl text-foreground sm:text-5xl lg:text-6xl">
-                {title}
-              </h2>
+              <h2 className="mt-5 font-serif-display text-4xl text-foreground sm:text-5xl lg:text-6xl">{title}</h2>
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/75">{body}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <StartProjectButton source="cta-band" size="xl">
-                Start a Project
+                Start a project
               </StartProjectButton>
               <Button asChild variant="glass" size="xl">
                 <Link to="/work">See our work</Link>

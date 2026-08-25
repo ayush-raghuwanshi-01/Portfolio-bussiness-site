@@ -1,19 +1,19 @@
 import fs from "node:fs";
 import path from "path";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Plugin, ViteDevServer } from "vite";
+import type { Plugin, PreviewServer, ViteDevServer } from "vite";
+// @ts-expect-error — ESM helper shared with the Vercel function
+import { notifyLead } from "./server/notify-lead.mjs";
 
 type Lead = {
   id: string;
   name: string;
   email: string;
   phone?: string;
+  city?: string;
   company?: string;
   service?: string;
-  budget?: string;
   message?: string;
-  preferred_date?: string;
-  preferred_time?: string;
   source?: string;
   website?: string;
   created_at: string;
@@ -75,7 +75,7 @@ const handle = async (req: IncomingMessage, res: ServerResponse) => {
 
   try {
     const raw = await readBody(req);
-    const data = JSON.parse(raw || "{}") as Partial<Lead>;
+    const data = JSON.parse(raw || "{}") as Partial<Lead> & { city?: string };
 
     if (data.website) {
       send(res, 200, { ok: true });
@@ -90,24 +90,29 @@ const handle = async (req: IncomingMessage, res: ServerResponse) => {
       send(res, 400, { ok: false, error: "A valid email is required" });
       return;
     }
+    if (!data.phone || String(data.phone).replace(/[^\d+]/g, "").length < 7) {
+      send(res, 400, { ok: false, error: "A valid contact number is required" });
+      return;
+    }
+
+    const city = data.city ? String(data.city).slice(0, 80) : data.company ? String(data.company).slice(0, 80) : undefined;
 
     const lead: Lead = {
       id: crypto.randomUUID(),
       name: String(data.name).trim().slice(0, 80),
       email: String(data.email).trim().slice(0, 160),
       phone: data.phone ? String(data.phone).slice(0, 24) : undefined,
-      company: data.company ? String(data.company).slice(0, 100) : undefined,
+      city,
+      company: city,
       service: data.service ? String(data.service).slice(0, 80) : undefined,
-      budget: data.budget ? String(data.budget).slice(0, 80) : undefined,
       message: data.message ? String(data.message).slice(0, 2000) : undefined,
-      preferred_date: data.preferred_date ? String(data.preferred_date).slice(0, 40) : undefined,
-      preferred_time: data.preferred_time ? String(data.preferred_time).slice(0, 40) : undefined,
       source: data.source ? String(data.source).slice(0, 40) : "website",
       created_at: new Date().toISOString(),
     };
 
     saveLead(lead);
-    send(res, 201, { ok: true, id: lead.id });
+    const notified = await notifyLead(lead, process.env);
+    send(res, 201, { ok: true, id: lead.id, notified });
   } catch (error) {
     console.error("[leads-api]", error);
     send(res, 500, { ok: false, error: "Could not save lead" });

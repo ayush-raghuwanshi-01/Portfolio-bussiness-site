@@ -1,7 +1,7 @@
 {
-  "name": "ZenWebStudio",
-  "short_name": "ZWS",
-  "description": "Product studio for web apps, mobile apps, SaaS, and cloud management.",
+  "name": "Zenvio Labs",
+  "short_name": "Zenvio",
+  "description": "Studio for websites and business software. Websites start at ₹5,000.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0D14",

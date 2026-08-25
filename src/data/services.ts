@@ -1,28 +1,15 @@
 import type { LucideIcon } from "lucide-react";
-import { AppWindow, Cloud, Layers, Smartphone } from "lucide-react";
+import { AppWindow, Smartphone, Workflow } from "lucide-react";
 import visualWeb from "@/assets/brand/visual-web.jpg";
 import visualMobile from "@/assets/brand/visual-mobile.jpg";
 import visualSaas from "@/assets/brand/visual-saas.jpg";
-import visualCloud from "@/assets/brand/visual-cloud.jpg";
 
-export type ServiceId = "web" | "mobile" | "saas" | "cloud";
+export type ServiceId = "web" | "software" | "mobile";
 
 export const serviceLabels: Record<ServiceId, string> = {
-  web: "Web",
+  web: "Website",
+  software: "Software",
   mobile: "Mobile",
-  saas: "SaaS",
-  cloud: "Cloud",
-};
-
-export type OfferTier = {
-  id: string;
-  name: string;
-  offer: string;
-  tagline: string;
-  featured?: boolean;
-  features: string[];
-  cta: string;
-  service: ServiceId | "custom";
 };
 
 export type ServicePillar = {
@@ -33,7 +20,7 @@ export type ServicePillar = {
   summary: string;
   description: string;
   image: string;
-  offer: string;
+  priceNote: string;
   deliverables: string[];
   stack: string[];
   deepDive: string[];
@@ -43,156 +30,73 @@ export const services: ServicePillar[] = [
   {
     id: "web",
     icon: AppWindow,
-    name: "Web Apps",
-    short: "Product sites and custom web software your customers actually use.",
-    summary: "Portals, dashboards, and conversion-ready websites — fast, clear, and built to grow with you.",
+    name: "Websites",
+    short: "A clear site that works on a phone.",
+    summary: "Pages for your shop, institute, clinic, or brand — with WhatsApp and a contact form.",
     description:
-      "We design and build the web surfaces your team and customers live in: customer portals, ops consoles, and marketing sites that feel like a product. Performance, SEO, and a design system are part of the build.",
+      "Most businesses here still send people to WhatsApp or a broken Facebook page. We build a simple website: who you are, what you offer, how to reach you. It works on mobile. You own the domain.",
     image: visualWeb,
-    offer: "30% OFF first web build",
+    priceNote: "From ₹5,000, including one year online.",
     deliverables: [
-      "UX flows and a reusable component system",
-      "Responsive production frontend",
-      "Auth, roles, and form-heavy workflows",
-      "CMS or admin where it earns its keep",
-      "Technical SEO and analytics",
+      "4–6 pages on mobile and desktop",
+      "WhatsApp button and contact form",
+      "Your name, address, timings, and photos",
+      "Domain in your name",
+      "One year of hosting included at this starting price",
     ],
-    stack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    stack: ["React", "Next.js", "TypeScript"],
     deepDive: [
-      "Customer portals and admin consoles",
-      "Marketing sites that share the product system",
-      "Internal tools that replace spreadsheet ops",
+      "New business site",
+      "Replace a site that does not work on phone",
+      "Coaching, clinic, gym, shop, or office",
+    ],
+  },
+  {
+    id: "software",
+    icon: Workflow,
+    name: "Business software",
+    short: "Tools your team can log into every day.",
+    summary: "Fees, bookings, stock, members, or a customer portal — built around how you already work.",
+    description:
+      "If spreadsheets and WhatsApp groups are running the business, we can replace that with a small web app: login, roles, and the few screens you actually need. Price depends on the workflows. We send a written quote after a short call — not a rate card.",
+    image: visualSaas,
+    priceNote: "Quoted after a 30-minute call.",
+    deliverables: [
+      "Written scope before we start",
+      "Login, roles, and the core workflows",
+      "Admin screen your team can use",
+      "Staging link every week while we build",
+      "You own the repository and accounts",
+    ],
+    stack: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+    deepDive: [
+      "Institute or gym operations",
+      "Internal tools that replace Excel",
+      "A first version customers can log into",
     ],
   },
   {
     id: "mobile",
     icon: Smartphone,
-    name: "Mobile Apps",
-    short: "iOS and Android from one codebase — designed for the hand.",
-    summary: "Store-ready mobile products with auth, push, and the API they need to stay useful.",
+    name: "Mobile apps",
+    short: "iPhone and Android, when a website is not enough.",
+    summary: "One codebase for both stores — only when the product needs to live on the home screen.",
     description:
-      "We ship cross-platform apps with React Native so you launch on iOS and Android together. Onboarding, notifications, payments, and store submission sit in the same engagement.",
+      "We do not sell an “app” for the price of a website. If your customers need to check in, get reminders, or use the product offline, we build iOS and Android together with React Native. Store listing support is part of the work.",
     image: visualMobile,
-    offer: "30% OFF first mobile app",
+    priceNote: "Quoted after a 30-minute call.",
     deliverables: [
-      "iOS + Android from one codebase",
-      "Auth, profiles, and push notifications",
-      "Payments and core product flows",
-      "App Store and Play Console launch support",
+      "iOS and Android from one codebase",
+      "Sign-in, core screens, and notifications",
+      "Help with Play Store and App Store listing",
+      "Tied to a web backend you also own",
     ],
     stack: ["React Native", "Expo", "TypeScript", "Node.js"],
     deepDive: [
-      "Companion apps for an existing product",
-      "Standalone consumer or ops apps",
-      "Store listing and launch-week support",
+      "Member or student companion app",
+      "Field or shop-floor app",
+      "Launch-week store support",
     ],
-  },
-  {
-    id: "saas",
-    icon: Layers,
-    name: "Software as a Service (SaaS)",
-    short: "Multi-tenant products that onboard, bill, and scale.",
-    summary: "The platform your customers log into — auth, roles, billing, and an admin they can run.",
-    description:
-      "We engineer SaaS the way a founding product team would: multi-tenant from day one, seat or plan billing, role-aware admin, and a weekly release cadence you can demo.",
-    image: visualSaas,
-    offer: "30% OFF first SaaS slice",
-    deliverables: [
-      "Product architecture and tenant model",
-      "Auth, organisations, and roles",
-      "Billing, plans, and invoices",
-      "Admin + customer dashboards",
-      "Staging and production launch",
-    ],
-    stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "AWS"],
-    deepDive: [
-      "First paying-customer MVP",
-      "Billing and plan management",
-      "Admin tools your team can run",
-    ],
-  },
-  {
-    id: "cloud",
-    icon: Cloud,
-    name: "Cloud Management",
-    short: "Cloud your small team can actually operate.",
-    summary: "Environments, deploys, monitoring, and the path from staging to production — without a mystery bill.",
-    description:
-      "We set up and look after the cloud path your product needs: environments, secrets, deploys, logs, and rollback. You own the accounts. We keep them readable.",
-    image: visualCloud,
-    offer: "30% OFF first cloud setup",
-    deliverables: [
-      "Environment and access sketch",
-      "CI/CD with staging",
-      "Secrets, roles, and least privilege",
-      "Logs, checks, and a rollback runbook",
-    ],
-    stack: ["AWS", "Docker", "GitHub Actions", "PostgreSQL"],
-    deepDive: [
-      "Greenfield product on AWS",
-      "Rescue a fragile single-box deploy",
-      "Ongoing cloud hygiene",
-    ],
-  },
-];
-
-export const offerTiers: OfferTier[] = [
-  {
-    id: "web",
-    name: "Web Apps",
-    offer: "30% OFF",
-    tagline: "Sites, portals, and internal tools",
-    service: "web",
-    features: [
-      "Design system + responsive UI",
-      "CMS or admin for content",
-      "SEO and analytics baseline",
-      "Launch support window",
-    ],
-    cta: "Start a web project",
-  },
-  {
-    id: "mobile",
-    name: "Mobile Apps",
-    offer: "30% OFF",
-    tagline: "iOS + Android, one codebase",
-    service: "mobile",
-    features: [
-      "Core product flows",
-      "Auth and push",
-      "Store listing support",
-      "Launch-week coverage",
-    ],
-    cta: "Start a mobile project",
-  },
-  {
-    id: "saas",
-    name: "SaaS",
-    offer: "30% OFF",
-    tagline: "The product your customers log into",
-    featured: true,
-    service: "saas",
-    features: [
-      "Multi-tenant architecture",
-      "Auth, roles, and admin",
-      "Billing-ready foundation",
-      "Staging + production launch",
-    ],
-    cta: "Start a SaaS project",
-  },
-  {
-    id: "cloud",
-    name: "Cloud Management",
-    offer: "30% OFF",
-    tagline: "A cloud path you can run",
-    service: "cloud",
-    features: [
-      "Environments and deploys",
-      "Monitoring basics",
-      "Secrets and access",
-      "A written runbook",
-    ],
-    cta: "Start a cloud project",
   },
 ];
 

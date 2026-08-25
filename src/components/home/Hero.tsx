@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AppWindow, Cloud, Layers, Smartphone } from "lucide-react";
+import { AppWindow, Smartphone, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StartProjectButton } from "@/components/site/StartProjectButton";
 import { Magnetic } from "@/components/site/Magnetic";
@@ -8,33 +8,25 @@ import { site } from "@/lib/site";
 import heroLight from "@/assets/brand/hero-light.jpg";
 
 const pills = [
-  { icon: AppWindow, label: "Web Apps" },
-  { icon: Smartphone, label: "Mobile Apps" },
-  { icon: Layers, label: "Software as a Service (SaaS)" },
-  { icon: Cloud, label: "Cloud Management" },
+  { icon: AppWindow, label: "Websites" },
+  { icon: Workflow, label: "Business software" },
+  { icon: Smartphone, label: "Mobile apps" },
 ];
 
 const stats = [
-  { k: site.offer, v: "First engagement", note: site.offerLabel },
-  { k: "You", v: "Own the product", note: "Repos, domains, and cloud stay in your name" },
-  { k: "Wk", v: "Weekly progress", note: "Working software you can click" },
-  { k: "24h", v: "Human reply", note: "A founder or lead engineer" },
+  { k: site.startingPrice, v: "Websites from", note: "One year online, domain in your name" },
+  { k: "You", v: "Own the work", note: "Domain, code, and accounts stay yours" },
+  { k: "24h", v: "Human reply", note: "WhatsApp or email, IST" },
+  { k: "IN", v: "Based in India", note: "We work with clients nationwide" },
 ];
 
 export const Hero = () => (
   <section className="surface-paper relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
     {/* Background Image & High-Clarity Overlay System */}
     <div className="pointer-events-none absolute inset-0">
-      <img
-        src={heroLight}
-        alt=""
-        className="h-full w-full object-cover object-[center_30%]"
-      />
-      {/* Primary Mask: Strong backstop only behind text, completely clear on the right 60% */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(36_32%_97%/0.75)] via-[hsl(36_28%_97%/0.35)] to-transparent" />
-      
-      {/* Top & Bottom Edges: Subtle blend into adjacent sections without hiding central detail */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(36_22%_94%/0.70)] via-transparent to-[hsl(36_32%_97%/0.10)]" />
+      <img src={heroLight} alt="" className="h-full w-full object-cover object-[center_30%]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(36_32%_97%/0.96)] via-[hsl(36_28%_97%/0.88)] to-[hsl(36_28%_97%/0.55)]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(36_22%_94%)] via-transparent to-[hsl(36_32%_97%/0.35)]" />
     </div>
 
     <div className="container relative">
@@ -46,22 +38,20 @@ export const Hero = () => (
           </span>
           {site.availability}
         </span>
-        <span className="rounded-full bg-gradient-ember px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-ember">
-          {site.offer} {site.offerLabel}
+        <span className="rounded-full border border-border bg-card/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground/70">
+          {site.locationLine}
         </span>
       </div>
 
-      <div className="max-w-4xl animate-fade-up">
-        <span className="eyebrow">Studio for growing businesses</span>
-        <h1 className="mt-6 font-serif-display  text-[40px] leading-[1.05] text-foreground sm:text-6xl lg:text-[72px]">
-          Software that makes your company look as good as it works.
+      <div className="max-w-3xl animate-fade-up">
+        <span className="eyebrow">Product studio</span>
+        <h1 className="mt-6 font-serif-display text-[40px] leading-[1.05] text-foreground sm:text-6xl lg:text-[72px]">
+          Websites and software your customers can <em className="hl-ember not-italic">actually use.</em>
         </h1>
-        <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-foreground/85">
-          {site.name} designs and ships <span className="hl-soft">Web Apps</span>,{" "}
-          <span className="hl-soft">Mobile Apps</span>,{" "}
-          <span className="hl-soft">SaaS</span>, and{" "}
-          <span className="hl-soft">Cloud Management</span> for founders who need a product
-          customers can find, use, and trust.
+        <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-foreground/75">
+          {site.name} is a small engineering team. We build{" "}
+          <span className="hl-soft">websites</span> and <span className="hl-soft">business software</span> for
+          shops, institutes, clinics, and companies across India. {site.startingPriceNote}
         </p>
 
         <div className="mt-7 flex flex-wrap gap-2">
@@ -79,7 +69,7 @@ export const Hero = () => (
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <Magnetic>
             <StartProjectButton source="hero" size="xl">
-              Start a Project
+              Start a project
             </StartProjectButton>
           </Magnetic>
           <Magnetic>
@@ -93,8 +83,8 @@ export const Hero = () => (
             </Button>
           </Magnetic>
         </div>
-        <p className="mt-3 text-xs text-foreground/70">
-          One short form. We reply within {site.responseTime} with a clear next step.
+        <p className="mt-3 text-xs text-foreground/55">
+          One short form. It reaches our WhatsApp and email. We reply within {site.responseTime}.
         </p>
       </div>
 

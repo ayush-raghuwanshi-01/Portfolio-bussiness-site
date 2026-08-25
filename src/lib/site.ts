@@ -1,25 +1,28 @@
 export const site = {
-  name: "ZenWebStudio",
-  legalName: "ZenWebStudio",
-  shortName: "ZWS",
-  tagline: "We build the software your business runs on.",
-  headline: "Web apps, mobile apps, SaaS, and cloud — built for your business.",
+  name: "Zenvio Labs",
+  legalName: "Zenvio Labs",
+  shortName: "Zenvio",
+  tagline: "Websites and software for your business.",
+  headline: "Websites and business software, built for growing companies.",
   description:
-    "ZenWebStudio is a product studio that designs and ships web applications, mobile apps, SaaS platforms, and cloud management for founders and growing businesses.",
+    "Zenvio Labs builds websites and business software for shops, institutes, clinics, and growing companies across India. Websites start at ₹5,000.",
   url: "https://zenwebstudio.com",
-  email: "hello@zenwebstudio.com",
+  email: "zenwebstudio.in@gmail.com",
   phoneDisplay: "+91 95845 59972",
   phoneTel: "+919584559972",
   whatsapp: "919584559972",
-  location: "India · Remote-first",
+  location: "India",
+  locationLine: "India · work nationwide",
+  city: "India",
+  region: "India",
+  country: "India",
   responseTime: "24 hours",
-  foundedYear: 2023,
-  availability: "Available for new projects",
-  offer: "30% OFF",
-  offerLabel: "on your first engagement this quarter",
+  availability: "Taking new work",
+  startingPrice: "₹5,000",
+  startingPriceNote: "Websites start at ₹5,000 for one year online.",
   social: {
-    github: "https://github.com/zenwebstudio",
-    linkedin: "https://linkedin.com/company/zenwebstudio",
+    github: "",
+    linkedin: "",
   },
 } as const;
 
@@ -31,19 +34,18 @@ export const navLinks = [
 ] as const;
 
 export const serviceOptions = [
-  "Web Apps",
-  "Mobile Apps",
-  "Software as a Service (SaaS)",
-  "Cloud Management",
+  "Website",
+  "Business software",
+  "Mobile app",
+  "Not sure",
 ] as const;
 
 export type ServiceOption = (typeof serviceOptions)[number];
 
 export const serviceOptionById = {
-  web: "Web Apps",
-  mobile: "Mobile Apps",
-  saas: "Software as a Service (SaaS)",
-  cloud: "Cloud Management",
+  web: "Website",
+  software: "Business software",
+  mobile: "Mobile app",
 } as const;
 
 export const techStack = [
@@ -54,19 +56,17 @@ export const techStack = [
   "Node.js",
   "PostgreSQL",
   "AWS",
-  "Stripe",
   "Tailwind CSS",
-  "Figma",
 ] as const;
 
 export const whatsappHref = (message?: string) => {
   const text =
     message ??
-    "Hi ZenWebStudio — I'd like to start a project conversation about software we're building.";
+    "Hi Zenvio Labs — I would like a website / software for my business.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 };
 
-export const mailHref = (subject = "Project inquiry — ZenWebStudio") =>
+export const mailHref = (subject = "Project enquiry — Zenvio Labs") =>
   `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
 
 export const absoluteUrl = (path = "/") => {
@@ -76,3 +76,26 @@ export const absoluteUrl = (path = "/") => {
 
 export const pageTitle = (title?: string) =>
   title ? `${title} — ${site.name}` : `${site.name} — ${site.headline}`;
+
+export const formatLeadMessage = (lead: {
+  name: string;
+  email?: string;
+  phone?: string;
+  city?: string;
+  service?: string;
+  message?: string;
+  source?: string;
+}) =>
+  [
+    "New enquiry — Zenvio Labs",
+    "",
+    `Name: ${lead.name}`,
+    `Phone: ${lead.phone || "—"}`,
+    `Email: ${lead.email || "—"}`,
+    `City: ${lead.city || "—"}`,
+    `Need: ${lead.service || "—"}`,
+    lead.message ? `Details: ${lead.message}` : null,
+    `Source: ${lead.source || "website"}`,
+  ]
+    .filter(Boolean)
+    .join("\n");

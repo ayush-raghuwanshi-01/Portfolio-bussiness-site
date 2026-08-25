@@ -11,17 +11,11 @@ export const WorkHighlights = () => (
       eyebrow="Selected work"
       title={
         <>
-          Products we have <em className="hl-ember not-italic">put in front of people.</em>
+          What we have <em className="hl-ember not-italic">built so far.</em>
         </>
       }
-      body="A look at products we have designed and built — problem, solution, and what shipped."
+      body="Studio builds we use to show craft. Paid client work will be labelled as such when we can name it."
     />
-
-    <div className="mt-8">
-      <span className="inline-flex rounded-full border border-ember/30 bg-ember/10 px-4 py-2 text-sm font-medium text-ember">
-        All Work
-      </span>
-    </div>
 
     <div className="mt-10 grid gap-6 lg:grid-cols-2">
       {featuredWork.map((item) => (
@@ -32,7 +26,7 @@ export const WorkHighlights = () => (
     <Reveal>
       <div className="mt-10 flex justify-center">
         <Button asChild variant="glass" size="lg" className="rounded-full">
-          <Link to="/work">Browse the full grid</Link>
+          <Link to="/work">All work</Link>
         </Button>
       </div>
     </Reveal>

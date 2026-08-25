@@ -12,17 +12,17 @@ const AboutPage = () => (
   <>
     <Seo
       title="About"
-      description="The story, team, values, and engineering process behind ZenWebStudio — a product studio for web apps, mobile apps, SaaS, and cloud management."
+      description="Zenvio Labs is a three-person engineering studio. We build websites and business software for companies across India."
       path="/about"
     />
     <PageHero
-      eyebrow="About the studio"
+      eyebrow="About"
       title={
         <>
-          Built by engineers who were tired of <em className="hl-ember not-italic">agency theatre.</em>
+          Three engineers. <em className="hl-ember not-italic">No account layer.</em>
         </>
       }
-      body={`${site.name} exists so founders can hire a product team that scopes honestly, ships weekly, and answers the phone after launch.`}
+      body={`${site.name} exists so a shop, institute, or founder can hire people who write the code, quote in rupees, and pick up WhatsApp after launch.`}
     />
 
     <Section surface="mid">
@@ -31,31 +31,24 @@ const AboutPage = () => (
           <div className="overflow-hidden rounded-[28px] border border-border/60">
             <img
               src={teamPhoto}
-              alt="ZenWebStudio founding team in the studio"
+              alt="Zenvio Labs team"
               className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
             />
           </div>
         </Reveal>
         <Reveal delay={0.08}>
           <span className="eyebrow">Origin</span>
-          <h2 className="mt-4 font-serif-display text-4xl sm:text-5xl">
-            A studio we would have wanted to hire.
-          </h2>
+          <h2 className="mt-4 font-serif-display text-4xl sm:text-5xl">A studio we would have wanted to hire.</h2>
           <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/75">
             <p>
-              {site.name} started as a small engineering collective that kept watching the same
-              failure mode: freelancers who vanished mid-build, and agencies that billed for
+              We kept seeing the same two failures: freelancers who vanished mid-build, and agencies that billed for
               meetings about the meetings.
             </p>
             <p>
-              We formed a studio around the opposite contract. You talk to the people writing the
-              code. Scope is written down. Web, mobile, SaaS, and cloud are designed as one system. The
-              repository stays in your name.
+              We formed a small studio with the opposite contract. You talk to the people writing the code. Scope is
+              written down. The domain stays in your name. We work with clients across India.
             </p>
-            <p>
-              We are still a young team — that is the point. There is no account-management layer
-              between you and the work.
-            </p>
+            <p>We are a young team. That is the point. There is no layer between you and the work.</p>
           </div>
         </Reveal>
       </div>
@@ -64,8 +57,8 @@ const AboutPage = () => (
     <Section surface="dark">
       <SectionHeading
         eyebrow="Team"
-        title="Founders and the people who ship."
-        body="A tight studio, not a rotating bench. Roles below are the people you will actually meet on a call."
+        title="The people you will meet on a call."
+        body="A tight studio, not a rotating bench."
       />
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {team.map((member, i) => (
@@ -84,10 +77,7 @@ const AboutPage = () => (
     </Section>
 
     <Section surface="paper">
-      <SectionHeading
-        eyebrow="Values"
-        title="How we decide what to build — and what to refuse."
-      />
+      <SectionHeading eyebrow="How we work" title="What we will and will not do." />
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         {values.map((value) => (
           <article key={value.title} className="glass rounded-[24px] p-6">
@@ -97,7 +87,7 @@ const AboutPage = () => (
         ))}
       </div>
       <div className="glass mt-8 rounded-[24px] p-6">
-        <h3 className="font-display text-lg font-semibold">Engineering principles</h3>
+        <h3 className="font-display text-lg font-semibold">Defaults</h3>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {principles.map((item) => (
             <li key={item} className="flex items-start gap-2 text-sm text-foreground/75">
@@ -110,11 +100,7 @@ const AboutPage = () => (
     </Section>
 
     <Section id="process" surface="dark">
-      <SectionHeading
-        align="center"
-        eyebrow="Process"
-        title="The same four steps on every engagement."
-      />
+      <SectionHeading align="center" eyebrow="Process" title="Four steps. No theatre." />
       <div className="mt-12">
         <ProcessTimeline />
       </div>

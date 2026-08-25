@@ -1,15 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 
-/**
- * Production lead store (Supabase / Postgres).
- *
- * Env:
- *   VITE_SUPABASE_URL
- *   VITE_SUPABASE_ANON_KEY
- *
- * Schema lives in supabase/migrations/001_leads.sql
- */
-
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
 
@@ -20,6 +10,7 @@ export type LeadInsert = {
   name: string;
   email: string;
   phone?: string;
+  city?: string;
   company?: string;
   service?: string;
   budget?: string;
