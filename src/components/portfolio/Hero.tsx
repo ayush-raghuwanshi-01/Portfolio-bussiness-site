@@ -163,6 +163,13 @@ const Hero = () => {
             ))}
           </div>
         </div>
+
+        {/* Subtle decorative glow */}
+        <div className="pointer-events-none absolute -right-4 -top-4 h-20 w-20 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:bg-primary/10" />
+      </div>
+    ))}
+  </div>
+</div>
       </div>
     </section>
   );
