@@ -19,12 +19,13 @@ describe("ZenWebStudio brand", () => {
 });
 
 describe("service matrix", () => {
-  it("exposes the three product pillars", () => {
-    expect(services.map((s) => s.id)).toEqual(["saas", "web", "mobile"]);
+  it("exposes the four product surfaces", () => {
+    expect(services.map((s) => s.id)).toEqual(["web", "mobile", "ai", "cloud"]);
     expect(services.map((s) => s.name)).toEqual([
-      "SaaS Engineering",
-      "Web App Development",
-      "Mobile App Development",
+      "Web Apps",
+      "Mobile Apps",
+      "AI Engineering",
+      "Cloud Architecture",
     ]);
   });
 
@@ -37,6 +38,8 @@ describe("service matrix", () => {
     expect(caseStudies.some((c) => c.types.includes("saas"))).toBe(true);
     expect(caseStudies.some((c) => c.types.includes("web"))).toBe(true);
     expect(caseStudies.some((c) => c.types.includes("mobile"))).toBe(true);
+    expect(caseStudies.some((c) => c.types.includes("ai"))).toBe(true);
+    expect(caseStudies.some((c) => c.types.includes("cloud"))).toBe(true);
   });
 });
 

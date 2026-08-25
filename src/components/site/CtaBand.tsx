@@ -26,7 +26,7 @@ export const CtaBand = ({
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <Button asChild variant="ember" size="xl">
                 <Link to="/contact#book">
-                  Book a consultation <ArrowUpRight className="h-4 w-4" />
+                  Start your project <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="glass" size="xl">

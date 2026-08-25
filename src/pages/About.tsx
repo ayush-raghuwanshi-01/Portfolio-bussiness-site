@@ -12,7 +12,7 @@ const AboutPage = () => (
   <>
     <Seo
       title="About"
-      description="The story, team, values, and engineering process behind ZenWebStudio — a product studio for SaaS, web, and mobile."
+      description="The story, team, values, and engineering process behind ZenWebStudio — a product studio for custom software, web, mobile, AI, and cloud."
       path="/about"
     />
     <PageHero
@@ -49,7 +49,7 @@ const AboutPage = () => (
             </p>
             <p>
               We formed a studio around the opposite contract. You talk to the people writing the
-              code. Scope is written down. SaaS, web, and mobile are designed as one system. The
+              code. Scope is written down. Web, mobile, AI, and cloud are designed as one system. The
               repository stays in your name.
             </p>
             <p>

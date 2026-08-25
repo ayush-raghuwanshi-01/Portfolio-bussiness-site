@@ -14,8 +14,8 @@ export const Footer = () => {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/65">
-              A product engineering studio for SaaS platforms, custom web applications, and mobile
-              apps. We scope honestly, ship weekly, and stay on the line after launch.
+              A product engineering studio for custom software, web and mobile apps, applied AI,
+              and cloud architecture. We scope honestly, ship weekly, and stay on the line after launch.
             </p>
             <div className="mt-6 flex gap-2">
               <a
@@ -126,7 +126,7 @@ export const Footer = () => {
           <p>
             © {year} {site.legalName}. All rights reserved.
           </p>
-          <p>SaaS · Web · Mobile · Reply within {site.responseTime}.</p>
+          <p>Web · Mobile · AI · Cloud · Reply within {site.responseTime}.</p>
         </div>
       </div>
     </footer>

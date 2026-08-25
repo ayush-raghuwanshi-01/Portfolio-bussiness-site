@@ -37,7 +37,7 @@ const emptyContact: ContactValues = {
   email: "",
   phone: "",
   company: "",
-  service: "SaaS Engineering",
+  service: "Web App Development",
   budget: "Not sure yet",
   message: "",
   website: "",
@@ -48,19 +48,32 @@ const emptyBooking: BookingValues = {
   email: "",
   phone: "",
   company: "",
-  service: "SaaS Engineering",
+  service: "Web App Development",
   date: "",
   time: "",
   message: "",
   website: "",
 };
 
+const emailOk = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+const phoneOk = (value: string, required: boolean) => {
+  const trimmed = value.trim();
+  if (!trimmed) return !required;
+  return trimmed.replace(/[^\d+]/g, "").length >= 7;
+};
+
 export const LeadForm = ({ mode, className }: { mode: Mode; className?: string }) => {
   const [contact, setContact] = useState<ContactValues>(emptyContact);
   const [booking, setBooking] = useState<BookingValues>(emptyBooking);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const mark = (key: string, message?: string) => {
+    setTouched((prev) => ({ ...prev, [key]: true }));
+    setErrors((prev) => ({ ...prev, [key]: message }));
+  };
 
   const today = useMemo(() => new Date().toISOString().split("T")[0], []);
 
@@ -169,11 +182,16 @@ export const LeadForm = ({ mode, className }: { mode: Mode; className?: string }
                 autoComplete="email"
               />
             </Field>
-            <Field label="Phone" icon={Phone} error={errors.phone}>
+            <Field label="Phone" icon={Phone} error={errors.phone} valid={touched.phone && !errors.phone && phoneOk(contact.phone || "", false)}>
               <Input
                 type="tel"
                 value={contact.phone}
-                onChange={(e) => setContact((v) => ({ ...v, phone: e.target.value }))}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setContact((v) => ({ ...v, phone: value }));
+                  if (touched.phone) mark("phone", phoneOk(value, false) ? undefined : "Enter a valid phone number");
+                }}
+                onBlur={() => mark("phone", phoneOk(contact.phone || "", false) ? undefined : "Enter a valid phone number")}
                 placeholder="+91 98765 43210"
                 autoComplete="tel"
               />
@@ -224,37 +242,43 @@ export const LeadForm = ({ mode, className }: { mode: Mode; className?: string }
           </>
         ) : (
           <>
-            <Field label="Name" icon={User} error={errors.name}>
+            <Field label="Name" icon={User} error={errors.name} valid={touched.name && !errors.name && booking.name.trim().length >= 2}>
               <Input
                 value={booking.name}
                 onChange={(e) => {
-                  setBooking((v) => ({ ...v, name: e.target.value }));
-                  setErrors((err) => ({ ...err, name: undefined }));
+                  const value = e.target.value;
+                  setBooking((v) => ({ ...v, name: value }));
+                  if (touched.name) mark("name", value.trim().length >= 2 ? undefined : "Name is too short");
                 }}
+                onBlur={() => mark("name", booking.name.trim().length >= 2 ? undefined : "Name is too short")}
                 placeholder="Jordan Patel"
                 autoComplete="name"
               />
             </Field>
-            <Field label="Work email" icon={Mail} error={errors.email}>
+            <Field label="Work email" icon={Mail} error={errors.email} valid={touched.email && !errors.email && emailOk(booking.email)}>
               <Input
                 type="email"
                 value={booking.email}
                 onChange={(e) => {
-                  setBooking((v) => ({ ...v, email: e.target.value }));
-                  setErrors((err) => ({ ...err, email: undefined }));
+                  const value = e.target.value;
+                  setBooking((v) => ({ ...v, email: value }));
+                  if (touched.email) mark("email", emailOk(value) ? undefined : "Enter a valid email");
                 }}
+                onBlur={() => mark("email", emailOk(booking.email) ? undefined : "Enter a valid email")}
                 placeholder="you@company.com"
                 autoComplete="email"
               />
             </Field>
-            <Field label="Phone / WhatsApp" icon={Phone} error={errors.phone}>
+            <Field label="Phone / WhatsApp" icon={Phone} error={errors.phone} valid={touched.phone && !errors.phone && phoneOk(booking.phone, true)}>
               <Input
                 type="tel"
                 value={booking.phone}
                 onChange={(e) => {
-                  setBooking((v) => ({ ...v, phone: e.target.value }));
-                  setErrors((err) => ({ ...err, phone: undefined }));
+                  const value = e.target.value;
+                  setBooking((v) => ({ ...v, phone: value }));
+                  if (touched.phone) mark("phone", phoneOk(value, true) ? undefined : "Enter a valid phone number");
                 }}
+                onBlur={() => mark("phone", phoneOk(booking.phone, true) ? undefined : "Enter a valid phone number")}
                 placeholder="+91 98765 43210"
                 autoComplete="tel"
               />
@@ -338,18 +362,23 @@ const Field = ({
   label,
   icon: Icon,
   error,
+  valid,
   children,
 }: {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   error?: string;
+  valid?: boolean;
   children: ReactNode;
 }) => (
   <div className="space-y-1.5">
     <Label className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground">
       <Icon className="h-3.5 w-3.5 text-primary" /> {label}
+      {valid && <CheckCircle2 className="h-3.5 w-3.5 text-success" />}
     </Label>
-    {children}
+    <div className={error ? "[&_input]:border-destructive [&_textarea]:border-destructive [&_select]:border-destructive" : valid ? "[&_input]:border-success/60 [&_textarea]:border-success/60" : ""}>
+      {children}
+    </div>
     {error && (
       <p className="text-xs text-destructive" role="alert">
         {error}

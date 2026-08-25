@@ -13,7 +13,7 @@ export const faqs = [
   },
   {
     q: "What stack does the studio use?",
-    a: "TypeScript across the board. React and Next.js on the web, React Native / Expo on mobile, Node or FastAPI on the server, PostgreSQL as the default database, and AWS or a managed Postgres host in production.",
+    a: "TypeScript is the default. React and Next.js on the web, React Native / Expo on mobile (Flutter when the existing app already lives there), Node or FastAPI — Spring Boot when the backend already is Java — PostgreSQL, and AWS in production.",
   },
   {
     q: "Do you work with early-stage founders?",

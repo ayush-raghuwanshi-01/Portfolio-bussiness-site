@@ -3,9 +3,9 @@ export const site = {
   legalName: "ZenWebStudio",
   shortName: "ZWS",
   tagline: "We build the software your business runs on.",
-  headline: "SaaS, web, and mobile products — engineered to ship.",
+  headline: "Custom software, web, mobile, and AI — engineered to ship.",
   description:
-    "ZenWebStudio is a product engineering studio that designs and ships SaaS platforms, custom web applications, and mobile apps for founders and growing businesses.",
+    "ZenWebStudio is a product engineering studio that designs and ships custom software, modern web applications, mobile apps, applied AI, and cloud architecture for founders and growing businesses.",
   url: "https://zenwebstudio.com",
   email: "hello@zenwebstudio.com",
   phoneDisplay: "+91 95845 59972",
@@ -14,6 +14,7 @@ export const site = {
   location: "India · Remote-first",
   responseTime: "24 hours",
   foundedYear: 2023,
+  availability: "Available for new projects",
   social: {
     github: "https://github.com/zenwebstudio",
     linkedin: "https://linkedin.com/company/zenwebstudio",
@@ -28,9 +29,11 @@ export const navLinks = [
 ] as const;
 
 export const serviceOptions = [
-  "SaaS Engineering",
   "Web App Development",
   "Mobile App Development",
+  "AI Engineering",
+  "Cloud Architecture",
+  "SaaS Engineering",
   "Not sure yet",
 ] as const;
 
@@ -49,20 +52,20 @@ export const techStack = [
   "TypeScript",
   "Next.js",
   "React Native",
+  "Flutter",
   "Node.js",
+  "Python",
+  "Spring Boot",
   "PostgreSQL",
-  "Supabase",
   "AWS",
   "FastAPI",
   "Stripe",
-  "Tailwind CSS",
-  "Figma",
 ] as const;
 
 export const whatsappHref = (message?: string) => {
   const text =
     message ??
-    "Hi ZenWebStudio — I'd like to book a technical consultation about a product we're building.";
+    "Hi ZenWebStudio — I'd like to start a project conversation about software we're building.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 };
 

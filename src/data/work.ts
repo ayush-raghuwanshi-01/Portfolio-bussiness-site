@@ -5,6 +5,7 @@ import prabha from "@/assets/project-prabha.jpg";
 import mobileGym from "@/assets/brand/mobile-gym-app.jpg";
 import visualSaas from "@/assets/brand/visual-saas.jpg";
 import visualWeb from "@/assets/brand/visual-web.jpg";
+import visualAi from "@/assets/brand/visual-ai.jpg";
 import type { ServiceId } from "@/data/services";
 
 export type CaseStudy = {
@@ -20,6 +21,7 @@ export type CaseStudy = {
   cover: string;
   gallery: string[];
   featured?: boolean;
+  live?: boolean;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -27,17 +29,18 @@ export const caseStudies: CaseStudy[] = [
     id: "asklytics",
     title: "Asklytics",
     client: "Asklytics.in",
-    types: ["saas"],
+    types: ["saas", "ai", "cloud"],
     problem:
       "Operators needed answers from private business data without waiting on an analyst — or sending that data to a public model.",
     solution:
-      "We engineered a multi-tenant analytics SaaS: natural-language questions over connected warehouses, role-aware workspaces, and a React + FastAPI core that keeps data inside the customer's boundary.",
+      "A multi-tenant analytics SaaS: natural-language questions over connected warehouses, role-aware workspaces, and a React + FastAPI core that keeps data inside the customer's boundary.",
     outcome: "Live product at asklytics.in — from spec to a shippable SaaS workspace.",
-    stack: ["React", "FastAPI", "PostgreSQL", "AI", "Cloud"],
+    stack: ["React", "FastAPI", "PostgreSQL", "Python", "AWS"],
     href: "https://asklytics.in",
     cover: asklytics,
-    gallery: [asklytics, visualSaas],
+    gallery: [asklytics, visualAi, visualSaas],
     featured: true,
+    live: true,
   },
   {
     id: "digital-lift",
@@ -87,9 +90,11 @@ export const caseStudies: CaseStudy[] = [
 
 export const workFilters: { id: "all" | ServiceId; label: string }[] = [
   { id: "all", label: "All work" },
-  { id: "saas", label: "SaaS" },
   { id: "web", label: "Web" },
   { id: "mobile", label: "Mobile" },
+  { id: "ai", label: "AI" },
+  { id: "cloud", label: "Cloud" },
+  { id: "saas", label: "SaaS" },
 ];
 
 export const featuredWork = caseStudies.filter((c) => c.featured);

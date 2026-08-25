@@ -5,6 +5,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHeading } from "@/components/site/Section";
 import { FaqList } from "@/components/site/FaqList";
 import { CtaBand } from "@/components/site/CtaBand";
+import { Estimator } from "@/components/site/Estimator";
 import { Reveal } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
 import { pricingTiers, services } from "@/data/services";
@@ -14,25 +15,21 @@ const ServicesPage = () => (
   <>
     <Seo
       title="Services"
-      description="SaaS engineering, custom web application development, and mobile app development from ZenWebStudio. Deliverables, stack, process, and transparent starting prices."
+      description="Web apps, mobile apps, AI engineering, and cloud architecture from ZenWebStudio. Deliverables, stack, process, and transparent starting prices."
       path="/services"
     />
     <PageHero
       eyebrow="Services"
       title={
         <>
-          Three pillars. <em className="hl-ember not-italic">Shipped as products.</em>
+          Custom software, shipped as <em className="hl-ember not-italic">products.</em>
         </>
       }
-      body="SaaS engineering, web application development, and mobile app development. Each engagement includes a written scope, a named lead, and weekly staging demos."
+      body="Web applications, mobile apps, applied AI, and cloud architecture. Each engagement includes a written scope, a named lead, and weekly staging demos."
     />
 
     {services.map((service, index) => (
-      <Section
-        key={service.id}
-        id={service.id}
-        surface={index % 2 === 0 ? "mid" : "dark"}
-      >
+      <Section key={service.id} id={service.id} surface={index % 2 === 0 ? "mid" : "dark"}>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <span className="eyebrow">{service.name}</span>
@@ -50,12 +47,12 @@ const ServicesPage = () => (
               ))}
             </div>
             <Button asChild variant="ember" className="mt-8 rounded-full">
-              <Link to="/contact#book">Scope this build</Link>
+              <Link to="/contact#book">Start this build</Link>
             </Button>
           </Reveal>
           <Reveal delay={0.08}>
             <div className="overflow-hidden rounded-[28px] border border-border/60">
-              <img src={service.image} alt="" className="aspect-[16/10] w-full object-cover" />
+              <img src={service.image} alt="" className="aspect-[16/10] w-full object-cover" loading="lazy" />
             </div>
           </Reveal>
         </div>
@@ -98,7 +95,7 @@ const ServicesPage = () => (
             Starting points, <em className="hl-ember not-italic">not a mystery rate card.</em>
           </>
         }
-        body="These are entry prices for a well-bounded first version. Complex billing, native modules, or multi-product roadmaps are scoped as a studio pod."
+        body="Entry prices for a well-bounded first version. Complex billing, native modules, or multi-product roadmaps are scoped as a studio pod."
       />
       <div className="mt-12 grid gap-5 lg:grid-cols-4">
         {pricingTiers.map((tier) => (
@@ -143,13 +140,18 @@ const ServicesPage = () => (
     </Section>
 
     <Section surface="dark">
-      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <SectionHeading
-          eyebrow="FAQ"
-          title="Common questions about working with the studio."
-          body="Engagement model, ownership, timelines, and what happens after launch."
-        />
-        <FaqList />
+      <div className="grid gap-10 lg:grid-cols-2">
+        <Estimator />
+        <div>
+          <SectionHeading
+            eyebrow="FAQ"
+            title="Common questions about working with the studio."
+            body="Engagement model, ownership, timelines, and what happens after launch."
+          />
+          <div className="mt-8">
+            <FaqList />
+          </div>
+        </div>
       </div>
     </Section>
 

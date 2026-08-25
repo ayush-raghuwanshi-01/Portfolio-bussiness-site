@@ -65,7 +65,7 @@ export const Navbar = () => {
               to="/contact#book"
               onClick={() => trackEvent(AnalyticsEvents.NAV_CTA_CLICKED, { location: "navbar" })}
             >
-              Book a consultation
+              Start a project
             </Link>
           </Button>
           <button
@@ -92,7 +92,7 @@ export const Navbar = () => {
             </Link>
           ))}
           <Button asChild variant="ember" size="sm" className="mt-2 rounded-full">
-            <Link to="/contact#book">Book a consultation</Link>
+            <Link to="/contact#book">Start a project</Link>
           </Button>
         </div>
       )}

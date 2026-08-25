@@ -3,6 +3,7 @@ import { Seo } from "@/components/layout/Seo";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { LeadForm } from "@/components/site/LeadForm";
+import { Estimator } from "@/components/site/Estimator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import { mailHref, site, whatsappHref } from "@/lib/site";
@@ -25,6 +26,9 @@ const ContactPage = () => (
     />
 
     <Section surface="mid">
+      <div className="mb-10">
+        <Estimator compact />
+      </div>
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <aside className="space-y-4">
           <a

@@ -1,18 +1,24 @@
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Cloud, Smartphone, AppWindow } from "lucide-react";
+import { ArrowRight, AppWindow, Cloud, Smartphone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DeviceStack } from "@/components/site/DeviceStack";
+import { Magnetic } from "@/components/site/Magnetic";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import { site } from "@/lib/site";
+import { trustBadges } from "@/data/process";
+
+const HeroCanvas = lazy(() => import("@/components/site/HeroCanvas").then((m) => ({ default: m.HeroCanvas })));
 
 const pills = [
-  { icon: Cloud, label: "SaaS Engineering" },
-  { icon: AppWindow, label: "Web App Dev" },
-  { icon: Smartphone, label: "Mobile App Dev" },
+  { icon: AppWindow, label: "Web Apps" },
+  { icon: Smartphone, label: "Mobile Apps" },
+  { icon: Sparkles, label: "AI Engineering" },
+  { icon: Cloud, label: "Cloud Architecture" },
 ];
 
 const stats = [
-  { k: "3", v: "Product surfaces", note: "SaaS, web, and mobile as one system" },
+  { k: "Prod", v: "Built for production", note: "Observability and rollback on day one" },
   { k: "Wk", v: "Weekly demos", note: "Working software, not status slides" },
   { k: "₹", v: "Published starting points", note: "No agency markup to decode" },
   { k: "24h", v: "Human reply", note: "A founder or lead engineer" },
@@ -20,28 +26,52 @@ const stats = [
 
 export const Hero = () => (
   <section className="surface-dark relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
+    <div className="pointer-events-none absolute inset-0 opacity-50">
+      <Suspense fallback={null}>
+        <HeroCanvas />
+      </Suspense>
+    </div>
     <div className="pointer-events-none absolute inset-0">
-      <div className="absolute inset-0 grid-bg opacity-35" />
-      <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl animate-float" />
-      <div className="absolute -right-16 top-10 h-80 w-80 rounded-full bg-ember/20 blur-3xl animate-float [animation-delay:-3s]" />
-      <div className="absolute inset-x-0 bottom-0 h-56 overflow-hidden opacity-50">
+      <div className="absolute inset-0 grid-bg opacity-25" />
+      <div className="absolute inset-x-0 bottom-0 h-56 overflow-hidden opacity-40">
         <div className="perspective-grid h-[420px] w-full" />
       </div>
     </div>
 
     <div className="container relative">
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <span className="inline-flex items-center gap-2 rounded-full border border-success/40 bg-success/10 px-3 py-1 text-xs font-semibold text-success">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+          </span>
+          {site.availability}
+        </span>
+        {trustBadges
+          .filter((b) => b.tone === "neutral")
+          .map((badge) => (
+            <span
+              key={badge.label}
+              className="rounded-full border border-border/70 bg-card/50 px-3 py-1 text-[11px] text-foreground/65 backdrop-blur"
+            >
+              {badge.label}
+            </span>
+          ))}
+      </div>
+
       <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="animate-fade-up">
-          <span className="eyebrow">Product engineering studio</span>
-          <h1 className="mt-6 font-serif-display text-[42px] leading-[1.02] text-foreground sm:text-6xl lg:text-[76px]">
-            We engineer the <em className="hl-ember not-italic">software</em> your business{" "}
-            <em className="italic text-foreground/80">runs on.</em>
+          <span className="eyebrow">IT & product engineering studio</span>
+          <h1 className="mt-6 font-serif-display text-[40px] leading-[1.02] text-foreground sm:text-6xl lg:text-[72px]">
+            Software engineered to <em className="hl-ember not-italic">ship</em> — and stay in{" "}
+            <em className="italic text-foreground/80">production.</em>
           </h1>
           <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-foreground/70">
-            {site.name} designs and ships <span className="hl-soft">SaaS platforms</span>,{" "}
-            <span className="hl-soft">web applications</span>, and{" "}
-            <span className="hl-soft">mobile apps</span> for founders who want a product team — not
-            an agency queue.
+            {site.name} designs and builds <span className="hl-soft">custom software</span>,{" "}
+            <span className="hl-soft">web and mobile products</span>,{" "}
+            <span className="hl-soft">applied AI</span>, and the{" "}
+            <span className="hl-soft">cloud path</span> they run on. A named lead. A written scope.
+            Weekly software you can click.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">
@@ -56,24 +86,31 @@ export const Hero = () => (
             ))}
           </div>
 
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild variant="ember" size="xl">
-              <Link
-                to="/contact#book"
-                onClick={() => trackEvent(AnalyticsEvents.HERO_CTA_CLICKED, { cta: "Book a consultation" })}
-              >
-                Book a consultation <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="glass" size="xl">
-              <Link
-                to="/work"
-                onClick={() => trackEvent(AnalyticsEvents.HERO_SECONDARY_CLICKED, { cta: "View work" })}
-              >
-                View our work
-              </Link>
-            </Button>
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <Magnetic>
+              <Button asChild variant="ember" size="xl">
+                <Link
+                  to="/contact#book"
+                  onClick={() => trackEvent(AnalyticsEvents.HERO_CTA_CLICKED, { cta: "Start Your Project" })}
+                >
+                  Start Your Project <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button asChild variant="glass" size="xl">
+                <Link
+                  to="/work"
+                  onClick={() => trackEvent(AnalyticsEvents.HERO_SECONDARY_CLICKED, { cta: "View Live Demos" })}
+                >
+                  View Live Demos
+                </Link>
+              </Button>
+            </Magnetic>
           </div>
+          <p className="mt-3 text-xs text-foreground/50">
+            Twenty minutes. No deck theatre. You leave with a next step — even if that step is “not yet.”
+          </p>
         </div>
 
         <DeviceStack />
