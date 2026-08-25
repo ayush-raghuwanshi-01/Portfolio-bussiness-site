@@ -1,29 +1,27 @@
-import Navbar from "@/components/portfolio/Navbar";
-import Hero from "@/components/portfolio/Hero";
-import Marquee from "@/components/portfolio/Marquee";
-import Projects from "@/components/portfolio/Projects";
-import About from "@/components/portfolio/About";
-import Services from "@/components/portfolio/Services";
-import Testimonials from "@/components/portfolio/Testimonials";
-import Community from "@/components/portfolio/Community";
-import Booking from "@/components/portfolio/Booking";
-import Contact from "@/components/portfolio/Contact";
+import { Seo } from "@/components/layout/Seo";
+import { Hero } from "@/components/home/Hero";
+import { ServicesOverview } from "@/components/home/ServicesOverview";
+import { WorkHighlights } from "@/components/home/WorkHighlights";
+import { WhyUs } from "@/components/home/WhyUs";
+import { BusinessValue } from "@/components/home/BusinessValue";
+import { TechMarquee } from "@/components/site/TechMarquee";
+import { CtaBand } from "@/components/site/CtaBand";
+import { site } from "@/lib/site";
 
-const Index = () => {
-  return (
-    <main className="relative overflow-x-clip">
-      <Navbar />
-      <Hero />
-      <Marquee />
-      <Projects />
-      <About />
-      <Services />
-      {/* <Testimonials compact /> */}
-      {/* <Community /> */}
-      <Booking />
-      <Contact />
-    </main>
-  );
-};
+const Index = () => (
+  <>
+    <Seo path="/" />
+    <Hero />
+    <TechMarquee />
+    <ServicesOverview />
+    <WorkHighlights />
+    <BusinessValue />
+    <WhyUs />
+    <CtaBand
+      title="Ready when you are."
+      body={`${site.name} will review what you need, recommend a surface, and send a written next step. One form. ${site.offer} ${site.offerLabel}.`}
+    />
+  </>
+);
 
 export default Index;

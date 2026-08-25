@@ -7,9 +7,9 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.25rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1280px",
       },
     },
     extend: {
@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -43,6 +44,22 @@ export default {
           DEFAULT: "hsl(var(--ember))",
           glow: "hsl(var(--ember-glow))",
           soft: "hsl(var(--ember-soft))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        error: {
+          DEFAULT: "hsl(var(--error))",
+          foreground: "hsl(var(--error-foreground))",
+        },
+        cyan: {
+          DEFAULT: "hsl(var(--brand-secondary))",
+          foreground: "hsl(var(--brand-secondary-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -69,22 +86,23 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', 'sans-serif'],
-        display: ['"Space Grotesk"', '"Inter"', 'sans-serif'],
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        sans: ['"Inter"', "system-ui", "sans-serif"],
+        display: ['"Space Grotesk"', '"Inter"', "sans-serif"],
+        serif: ['"Instrument Serif"', "Georgia", "serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
       },
       backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-ember': 'var(--gradient-ember)',
-        'gradient-aurora': 'var(--gradient-aurora)',
-        'gradient-card': 'var(--gradient-card)',
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-ember": "var(--gradient-ember)",
+        "gradient-secondary": "var(--gradient-secondary)",
+        "gradient-aurora": "var(--gradient-aurora)",
+        "gradient-card": "var(--gradient-card)",
       },
       boxShadow: {
-        glow: 'var(--shadow-glow)',
-        ember: 'var(--shadow-ember)',
-        elegant: 'var(--shadow-elegant)',
-        glass: 'var(--shadow-glass)',
+        glow: "var(--shadow-glow)",
+        ember: "var(--shadow-ember)",
+        elegant: "var(--shadow-elegant)",
+        glass: "var(--shadow-glass)",
       },
       keyframes: {
         "accordion-down": {

@@ -1,0 +1,16 @@
+{
+  "name": "ZenWebStudio",
+  "short_name": "ZWS",
+  "description": "Product studio for web apps, mobile apps, SaaS, and cloud management.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0D14",
+  "theme_color": "#0B0D14",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
