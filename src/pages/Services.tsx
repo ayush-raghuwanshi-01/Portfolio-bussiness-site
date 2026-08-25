@@ -6,25 +6,24 @@ import { FaqList } from "@/components/site/FaqList";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Reveal } from "@/components/site/Reveal";
 import { StartProjectButton } from "@/components/site/StartProjectButton";
-import { offerTiers, services } from "@/data/services";
-import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { services } from "@/data/services";
 import { serviceOptionById, site } from "@/lib/site";
 
 const ServicesPage = () => (
   <>
     <Seo
       title="Services"
-      description="Web apps, mobile apps, SaaS platforms, and cloud management from ZenWebStudio. Deliverables, stack, and a 30% OFF first-engagement offer."
+      description={`Websites from ${site.startingPrice}, business software, and mobile apps from Zenvio Labs. Clear scope. You own the work.`}
       path="/services"
     />
     <PageHero
       eyebrow="Services"
       title={
         <>
-          Four ways we put your business <em className="hl-ember not-italic">in front of customers.</em>
+          What we build — <em className="hl-ember not-italic">said simply.</em>
         </>
       }
-      body="Web Apps, Mobile Apps, Software as a Service, and Cloud Management. Each engagement includes a written scope, a named lead, and weekly staging demos."
+      body="Websites for businesses that need to be found. Software when WhatsApp and Excel are not enough. Mobile apps only when they belong on the home screen."
     />
 
     {services.map((service, index) => (
@@ -34,7 +33,7 @@ const ServicesPage = () => (
             <span className="eyebrow">{service.name}</span>
             <h2 className="mt-4 font-serif-display text-4xl sm:text-5xl">{service.short}</h2>
             <p className="mt-5 text-[15px] leading-relaxed text-foreground/72">{service.description}</p>
-            <p className="mt-4 text-sm font-medium text-ember">{service.offer}</p>
+            <p className="mt-4 text-sm font-medium text-ember">{service.priceNote}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {service.stack.map((tech) => (
                 <span
@@ -50,7 +49,7 @@ const ServicesPage = () => (
               source={`service-${service.id}`}
               service={serviceOptionById[service.id]}
             >
-              Start this build
+              Ask about this
             </StartProjectButton>
           </Reveal>
           <Reveal delay={0.08}>
@@ -62,7 +61,7 @@ const ServicesPage = () => (
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           <div className="glass rounded-[24px] p-6">
-            <h3 className="font-display text-lg font-semibold">Deliverables</h3>
+            <h3 className="font-display text-lg font-semibold">What you get</h3>
             <ul className="mt-4 space-y-3">
               {service.deliverables.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-foreground/75">
@@ -73,7 +72,7 @@ const ServicesPage = () => (
             </ul>
           </div>
           <div className="glass rounded-[24px] p-6">
-            <h3 className="font-display text-lg font-semibold">Where it shows up</h3>
+            <h3 className="font-display text-lg font-semibold">Typical jobs</h3>
             <ul className="mt-4 space-y-3">
               {service.deepDive.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-foreground/75">
@@ -87,61 +86,29 @@ const ServicesPage = () => (
       </Section>
     ))}
 
-    <Section id="offers" surface="paper">
+    <Section id="pricing" surface="paper">
       <SectionHeading
         align="center"
-        eyebrow="This quarter"
+        eyebrow="Price"
         title={
           <>
-            {site.offer} on your first engagement — <em className="hl-ember not-italic">not a rate card.</em>
+            Websites start at <em className="hl-ember not-italic">{site.startingPrice}.</em>
           </>
         }
-        body="Pick the surface you need. We send a written scope. No sticker prices on this site."
+        body="That is a 4–6 page mobile site, WhatsApp button, contact form, domain in your name, and one year online. Software and apps are quoted after a 30-minute call — in writing, before we start."
       />
-      <div className="mt-12 grid gap-5 lg:grid-cols-4">
-        {offerTiers.map((tier) => (
-          <article
-            key={tier.id}
-            className={`glass relative flex h-full flex-col rounded-[24px] p-6 ${
-              tier.featured ? "ring-2 ring-ember/60" : ""
-            }`}
-          >
-            {tier.featured && (
-              <span className="absolute right-4 top-4 rounded-full bg-gradient-ember px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                Most requested
-              </span>
-            )}
-            <h3 className="font-display text-xl font-semibold">{tier.name}</h3>
-            <p className="mt-1 text-xs text-foreground/55">{tier.tagline}</p>
-            <div className="mt-5 font-serif-display text-3xl text-ember">{tier.offer}</div>
-            <div className="text-xs text-muted-foreground">First engagement this quarter</div>
-            <ul className="mt-6 flex-1 space-y-2.5">
-              {tier.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2 text-sm text-foreground/75">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <StartProjectButton
-              className="mt-6 w-full"
-              variant={tier.featured ? "ember" : "glass"}
-              source={`offer-${tier.id}`}
-              service={tier.service === "custom" ? undefined : serviceOptionById[tier.service]}
-              onClick={() => trackEvent(AnalyticsEvents.PRICING_TIER_CLICKED, { tier: tier.name })}
-            >
-              {tier.cta}
-            </StartProjectButton>
-          </article>
-        ))}
+      <div className="mt-10 flex justify-center">
+        <StartProjectButton source="services-price" size="xl">
+          Start a project
+        </StartProjectButton>
       </div>
     </Section>
 
     <Section surface="dark">
       <SectionHeading
         eyebrow="FAQ"
-        title="Common questions about working with the studio."
-        body="Engagement model, ownership, timelines, and what happens after launch."
+        title="Common questions."
+        body="Price, ownership, timelines, and where we work."
       />
       <div className="mt-8 max-w-3xl">
         <FaqList />

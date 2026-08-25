@@ -6,13 +6,13 @@ export const WhyUs = () => (
   <Section surface="mid">
     <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr]">
       <SectionHeading
-        eyebrow="Why the studio"
+        eyebrow="The studio"
         title={
           <>
-            A young team that <em className="hl not-italic">ships like a product company.</em>
+            A young team that <em className="hl not-italic">answers the phone.</em>
           </>
         }
-        body="We are not a bloated agency and we are not a rotating bench of freelancers. You get a named lead, a written scope, and software on staging every week."
+        body="We are not a large agency and we are not a rotating bench of freelancers. You get a named person, a written scope for software, and work you can click."
       />
       <div className="grid gap-4 sm:grid-cols-2">
         {differentiators.map((item, i) => (

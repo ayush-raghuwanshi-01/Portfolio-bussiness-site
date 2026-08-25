@@ -62,8 +62,8 @@ export const LeadDialogProvider = ({ children }: { children: ReactNode }) => {
               Start a project
             </DialogTitle>
             <DialogDescription className="text-[15px] leading-relaxed text-foreground/70">
-              Tell us who you are and what you need. We reply within {site.responseTime} — no second
-              form, no budget quiz.
+              Name, phone, city, and what you need. It goes to our WhatsApp and email. We reply within{" "}
+              {site.responseTime}.
             </DialogDescription>
           </DialogHeader>
           <div className="mt-2">

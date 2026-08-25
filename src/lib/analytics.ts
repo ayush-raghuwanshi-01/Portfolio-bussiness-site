@@ -1,3 +1,26 @@
+const isRealGaId = (id: string | undefined) =>
+  Boolean(id && /^G-[A-Z0-9]+$/i.test(id) && !id.includes("XXXX"));
+
+export const initAnalytics = () => {
+  const id = import.meta.env.VITE_GA_MEASUREMENT_ID;
+  if (typeof window === "undefined" || !isRealGaId(id)) return;
+
+  const existing = document.querySelector(`script[src*="gtag/js?id=${id}"]`);
+  if (existing) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = (...args: unknown[]) => {
+    window.dataLayer?.push(args);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", id);
+};
+
 export const trackEvent = (
   eventName: string,
   params?: Record<string, string | number | boolean>,

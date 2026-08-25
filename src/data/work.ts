@@ -15,62 +15,60 @@ export type CaseStudy = {
   stack: string[];
   cover: string;
   featured?: boolean;
+  /** Honest label: studio/spec work until a paying client is named. */
+  kind: "studio" | "client";
 };
 
 export const caseStudies: CaseStudy[] = [
   {
     id: "asklytics",
     title: "Asklytics",
-    client: "Analytics workspace",
-    types: ["saas", "cloud"],
-    problem:
-      "Operators needed answers from private business data without waiting on an analyst.",
-    solution:
-      "A multi-tenant analytics SaaS with role-aware workspaces and a React + FastAPI core.",
-    outcome: "A shippable SaaS workspace — from spec to production-ready product.",
-    stack: ["React", "FastAPI", "PostgreSQL", "AWS"],
+    client: "Studio build",
+    kind: "studio",
+    types: ["software"],
+    problem: "Operators needed answers from private business data without waiting on an analyst.",
+    solution: "A multi-tenant analytics workspace with roles, built in React and FastAPI.",
+    outcome: "A working product we use to show how we design software — not a paid client case study.",
+    stack: ["React", "FastAPI", "PostgreSQL"],
     cover: asklytics,
     featured: true,
   },
   {
     id: "digital-lift",
     title: "YourDigitalLift",
-    client: "Gym operations platform",
-    types: ["saas", "mobile"],
-    problem:
-      "Independent gyms were running memberships, reminders, and attendance across spreadsheets and WhatsApp.",
-    solution:
-      "An operations platform for billing, attendance, and retention — plus a member mobile app for check-in and classes.",
-    outcome: "Web console and member app designed as one product.",
-    stack: ["React", "React Native", "PostgreSQL", "Stripe"],
+    client: "Studio build",
+    kind: "studio",
+    types: ["software", "mobile"],
+    problem: "Independent gyms were running memberships, reminders, and attendance on spreadsheets and WhatsApp.",
+    solution: "An operations console for billing and attendance, plus a member app for check-in and classes.",
+    outcome: "Web and mobile designed as one product. Shown here as studio work.",
+    stack: ["React", "React Native", "PostgreSQL"],
     cover: gym,
     featured: true,
   },
   {
     id: "commerce-engine",
-    title: "Modular commerce storefront",
-    client: "Direct-to-consumer brand",
+    title: "Modular storefront",
+    client: "Studio build",
+    kind: "studio",
     types: ["web"],
-    problem:
-      "The brand needed a storefront that could take new catalogs without a full rebuild each season.",
-    solution:
-      "A componentized React storefront with category merchandising and a fast checkout path.",
-    outcome: "A maintainable commerce UI the team can extend.",
-    stack: ["React", "TypeScript", "Stripe"],
+    problem: "A catalogue that changes every season should not need a full rebuild.",
+    solution: "A componentised React storefront with merchandising and a short checkout path.",
+    outcome: "A maintainable commerce layout the team can extend.",
+    stack: ["React", "TypeScript"],
     cover: ecommerce,
     featured: true,
   },
   {
     id: "prabha",
     title: "Prabha Foundation",
-    client: "Nonprofit",
+    client: "Studio build",
+    kind: "studio",
     types: ["web"],
-    problem:
-      "A purpose-driven organization needed a site that could tell the story and take donations.",
-    solution:
-      "An editorial web experience with donation-ready flows and a CMS the team can use.",
-    outcome: "A public home that supports fundraising and onboarding.",
-    stack: ["Next.js", "Tailwind", "CMS"],
+    problem: "A purpose-driven organisation needed a public site that could tell the story and take donations.",
+    solution: "An editorial website with donation-ready flows and pages the team can update.",
+    outcome: "A public home for fundraising and onboarding. Studio / spec work.",
+    stack: ["Next.js", "Tailwind"],
     cover: prabha,
     featured: true,
   },

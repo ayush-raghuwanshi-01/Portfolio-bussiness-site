@@ -39,7 +39,7 @@ export const Navbar = () => {
           scrolled && "shadow-elegant",
         )}
       >
-        <Link to="/" aria-label="ZenWebStudio home" className="pl-1">
+        <Link to="/" aria-label="Zenvio Labs home" className="pl-1">
           <Logo
             wordmark
             className={cn(

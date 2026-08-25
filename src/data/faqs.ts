@@ -1,34 +1,34 @@
 export const faqs = [
   {
-    q: "How do engagements actually work?",
-    a: "Most products start as a fixed-scope build with milestone billing. If the roadmap is still moving, we switch to a monthly studio pod with a named lead and weekly demos. Either way, you get a written scope before we start.",
+    q: "What does a website starting at ₹5,000 include?",
+    a: "A 4–6 page mobile site, WhatsApp button, contact form, domain in your name, and one year online. One round of text and photo changes before launch. It is not a custom app, login system, or Play Store listing.",
   },
   {
-    q: "Who owns the code and accounts?",
-    a: "You do. Repositories, design files, domain, store listings, and cloud accounts stay in your organization. We work inside them.",
+    q: "How do we start?",
+    a: "Send the short form or WhatsApp. We reply within 24 hours with a next step. Work starts after an advance. For a ₹5,000 site that is the full fee up front. For software, we send a written scope first.",
   },
   {
-    q: "How long does a typical build take?",
-    a: "A marketing or product site is usually 2–4 weeks. A mobile app is 4–8 weeks. A SaaS MVP that can take payment is typically 6–12 weeks, depending on billing complexity and integrations.",
+    q: "Who owns the website and the code?",
+    a: "You do. The domain is registered in your name. Repositories and hosting accounts stay in your organisation. After the year ends you can renew with us or take the files.",
   },
   {
-    q: "What stack does the studio use?",
-    a: "TypeScript is the default. React and Next.js on the web, React Native / Expo on mobile, Node or FastAPI, PostgreSQL, and AWS in production.",
+    q: "How long does it take?",
+    a: "A business website is usually a few days to two weeks. A small web app is typically 5–8 weeks. A mobile app is longer. We confirm dates in writing before we start.",
   },
   {
-    q: "Do you work with early-stage founders?",
-    a: "Yes. First engagements this quarter include 30% OFF. We will also tell you when you are not ready to build — and what to do instead.",
+    q: "Do you build mobile apps and SaaS?",
+    a: "Yes, when a website is not enough. Those are quoted after a call. We will also say when you do not need an app yet.",
   },
   {
-    q: "Can you take over an existing codebase?",
-    a: "Yes, after a paid technical audit. We will be direct about whether to extend, modularize, or rebuild a slice. We do not quietly rewrite products you did not ask us to rewrite.",
+    q: "Where are you based?",
+    a: "We are based in India and work with clients nationwide. You talk to the people writing the code — WhatsApp, email, or a call.",
+  },
+  {
+    q: "Can you take over an existing site?",
+    a: "Yes. We look at it first and tell you whether to fix, extend, or replace. We do not quietly rewrite what you did not ask us to rewrite.",
   },
   {
     q: "How do payments work?",
-    a: "Milestone-based for fixed scope (typically kickoff / mid / launch). Monthly in advance for retainers. We invoice in INR or USD.",
-  },
-  {
-    q: "What happens after launch?",
-    a: "Every build includes a hypercare window. After that, you can keep us on a retainer for features and operations, or take the keys and run it yourselves. We document either path.",
+    a: "Websites at the starting price: pay in full to begin. Larger software: milestone billing (typically start / mid / launch). We invoice in INR.",
   },
 ];

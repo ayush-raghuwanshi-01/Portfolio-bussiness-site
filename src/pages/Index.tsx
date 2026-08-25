@@ -19,7 +19,7 @@ const Index = () => (
     <WhyUs />
     <CtaBand
       title="Ready when you are."
-      body={`${site.name} will review what you need, recommend a surface, and send a written next step. One form. ${site.offer} ${site.offerLabel}.`}
+      body={`${site.name} will read what you need and reply within ${site.responseTime}. Websites start at ${site.startingPrice}.`}
     />
   </>
 );

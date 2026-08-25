@@ -7,7 +7,7 @@ export const WhatsAppFab = () => (
     target="_blank"
     rel="noopener noreferrer"
     onClick={() => trackEvent(AnalyticsEvents.WHATSAPP_CLICKED, { source: "fab" })}
-    aria-label="Chat with ZenWebStudio on WhatsApp"
+    aria-label="Chat with Zenvio Labs on WhatsApp"
     className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-elegant transition-transform hover:scale-[1.03] focus-visible:outline-none"
   >
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">

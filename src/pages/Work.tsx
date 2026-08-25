@@ -9,7 +9,7 @@ const WorkPage = () => (
   <>
     <Seo
       title="Work"
-      description="Case studies from ZenWebStudio — web apps, mobile apps, SaaS platforms, and cloud management. Problem, solution, stack, and outcome."
+      description="Studio builds from Zenvio Labs — websites, business software, and mobile. Honest labels. No fake live-client metrics."
       path="/work"
     />
     <PageHero
@@ -19,23 +19,17 @@ const WorkPage = () => (
           A record of <em className="hl-ember not-italic">what we have shipped.</em>
         </>
       }
-      body="Real products from the studio. Images and written case notes — no live preview buttons."
+      body="These are studio builds we use to show how we work. Paid client projects will be marked as client work when we can name them."
     />
 
     <Section surface="paper">
-      <div className="flex flex-wrap gap-2" aria-label="Work collection">
-        <span className="inline-flex rounded-full border border-ember/30 bg-ember/10 px-4 py-2 text-sm font-medium text-ember">
-          All Work
-        </span>
-      </div>
-
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+      <div className="mt-2 grid gap-6 lg:grid-cols-2">
         {caseStudies.map((item) => (
           <WorkCard key={item.id} item={item} detailed />
         ))}
       </div>
     </Section>
-    <CtaBand title="Have a product in the same shape?" />
+    <CtaBand title="Have something in the same shape?" />
   </>
 );
 

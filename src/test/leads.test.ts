@@ -11,11 +11,15 @@ describe("submitLead", () => {
       name: "Jordan Patel",
       email: "jordan@acme.dev",
       phone: "+919876543210",
-      service: "Software as a Service (SaaS)",
+      city: "Pune",
+      service: "Website",
+      message: "Need a 5-page site for our institute",
       website: "",
     });
     expect(lead.source).toBe("start-project");
-    expect(lead.service).toBe("Software as a Service (SaaS)");
+    expect(lead.service).toBe("Website");
+    expect(lead.city).toBe("Pune");
+    expect(lead.company).toBe("Pune");
     expect(lead.budget).toBeUndefined();
     expect(lead.website).toBeUndefined();
   });
@@ -39,7 +43,9 @@ describe("submitLead", () => {
       name: "Jordan Patel",
       email: "jordan@acme.dev",
       phone: "+919876543210",
-      service: "Web Apps",
+      city: "Pune",
+      service: "Website",
+      message: "Need a 5-page site",
       source: "start-project",
     });
     expect(result.success).toBe(true);

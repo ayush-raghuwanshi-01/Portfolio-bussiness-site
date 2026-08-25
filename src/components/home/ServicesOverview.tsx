@@ -15,16 +15,16 @@ export const ServicesOverview = () => {
   return (
     <Section id="services" surface="mid">
       <SectionHeading
-        eyebrow="What we build"
+        eyebrow="What we do"
         title={
           <>
-            Four surfaces. <em className="hl-ember not-italic">One engineering studio.</em>
+            Websites first. <em className="hl-ember not-italic">Software when you need it.</em>
           </>
         }
-        body="Web Apps, Mobile Apps, Software as a Service, and Cloud Management. Hover a card. Open a drawer. Every stack tag is something we actually ship."
+        body="A business site that works on a phone. Custom software if WhatsApp and Excel are no longer enough. Mobile apps only when the product belongs on the home screen."
       />
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2">
+      <div className="mt-14 grid gap-6 md:grid-cols-3">
         {services.map((service, i) => {
           const expanded = open === service.id;
           return (
@@ -32,12 +32,7 @@ export const ServicesOverview = () => {
               <TiltCard className="h-full">
                 <article className="glass-strong flex h-full flex-col overflow-hidden rounded-[28px]">
                   <div className="relative aspect-[16/9] overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt=""
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
+                    <img src={service.image} alt="" className="h-full w-full object-cover" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
                     <span className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary shadow-glow">
                       <service.icon className="h-5 w-5 text-primary-foreground" />
@@ -55,24 +50,14 @@ export const ServicesOverview = () => {
                       </Link>
                     </div>
                     <p className="mt-3 text-sm leading-relaxed text-foreground/70">{service.summary}</p>
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {service.stack.slice(0, 5).map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-md border border-border/70 bg-secondary/50 px-2 py-0.5 font-mono text-[10px] text-foreground/70"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-4 text-xs font-medium text-ember">{service.offer}</div>
+                    <div className="mt-4 text-xs font-medium text-ember">{service.priceNote}</div>
                     <button
                       type="button"
                       onClick={() => setOpen(expanded ? null : service.id)}
                       className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-foreground/80"
                       aria-expanded={expanded}
                     >
-                      {expanded ? "Hide deep-dive" : "Open deep-dive"}
+                      {expanded ? "Hide" : "What this covers"}
                       <ChevronDown className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")} />
                     </button>
                     <AnimatePresence initial={false}>
@@ -105,7 +90,7 @@ export const ServicesOverview = () => {
 
       <div className="mt-10 flex justify-center">
         <Button asChild variant="glass" size="lg" className="rounded-full">
-          <Link to="/services">See deliverables & offers</Link>
+          <Link to="/services">See what’s included</Link>
         </Button>
       </div>
     </Section>

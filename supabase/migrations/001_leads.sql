@@ -1,4 +1,4 @@
--- ZenWebStudio lead capture
+-- Zenvio Labs lead capture
 -- Run in Supabase → SQL Editor (or any Postgres compatible with RLS).
 
 create table if not exists public.leads (
@@ -31,4 +31,4 @@ create policy "Allow public inserts"
 -- No public select / update / delete.
 -- Read leads from the Supabase dashboard or a service-role client.
 
-comment on table public.leads is 'Website contact and booking submissions for ZenWebStudio.';
+comment on table public.leads is 'Website contact and booking submissions for Zenvio Labs.';

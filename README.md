@@ -1,14 +1,14 @@
-# ZenWebStudio
+# Zenvio Labs
 
-Production marketing site for **ZenWebStudio** — a product engineering studio for SaaS platforms, custom web applications, and mobile apps.
+Marketing site for **Zenvio Labs** — a studio for websites and business software. Websites start at ₹5,000.
 
 ## Pages
 
-- `/` — landing
-- `/services` — three pillars, pricing, FAQ
-- `/work` — filterable case studies
-- `/about` — story, team, values, process
-- `/contact` — persisted contact + booking forms
+- `/` — home
+- `/services` — websites, business software, mobile apps, FAQ
+- `/work` — studio builds
+- `/about` — team and process
+- `/contact` — WhatsApp, email, form
 - `/privacy`, `/terms`
 
 ## Develop
@@ -18,13 +18,7 @@ npm install
 npm run dev
 ```
 
-The app binds to `0.0.0.0:8080`. Contact forms POST to `/api/leads` (Vite middleware, stored in `data/leads.json`) and, when configured, to Supabase.
-
-## Production leads
-
-1. Copy `.env.example` to `.env`
-2. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
-3. Run `supabase/migrations/001_leads.sql` in the SQL editor
+The app binds to `0.0.0.0:8080`. Enquiries `POST /api/leads` and are sent to WhatsApp + `zenwebstudio.in@gmail.com`. See `SETUP.md`.
 
 ## Scripts
 

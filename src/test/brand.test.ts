@@ -4,60 +4,55 @@ import { services } from "@/data/services";
 import { caseStudies } from "@/data/work";
 import { leadSchema } from "@/lib/leads";
 
-describe("ZenWebStudio brand", () => {
+describe("Zenvio Labs brand", () => {
   it("uses company identity, not a personal portfolio", () => {
-    expect(site.name).toBe("ZenWebStudio");
-    expect(site.email).toBe("hello@zenwebstudio.com");
-    expect(site.email).not.toMatch(/gmail\.com/i);
+    expect(site.name).toBe("Zenvio Labs");
+    expect(site.email).toBe("zenwebstudio.in@gmail.com");
     expect(site.tagline.toLowerCase()).not.toContain("hire me");
+    expect(site.location).toMatch(/India/);
+    expect(JSON.stringify(site)).not.toMatch(/Bhopal/i);
     expect(JSON.stringify(site)).not.toContain("CompanyName");
+    expect(JSON.stringify(site)).not.toMatch(/30%\s*OFF/i);
   });
 
   it("titles pages with the studio name", () => {
-    expect(pageTitle("Services")).toBe("Services — ZenWebStudio");
+    expect(pageTitle("Services")).toBe("Services — Zenvio Labs");
   });
 });
 
 describe("service matrix", () => {
-  it("exposes the four product surfaces", () => {
-    expect(services.map((s) => s.id)).toEqual(["web", "mobile", "saas", "cloud"]);
-    expect(services.map((s) => s.name)).toEqual([
-      "Web Apps",
-      "Mobile Apps",
-      "Software as a Service (SaaS)",
-      "Cloud Management",
-    ]);
-    expect(serviceOptions).toEqual([
-      "Web Apps",
-      "Mobile Apps",
-      "Software as a Service (SaaS)",
-      "Cloud Management",
-    ]);
+  it("leads with websites and business software", () => {
+    expect(services.map((s) => s.id)).toEqual(["web", "software", "mobile"]);
+    expect(services.map((s) => s.name)).toEqual(["Websites", "Business software", "Mobile apps"]);
+    expect(serviceOptions).toEqual(["Website", "Business software", "Mobile app", "Not sure"]);
   });
 
-  it("does not advertise AI-managed growth or rupee sticker prices", () => {
-    const blob = services.map((s) => `${s.name} ${s.short} ${s.offer}`).join(" ").toLowerCase();
-    expect(blob).not.toContain("ai-managed growth");
-    expect(blob).not.toContain("ai engineering");
-    expect(JSON.stringify(services)).not.toMatch(/₹|49999/);
+  it("states a starting website price in rupees and does not advertise a blanket discount", () => {
+    const web = services.find((s) => s.id === "web");
+    expect(web?.priceNote).toMatch(/₹5,000/);
+    const blob = services.map((s) => `${s.name} ${s.short} ${s.priceNote}`).join(" ");
+    expect(blob).not.toMatch(/30%\s*OFF/i);
+    expect(blob.toLowerCase()).not.toContain("ai-managed growth");
   });
 
-  it("lists case studies without live preview links", () => {
-    expect(caseStudies.some((c) => c.types.includes("saas"))).toBe(true);
+  it("lists studio builds without live preview links", () => {
+    expect(caseStudies.some((c) => c.types.includes("software"))).toBe(true);
     expect(caseStudies.some((c) => c.types.includes("web"))).toBe(true);
     expect(caseStudies.some((c) => c.types.includes("mobile"))).toBe(true);
-    expect(caseStudies.some((c) => c.types.includes("cloud"))).toBe(true);
+    expect(caseStudies.every((c) => c.kind === "studio" || c.kind === "client")).toBe(true);
     expect(caseStudies.every((c) => !("href" in c) && !("live" in c))).toBe(true);
   });
 });
 
 describe("lead form", () => {
-  it("accepts a complete start-a-project brief", () => {
+  it("accepts a complete enquiry", () => {
     const parsed = leadSchema.safeParse({
       name: "Jordan Patel",
       email: "jordan@acme.dev",
       phone: "+919876543210",
+      city: "Pune",
       service: serviceOptions[0],
+      message: "Need a 5-page site for our coaching institute",
       website: "",
     });
     expect(parsed.success).toBe(true);
@@ -68,7 +63,9 @@ describe("lead form", () => {
       name: "Jo",
       email: "not-an-email",
       phone: "",
+      city: "",
       service: serviceOptions[1],
+      message: "Hi",
     });
     expect(parsed.success).toBe(false);
   });
@@ -78,7 +75,9 @@ describe("lead form", () => {
       name: "Bot",
       email: "bot@example.com",
       phone: "+919876543210",
+      city: "Pune",
       service: serviceOptions[0],
+      message: "Need a website for my shop",
       website: "https://spam.test",
     });
     expect(parsed.success).toBe(false);
@@ -89,7 +88,9 @@ describe("lead form", () => {
       name: "Jordan Patel",
       email: "jordan@acme.dev",
       phone: "+919876543210",
+      city: "Indore",
       service: serviceOptions[2],
+      message: "Want a member app for our gym",
       budget: "do-not-accept",
     });
     expect(parsed.success).toBe(true);

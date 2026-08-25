@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Briefcase, CheckCircle2, Mail, Phone, Send, User } from "lucide-react";
+import { Briefcase, CheckCircle2, Mail, MapPin, MessageSquare, Phone, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,7 +13,9 @@ const emptyLead = (service: ServiceOption = serviceOptions[0]): LeadValues => ({
   name: "",
   email: "",
   phone: "",
+  city: "",
   service,
+  message: "",
   website: "",
 });
 
@@ -61,7 +63,7 @@ export const LeadForm = ({
     if (result.success) {
       trackEvent(AnalyticsEvents.LEAD_FORM_SUBMITTED, { service: parsed.data.service });
       setSubmitted(true);
-      toast.success(`Request received — we reply within ${site.responseTime}.`);
+      toast.success(`Received. We reply within ${site.responseTime}.`);
       setValues(emptyLead(defaultService));
       onSuccess?.();
     } else {
@@ -75,8 +77,8 @@ export const LeadForm = ({
         <CheckCircle2 className="h-14 w-14 text-success" />
         <h3 className="mt-5 font-display text-2xl font-semibold">We have your request</h3>
         <p className="mt-3 max-w-sm text-sm text-foreground/70">
-          A founder or lead engineer will reply within {site.responseTime}. If it is urgent, WhatsApp
-          the studio directly.
+          It has gone to our WhatsApp and email. We reply within {site.responseTime}. If it is urgent, message us
+          now.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button asChild variant="ember" size="sm" className="rounded-full">
@@ -108,7 +110,7 @@ export const LeadForm = ({
             if (touched.name) mark("name", value.trim().length >= 2 ? undefined : "Name is too short");
           }}
           onBlur={() => mark("name", values.name.trim().length >= 2 ? undefined : "Name is too short")}
-          placeholder="Jordan Patel"
+          placeholder="Your name"
           autoComplete="name"
         />
       </Field>
@@ -128,13 +130,13 @@ export const LeadForm = ({
             if (touched.email) mark("email", emailOk(value) ? undefined : "Enter a valid email");
           }}
           onBlur={() => mark("email", emailOk(values.email) ? undefined : "Enter a valid email")}
-          placeholder="you@company.com"
+          placeholder="you@business.com"
           autoComplete="email"
         />
       </Field>
 
       <Field
-        label="Contact number"
+        label="WhatsApp / phone"
         icon={Phone}
         error={errors.phone}
         valid={touched.phone && !errors.phone && phoneOk(values.phone)}
@@ -153,7 +155,26 @@ export const LeadForm = ({
         />
       </Field>
 
-      <Field label="Service" icon={Briefcase} error={errors.service}>
+      <Field
+        label="City"
+        icon={MapPin}
+        error={errors.city}
+        valid={touched.city && !errors.city && values.city.trim().length >= 2}
+      >
+        <Input
+          value={values.city}
+          onChange={(e) => {
+            const value = e.target.value;
+            setValues((v) => ({ ...v, city: value }));
+            if (touched.city) mark("city", value.trim().length >= 2 ? undefined : "Enter your city");
+          }}
+          onBlur={() => mark("city", values.city.trim().length >= 2 ? undefined : "Enter your city")}
+          placeholder="Your city"
+          autoComplete="address-level2"
+        />
+      </Field>
+
+      <Field label="What do you need?" icon={Briefcase} error={errors.service}>
         <select
           value={values.service}
           onChange={(e) => setValues((v) => ({ ...v, service: e.target.value as ServiceOption }))}
@@ -167,6 +188,28 @@ export const LeadForm = ({
         </select>
       </Field>
 
+      <Field
+        label="A line about the work"
+        icon={MessageSquare}
+        error={errors.message}
+        valid={touched.message && !errors.message && values.message.trim().length >= 8}
+      >
+        <textarea
+          value={values.message}
+          onChange={(e) => {
+            const value = e.target.value;
+            setValues((v) => ({ ...v, message: value }));
+            if (touched.message) mark("message", value.trim().length >= 8 ? undefined : "A little more detail, please");
+          }}
+          onBlur={() =>
+            mark("message", values.message.trim().length >= 8 ? undefined : "A little more detail, please")
+          }
+          placeholder="Example: coaching institute, need a 5-page site this month"
+          rows={3}
+          className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+      </Field>
+
       <input
         tabIndex={-1}
         autoComplete="off"
@@ -178,11 +221,11 @@ export const LeadForm = ({
 
       <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-muted-foreground">
-          Stored for the studio team. No newsletters. Reply within {site.responseTime}.
+          Goes to our WhatsApp and {site.email}. Reply within {site.responseTime}. No newsletter.
         </p>
         <Button type="submit" variant="ember" size="lg" disabled={submitting} className="rounded-full">
           <Send className="h-4 w-4" />
-          {submitting ? "Sending…" : "Start a Project"}
+          {submitting ? "Sending…" : "Send enquiry"}
         </Button>
       </div>
     </form>
@@ -197,7 +240,7 @@ const Field = ({
   children,
 }: {
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className: string }>;
   error?: string;
   valid?: boolean;
   children: ReactNode;
@@ -210,9 +253,9 @@ const Field = ({
     <div
       className={
         error
-          ? "[&_input]:border-destructive [&_select]:border-destructive"
+          ? "[&_input]:border-destructive [&_select]:border-destructive [&_textarea]:border-destructive"
           : valid
-            ? "[&_input]:border-success/60 [&_select]:border-success/60"
+            ? "[&_input]:border-success/60 [&_select]:border-success/60 [&_textarea]:border-success/60"
             : ""
       }
     >
