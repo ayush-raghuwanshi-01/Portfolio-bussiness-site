@@ -13,11 +13,11 @@ export const faqs = [
   },
   {
     q: "What stack does the studio use?",
-    a: "TypeScript is the default. React and Next.js on the web, React Native / Expo on mobile (Flutter when the existing app already lives there), Node or FastAPI — Spring Boot when the backend already is Java — PostgreSQL, and AWS in production.",
+    a: "TypeScript is the default. React and Next.js on the web, React Native / Expo on mobile, Node or FastAPI, PostgreSQL, and AWS in production.",
   },
   {
     q: "Do you work with early-stage founders?",
-    a: "Yes. Starting prices are published because early teams should not have to decode an agency rate card. We will also tell you when you are not ready to build — and what to do instead.",
+    a: "Yes. First engagements this quarter include 30% OFF. We will also tell you when you are not ready to build — and what to do instead.",
   },
   {
     q: "Can you take over an existing codebase?",

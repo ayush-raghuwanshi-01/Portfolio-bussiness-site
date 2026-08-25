@@ -21,7 +21,7 @@ export const ServicesOverview = () => {
             Four surfaces. <em className="hl-ember not-italic">One engineering studio.</em>
           </>
         }
-        body="Custom software on the web, mobile clients, applied AI inside those products, and the cloud they run on. Hover a card. Open a drawer. Every stack tag is something we actually ship."
+        body="Web Apps, Mobile Apps, Software as a Service, and Cloud Management. Hover a card. Open a drawer. Every stack tag is something we actually ship."
       />
 
       <div className="mt-14 grid gap-6 md:grid-cols-2">
@@ -65,7 +65,7 @@ export const ServicesOverview = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="mt-4 text-xs font-medium text-ember">From {service.startingFrom}</div>
+                    <div className="mt-4 text-xs font-medium text-ember">{service.offer}</div>
                     <button
                       type="button"
                       onClick={() => setOpen(expanded ? null : service.id)}
@@ -105,7 +105,7 @@ export const ServicesOverview = () => {
 
       <div className="mt-10 flex justify-center">
         <Button asChild variant="glass" size="lg" className="rounded-full">
-          <Link to="/services">See deliverables & pricing</Link>
+          <Link to="/services">See deliverables & offers</Link>
         </Button>
       </div>
     </Section>

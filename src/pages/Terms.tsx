@@ -19,8 +19,8 @@ const TermsPage = () => (
           marketing copy on this site if there is a conflict.
         </p>
         <p>
-          Starting prices are indicative for a well-bounded first version. They are not a binding
-          offer. Scope, timeline, and fees are confirmed in writing before work starts.
+          Offers on this site, including seasonal discounts, are indicative. They are not a binding
+          quote. Scope, timeline, and fees are confirmed in writing before work starts.
         </p>
         <p>
           Case studies describe studio work. Metrics are limited to outcomes we can stand behind.

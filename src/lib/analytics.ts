@@ -13,6 +13,7 @@ export const AnalyticsEvents = {
   SERVICES_CTA_CLICKED: "services_cta_click",
   BOOKING_FORM_SUBMITTED: "booking_form_submit",
   CONTACT_FORM_SUBMITTED: "contact_form_submit",
+  LEAD_FORM_SUBMITTED: "lead_form_submit",
   WHATSAPP_CLICKED: "whatsapp_click",
   CALL_CLICKED: "call_click",
   NAV_CTA_CLICKED: "nav_cta_click",

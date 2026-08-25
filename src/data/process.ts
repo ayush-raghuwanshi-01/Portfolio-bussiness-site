@@ -43,12 +43,12 @@ export const differentiators = [
     body: "WhatsApp, email, or a call — you talk to the people building the product, not a ticket queue.",
   },
   {
-    title: "Founder-friendly pricing",
-    body: "Published starting points. Milestone billing. No agency markup for account management you did not ask for.",
+    title: "Clear commercial terms",
+    body: "Written scope. Milestone billing. 30% OFF the first engagement this quarter — no agency markup for account management you did not ask for.",
   },
   {
     title: "One studio, four surfaces",
-    body: "Web, mobile, applied AI, and cloud are designed as one system so your customer does not feel the seams.",
+    body: "Web Apps, Mobile Apps, SaaS, and Cloud Management are designed as one system so your customer does not feel the seams.",
   },
 ];
 

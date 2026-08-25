@@ -1,17 +1,23 @@
 import type { LucideIcon } from "lucide-react";
-import { AppWindow, Cloud, Smartphone, Sparkles } from "lucide-react";
+import { AppWindow, Cloud, Layers, Smartphone } from "lucide-react";
 import visualWeb from "@/assets/brand/visual-web.jpg";
 import visualMobile from "@/assets/brand/visual-mobile.jpg";
-import visualAi from "@/assets/brand/visual-ai.jpg";
+import visualSaas from "@/assets/brand/visual-saas.jpg";
 import visualCloud from "@/assets/brand/visual-cloud.jpg";
 
-export type ServiceId = "saas" | "web" | "mobile" | "ai" | "cloud";
+export type ServiceId = "web" | "mobile" | "saas" | "cloud";
 
-export type PricingTier = {
+export const serviceLabels: Record<ServiceId, string> = {
+  web: "Web",
+  mobile: "Mobile",
+  saas: "SaaS",
+  cloud: "Cloud",
+};
+
+export type OfferTier = {
   id: string;
   name: string;
-  price: string;
-  period: string;
+  offer: string;
   tagline: string;
   featured?: boolean;
   features: string[];
@@ -20,17 +26,16 @@ export type PricingTier = {
 };
 
 export type ServicePillar = {
-  id: Exclude<ServiceId, "saas">;
+  id: ServiceId;
   icon: LucideIcon;
   name: string;
   short: string;
   summary: string;
   description: string;
   image: string;
-  startingFrom: string;
+  offer: string;
   deliverables: string[];
   stack: string[];
-  process: string[];
   deepDive: string[];
 };
 
@@ -39,30 +44,22 @@ export const services: ServicePillar[] = [
     id: "web",
     icon: AppWindow,
     name: "Web Apps",
-    short: "Custom software and product sites that feel native to the browser.",
-    summary:
-      "Customer portals, ops consoles, and SaaS front-ends — fast, accessible, and ready to rank.",
+    short: "Product sites and custom web software your customers actually use.",
+    summary: "Portals, dashboards, and conversion-ready websites — fast, clear, and built to grow with you.",
     description:
-      "We engineer the web surfaces your team and customers live in: multi-tenant SaaS UIs, internal tools, and conversion-ready product sites. Performance, SEO, and a design system are part of the build, not a cleanup sprint after launch.",
+      "We design and build the web surfaces your team and customers live in: customer portals, ops consoles, and marketing sites that feel like a product. Performance, SEO, and a design system are part of the build.",
     image: visualWeb,
-    startingFrom: "₹49,999 / $799",
+    offer: "30% OFF first web build",
     deliverables: [
       "UX flows and a reusable component system",
       "Responsive production frontend",
       "Auth, roles, and form-heavy workflows",
       "CMS or admin where it earns its keep",
-      "Core Web Vitals and technical SEO",
-      "Analytics and conversion tracking",
+      "Technical SEO and analytics",
     ],
-    stack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind"],
-    process: [
-      "Clarify jobs-to-be-done and sitemap",
-      "Design the system, not one-off pages",
-      "Build against real content and data",
-      "Ship, measure, and iterate",
-    ],
+    stack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL"],
     deepDive: [
-      "SaaS dashboards and multi-tenant admin",
+      "Customer portals and admin consoles",
       "Marketing sites that share the product system",
       "Internal tools that replace spreadsheet ops",
     ],
@@ -72,164 +69,130 @@ export const services: ServicePillar[] = [
     icon: Smartphone,
     name: "Mobile Apps",
     short: "iOS and Android from one codebase — designed for the hand.",
-    summary:
-      "Store-ready mobile products: offline-tolerant, push-aware, and launched with the API they need.",
+    summary: "Store-ready mobile products with auth, push, and the API they need to stay useful.",
     description:
-      "We ship cross-platform apps with React Native and Expo when speed matters, and drop to native modules when the product needs it. Flutter is on the table when your existing app already lives there. Onboarding, notifications, payments, and store submission sit in the same engagement.",
+      "We ship cross-platform apps with React Native so you launch on iOS and Android together. Onboarding, notifications, payments, and store submission sit in the same engagement.",
     image: visualMobile,
-    startingFrom: "₹99,999 / $1,499",
+    offer: "30% OFF first mobile app",
     deliverables: [
       "iOS + Android from one codebase",
       "Auth, profiles, and push notifications",
-      "Offline-tolerant local state",
-      "Payments and in-app purchases",
-      "App Store and Play Console launch",
-      "Crash reporting and a release train",
+      "Payments and core product flows",
+      "App Store and Play Console launch support",
     ],
-    stack: ["React Native", "Expo", "TypeScript", "Flutter", "Firebase", "Node.js"],
-    process: [
-      "Define the mobile-critical journeys",
-      "Prototype on-device, not only in Figma",
-      "Build and test on real hardware",
-      "Submit, review, and support launch week",
-    ],
+    stack: ["React Native", "Expo", "TypeScript", "Node.js"],
     deepDive: [
-      "Companion apps for an existing SaaS",
+      "Companion apps for an existing product",
       "Standalone consumer or ops apps",
-      "Store listing, review, and launch week",
+      "Store listing and launch-week support",
     ],
   },
   {
-    id: "ai",
-    icon: Sparkles,
-    name: "AI Engineering",
-    short: "Models inside real products — not a chatbot bolted on after.",
-    summary:
-      "Private-data assistants, document pipelines, and workflow agents wired into the software you already run.",
+    id: "saas",
+    icon: Layers,
+    name: "Software as a Service (SaaS)",
+    short: "Multi-tenant products that onboard, bill, and scale.",
+    summary: "The platform your customers log into — auth, roles, billing, and an admin they can run.",
     description:
-      "We put applied AI where it changes an operator’s day: retrieval over your warehouse, structured extraction, and guarded agents. Data stays in your boundary. We will also tell you when a rules engine is the better product.",
-    image: visualAi,
-    startingFrom: "₹99,999 / $1,499",
+      "We engineer SaaS the way a founding product team would: multi-tenant from day one, seat or plan billing, role-aware admin, and a weekly release cadence you can demo.",
+    image: visualSaas,
+    offer: "30% OFF first SaaS slice",
     deliverables: [
-      "Use-case and data-boundary workshop",
-      "Retrieval / extraction / agent slice",
-      "Guardrails, evals, and audit logs",
-      "Product UI for the human in the loop",
-      "API into your existing app",
-      "Cost and latency budget",
+      "Product architecture and tenant model",
+      "Auth, organisations, and roles",
+      "Billing, plans, and invoices",
+      "Admin + customer dashboards",
+      "Staging and production launch",
     ],
-    stack: ["Python", "FastAPI", "TypeScript", "PostgreSQL", "OpenAI / open models", "AWS"],
-    process: [
-      "Name the job and the data you can actually use",
-      "Ship a thin, measurable slice",
-      "Add evals before you scale spend",
-      "Harden and hand off with runbooks",
-    ],
+    stack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "AWS"],
     deepDive: [
-      "Private Q&A over company data",
-      "Document intake and classification",
-      "Ops agents with a human approval step",
+      "First paying-customer MVP",
+      "Billing and plan management",
+      "Admin tools your team can run",
     ],
   },
   {
     id: "cloud",
     icon: Cloud,
-    name: "Cloud Architecture",
-    short: "AWS-shaped infrastructure that a small team can actually run.",
-    summary:
-      "Environments, CI, observability, and the path from staging to production — without a mystery bill.",
+    name: "Cloud Management",
+    short: "Cloud your small team can actually operate.",
+    summary: "Environments, deploys, monitoring, and the path from staging to production — without a mystery bill.",
     description:
-      "We design the cloud path your product needs: environments, secrets, deploys, logs, and rollback. SaaS multi-tenant data models and Spring Boot / Node services land on the same pipeline. You own the accounts.",
+      "We set up and look after the cloud path your product needs: environments, secrets, deploys, logs, and rollback. You own the accounts. We keep them readable.",
     image: visualCloud,
-    startingFrom: "₹79,999 / $999",
+    offer: "30% OFF first cloud setup",
     deliverables: [
-      "Environment and network sketch",
-      "CI/CD with preview or staging",
+      "Environment and access sketch",
+      "CI/CD with staging",
       "Secrets, roles, and least privilege",
-      "Logs, traces, and uptime checks",
-      "Backup and rollback runbook",
-      "Cost baseline you can read",
+      "Logs, checks, and a rollback runbook",
     ],
-    stack: ["AWS", "Docker", "GitHub Actions", "PostgreSQL", "Node.js", "Spring Boot"],
-    process: [
-      "Inventory what you already run",
-      "Draw the smallest reliable topology",
-      "Automate the path to production",
-      "Document who does what at 2am",
-    ],
+    stack: ["AWS", "Docker", "GitHub Actions", "PostgreSQL"],
     deepDive: [
-      "Greenfield SaaS on AWS",
+      "Greenfield product on AWS",
       "Rescue a fragile single-box deploy",
-      "Observability and incident basics",
+      "Ongoing cloud hygiene",
     ],
   },
 ];
 
-export const pricingTiers: PricingTier[] = [
+export const offerTiers: OfferTier[] = [
   {
     id: "web",
-    name: "Web App",
-    price: "From ₹49,999",
-    period: "fixed-scope start",
+    name: "Web Apps",
+    offer: "30% OFF",
     tagline: "Sites, portals, and internal tools",
     service: "web",
     features: [
-      "Up to 8 production screens",
       "Design system + responsive UI",
       "CMS or admin for content",
       "SEO and analytics baseline",
-      "2 weeks of launch support",
+      "Launch support window",
     ],
-    cta: "Start a web build",
+    cta: "Start a web project",
   },
   {
     id: "mobile",
-    name: "Mobile App",
-    price: "From ₹99,999",
-    period: "iOS + Android",
-    tagline: "Store-ready companion or standalone app",
+    name: "Mobile Apps",
+    offer: "30% OFF",
+    tagline: "iOS + Android, one codebase",
     service: "mobile",
     features: [
-      "React Native app, both stores",
-      "Auth, push, and core flows",
-      "API integration",
-      "TestFlight / internal testing",
+      "Core product flows",
+      "Auth and push",
       "Store listing support",
+      "Launch-week coverage",
     ],
-    cta: "Start a mobile build",
+    cta: "Start a mobile project",
   },
   {
     id: "saas",
-    name: "SaaS + AI",
-    price: "From ₹1,49,999",
-    period: "product slice to first revenue",
-    tagline: "The platform your customers log into",
+    name: "SaaS",
+    offer: "30% OFF",
+    tagline: "The product your customers log into",
     featured: true,
     service: "saas",
     features: [
       "Multi-tenant architecture",
       "Auth, roles, and admin",
-      "Stripe billing or metered usage",
-      "Optional AI slice with evals",
+      "Billing-ready foundation",
       "Staging + production launch",
     ],
-    cta: "Scope a SaaS MVP",
+    cta: "Start a SaaS project",
   },
   {
-    id: "custom",
-    name: "Studio Pod",
-    price: "Let's talk",
-    period: "monthly or multi-phase",
-    tagline: "A dedicated engineering pod",
-    service: "custom",
+    id: "cloud",
+    name: "Cloud Management",
+    offer: "30% OFF",
+    tagline: "A cloud path you can run",
+    service: "cloud",
     features: [
-      "Named lead + weekly demos",
-      "Web, mobile, AI, and cloud",
-      "Roadmap and backlog ownership",
-      "Priority Slack / WhatsApp",
-      "Retainer or milestone billing",
+      "Environments and deploys",
+      "Monitoring basics",
+      "Secrets and access",
+      "A written runbook",
     ],
-    cta: "Book a consultation",
+    cta: "Start a cloud project",
   },
 ];
 

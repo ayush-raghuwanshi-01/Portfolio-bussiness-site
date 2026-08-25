@@ -1,7 +1,7 @@
 {
   "name": "ZenWebStudio",
   "short_name": "ZWS",
-  "description": "Product engineering studio for SaaS, web apps, and mobile apps.",
+  "description": "Product studio for web apps, mobile apps, SaaS, and cloud management.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0D14",

@@ -14,8 +14,8 @@ export const Footer = () => {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/65">
-              A product engineering studio for custom software, web and mobile apps, applied AI,
-              and cloud architecture. We scope honestly, ship weekly, and stay on the line after launch.
+              A product studio for web apps, mobile apps, SaaS platforms, and cloud management. We
+              scope honestly, ship weekly, and stay on the line after launch.
             </p>
             <div className="mt-6 flex gap-2">
               <a
@@ -31,7 +31,7 @@ export const Footer = () => {
                 href={site.social.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="ZenWebStudio on LinkedIn"
+                aria-label="ZenWebStudio on Linkedin"
                 className="grid h-10 w-10 place-items-center rounded-full border border-border/70 text-foreground/70 transition-colors hover:border-ember/50 hover:text-ember"
               >
                 <Linkedin className="h-4 w-4" />
@@ -50,8 +50,8 @@ export const Footer = () => {
                 </li>
               ))}
               <li>
-                <Link to="/services#pricing" className="transition-colors hover:text-foreground">
-                  Pricing
+                <Link to="/services#offers" className="transition-colors hover:text-foreground">
+                  Offers
                 </Link>
               </li>
             </ul>
@@ -126,7 +126,7 @@ export const Footer = () => {
           <p>
             © {year} {site.legalName}. All rights reserved.
           </p>
-          <p>Web · Mobile · AI · Cloud · Reply within {site.responseTime}.</p>
+          <p>Web · Mobile · SaaS · Cloud · Reply within {site.responseTime}.</p>
         </div>
       </div>
     </footer>

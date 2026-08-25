@@ -15,9 +15,8 @@ const PrivacyPage = () => (
       <div className="prose prose-invert max-w-3xl text-sm leading-relaxed text-foreground/75">
         <h2 className="font-display text-xl text-foreground">What we collect</h2>
         <p>
-          When you submit a contact or booking form we store your name, email, phone if provided,
-          company, selected service, budget, preferred time, and message. Server logs may include
-          IP address and user agent for security.
+          When you submit the Start a Project form we store your name, email, contact number, and
+          selected service. Server logs may include IP address and user agent for security.
         </p>
         <h2 className="mt-8 font-display text-xl text-foreground">Why we collect it</h2>
         <p>

@@ -2,10 +2,6 @@ import asklytics from "@/assets/asklytics-project.jpg";
 import ecommerce from "@/assets/Ecommerse-project.jpg";
 import gym from "@/assets/gym-project.jpg";
 import prabha from "@/assets/project-prabha.jpg";
-import mobileGym from "@/assets/brand/mobile-gym-app.jpg";
-import visualSaas from "@/assets/brand/visual-saas.jpg";
-import visualWeb from "@/assets/brand/visual-web.jpg";
-import visualAi from "@/assets/brand/visual-ai.jpg";
 import type { ServiceId } from "@/data/services";
 
 export type CaseStudy = {
@@ -17,44 +13,37 @@ export type CaseStudy = {
   solution: string;
   outcome: string;
   stack: string[];
-  href?: string;
   cover: string;
-  gallery: string[];
   featured?: boolean;
-  live?: boolean;
 };
 
 export const caseStudies: CaseStudy[] = [
   {
     id: "asklytics",
     title: "Asklytics",
-    client: "Asklytics.in",
-    types: ["saas", "ai", "cloud"],
+    client: "Analytics workspace",
+    types: ["saas", "cloud"],
     problem:
-      "Operators needed answers from private business data without waiting on an analyst — or sending that data to a public model.",
+      "Operators needed answers from private business data without waiting on an analyst.",
     solution:
-      "A multi-tenant analytics SaaS: natural-language questions over connected warehouses, role-aware workspaces, and a React + FastAPI core that keeps data inside the customer's boundary.",
-    outcome: "Live product at asklytics.in — from spec to a shippable SaaS workspace.",
-    stack: ["React", "FastAPI", "PostgreSQL", "Python", "AWS"],
-    href: "https://asklytics.in",
+      "A multi-tenant analytics SaaS with role-aware workspaces and a React + FastAPI core.",
+    outcome: "A shippable SaaS workspace — from spec to production-ready product.",
+    stack: ["React", "FastAPI", "PostgreSQL", "AWS"],
     cover: asklytics,
-    gallery: [asklytics, visualAi, visualSaas],
     featured: true,
-    live: true,
   },
   {
     id: "digital-lift",
     title: "YourDigitalLift",
-    client: "Gym operations SaaS",
+    client: "Gym operations platform",
     types: ["saas", "mobile"],
     problem:
-      "Independent gyms were running memberships, reminders, and attendance across spreadsheets and WhatsApp threads.",
+      "Independent gyms were running memberships, reminders, and attendance across spreadsheets and WhatsApp.",
     solution:
-      "A founder-priced operations platform for billing, attendance, and retention — plus a member mobile app for check-in, classes, and QR access.",
-    outcome: "Web console and member app designed as one product, not a bolted-on afterthought.",
-    stack: ["React", "React Native", "FastAPI", "PostgreSQL", "Stripe"],
+      "An operations platform for billing, attendance, and retention — plus a member mobile app for check-in and classes.",
+    outcome: "Web console and member app designed as one product.",
+    stack: ["React", "React Native", "PostgreSQL", "Stripe"],
     cover: gym,
-    gallery: [gym, mobileGym],
     featured: true,
   },
   {
@@ -63,13 +52,12 @@ export const caseStudies: CaseStudy[] = [
     client: "Direct-to-consumer brand",
     types: ["web"],
     problem:
-      "The brand needed a storefront that could take new catalogs and payment rails without a full rebuild each season.",
+      "The brand needed a storefront that could take new catalogs without a full rebuild each season.",
     solution:
-      "A componentized React storefront with category merchandising, a fast checkout path, and SEO-aware product pages.",
-    outcome: "A maintainable commerce UI the team can extend without starting over.",
-    stack: ["React", "TypeScript", "Stripe", "SEO"],
+      "A componentized React storefront with category merchandising and a fast checkout path.",
+    outcome: "A maintainable commerce UI the team can extend.",
+    stack: ["React", "TypeScript", "Stripe"],
     cover: ecommerce,
-    gallery: [ecommerce, visualWeb],
     featured: true,
   },
   {
@@ -78,23 +66,14 @@ export const caseStudies: CaseStudy[] = [
     client: "Nonprofit",
     types: ["web"],
     problem:
-      "A purpose-driven organization needed a site that could tell the story and take action — donations and member onboarding — without agency theater.",
+      "A purpose-driven organization needed a site that could tell the story and take donations.",
     solution:
-      "An editorial web experience with donation-ready flows, clear information architecture, and a CMS the team can actually use.",
-    outcome: "A public-facing home that supports fundraising and onboarding in one place.",
+      "An editorial web experience with donation-ready flows and a CMS the team can use.",
+    outcome: "A public home that supports fundraising and onboarding.",
     stack: ["Next.js", "Tailwind", "CMS"],
     cover: prabha,
-    gallery: [prabha, visualWeb],
+    featured: true,
   },
-];
-
-export const workFilters: { id: "all" | ServiceId; label: string }[] = [
-  { id: "all", label: "All work" },
-  { id: "web", label: "Web" },
-  { id: "mobile", label: "Mobile" },
-  { id: "ai", label: "AI" },
-  { id: "cloud", label: "Cloud" },
-  { id: "saas", label: "SaaS" },
 ];
 
 export const featuredWork = caseStudies.filter((c) => c.featured);

@@ -3,9 +3,9 @@ export const site = {
   legalName: "ZenWebStudio",
   shortName: "ZWS",
   tagline: "We build the software your business runs on.",
-  headline: "Custom software, web, mobile, and AI — engineered to ship.",
+  headline: "Web apps, mobile apps, SaaS, and cloud — built for your business.",
   description:
-    "ZenWebStudio is a product engineering studio that designs and ships custom software, modern web applications, mobile apps, applied AI, and cloud architecture for founders and growing businesses.",
+    "ZenWebStudio is a product studio that designs and ships web applications, mobile apps, SaaS platforms, and cloud management for founders and growing businesses.",
   url: "https://zenwebstudio.com",
   email: "hello@zenwebstudio.com",
   phoneDisplay: "+91 95845 59972",
@@ -15,6 +15,8 @@ export const site = {
   responseTime: "24 hours",
   foundedYear: 2023,
   availability: "Available for new projects",
+  offer: "30% OFF",
+  offerLabel: "on your first engagement this quarter",
   social: {
     github: "https://github.com/zenwebstudio",
     linkedin: "https://linkedin.com/company/zenwebstudio",
@@ -29,37 +31,32 @@ export const navLinks = [
 ] as const;
 
 export const serviceOptions = [
-  "Web App Development",
-  "Mobile App Development",
-  "AI Engineering",
-  "Cloud Architecture",
-  "SaaS Engineering",
-  "Not sure yet",
+  "Web Apps",
+  "Mobile Apps",
+  "Software as a Service (SaaS)",
+  "Cloud Management",
 ] as const;
 
-export const budgetOptions = [
-  "Under ₹50k / $600",
-  "₹50k – ₹2L / $600–$2.4k",
-  "₹2L – ₹8L / $2.4k–$10k",
-  "₹8L+ / $10k+",
-  "Not sure yet",
-] as const;
+export type ServiceOption = (typeof serviceOptions)[number];
 
-export const bookingTimes = ["10:00", "12:00", "14:00", "16:00", "18:00"] as const;
+export const serviceOptionById = {
+  web: "Web Apps",
+  mobile: "Mobile Apps",
+  saas: "Software as a Service (SaaS)",
+  cloud: "Cloud Management",
+} as const;
 
 export const techStack = [
   "React",
   "TypeScript",
   "Next.js",
   "React Native",
-  "Flutter",
   "Node.js",
-  "Python",
-  "Spring Boot",
   "PostgreSQL",
   "AWS",
-  "FastAPI",
   "Stripe",
+  "Tailwind CSS",
+  "Figma",
 ] as const;
 
 export const whatsappHref = (message?: string) => {

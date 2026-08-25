@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/Reveal";
+import { StartProjectButton } from "@/components/site/StartProjectButton";
+import { site } from "@/lib/site";
 
 export const CtaBand = ({
-  title = "Ready to scope the build?",
-  body = "Book a 20-minute technical consultation. We will come back with a stack, a timeline, and an honest price — or tell you it is too early.",
+  title = "Ready to start the build?",
+  body = `Open the project form. We come back with a surface, a timeline, and a written next step — ${site.offer} ${site.offerLabel}.`,
 }: {
   title?: string;
   body?: string;
@@ -24,13 +25,11 @@ export const CtaBand = ({
               <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-foreground/75">{body}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Button asChild variant="ember" size="xl">
-                <Link to="/contact#book">
-                  Start your project <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              <StartProjectButton source="cta-band" size="xl">
+                Start a Project
+              </StartProjectButton>
               <Button asChild variant="glass" size="xl">
-                <Link to="/work">View work</Link>
+                <Link to="/work">See our work</Link>
               </Button>
             </div>
           </div>

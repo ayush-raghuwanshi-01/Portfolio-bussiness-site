@@ -1,42 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { bookingToLead, contactToLead, submitLead } from "@/lib/leads";
+import { submitLead, valuesToLead } from "@/lib/leads";
 
 describe("submitLead", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  it("maps contact values into a persistable lead", () => {
-    const lead = contactToLead({
+  it("maps start-a-project values into a persistable lead", () => {
+    const lead = valuesToLead({
       name: "Jordan Patel",
       email: "jordan@acme.dev",
       phone: "+919876543210",
-      company: "Acme",
-      service: "SaaS Engineering",
-      budget: "₹2L – ₹8L / $2.4k–$10k",
-      message: "Need a multi-tenant billing workspace.",
+      service: "Software as a Service (SaaS)",
       website: "",
     });
-    expect(lead.source).toBe("contact-form");
-    expect(lead.service).toBe("SaaS Engineering");
+    expect(lead.source).toBe("start-project");
+    expect(lead.service).toBe("Software as a Service (SaaS)");
+    expect(lead.budget).toBeUndefined();
     expect(lead.website).toBeUndefined();
-  });
-
-  it("maps booking values including the requested slot", () => {
-    const lead = bookingToLead({
-      name: "Jordan Patel",
-      email: "jordan@acme.dev",
-      phone: "+919876543210",
-      company: "",
-      service: "Mobile App Development",
-      date: "2026-09-01",
-      time: "14:00",
-      message: "Want to scope an iOS + Android companion app.",
-      website: "",
-    });
-    expect(lead.source).toBe("booking-form");
-    expect(lead.preferred_date).toBe("2026-09-01");
-    expect(lead.preferred_time).toBe("14:00");
   });
 
   it("silently accepts honeypot submissions", async () => {
@@ -44,7 +25,7 @@ describe("submitLead", () => {
       name: "Bot",
       email: "bot@example.com",
       website: "https://spam.test",
-      source: "contact-form",
+      source: "start-project",
     });
     expect(result.success).toBe(true);
   });
@@ -57,9 +38,9 @@ describe("submitLead", () => {
     const result = await submitLead({
       name: "Jordan Patel",
       email: "jordan@acme.dev",
-      service: "Web App Development",
-      message: "Need a customer portal.",
-      source: "contact-form",
+      phone: "+919876543210",
+      service: "Web Apps",
+      source: "start-project",
     });
     expect(result.success).toBe(true);
     expect(fetch).toHaveBeenCalled();

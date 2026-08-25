@@ -1,31 +1,30 @@
-import { Link } from "react-router-dom";
 import { CheckCircle2 } from "lucide-react";
 import { Seo } from "@/components/layout/Seo";
 import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHeading } from "@/components/site/Section";
 import { FaqList } from "@/components/site/FaqList";
 import { CtaBand } from "@/components/site/CtaBand";
-import { Estimator } from "@/components/site/Estimator";
 import { Reveal } from "@/components/site/Reveal";
-import { Button } from "@/components/ui/button";
-import { pricingTiers, services } from "@/data/services";
+import { StartProjectButton } from "@/components/site/StartProjectButton";
+import { offerTiers, services } from "@/data/services";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { serviceOptionById, site } from "@/lib/site";
 
 const ServicesPage = () => (
   <>
     <Seo
       title="Services"
-      description="Web apps, mobile apps, AI engineering, and cloud architecture from ZenWebStudio. Deliverables, stack, process, and transparent starting prices."
+      description="Web apps, mobile apps, SaaS platforms, and cloud management from ZenWebStudio. Deliverables, stack, and a 30% OFF first-engagement offer."
       path="/services"
     />
     <PageHero
       eyebrow="Services"
       title={
         <>
-          Custom software, shipped as <em className="hl-ember not-italic">products.</em>
+          Four ways we put your business <em className="hl-ember not-italic">in front of customers.</em>
         </>
       }
-      body="Web applications, mobile apps, applied AI, and cloud architecture. Each engagement includes a written scope, a named lead, and weekly staging demos."
+      body="Web Apps, Mobile Apps, Software as a Service, and Cloud Management. Each engagement includes a written scope, a named lead, and weekly staging demos."
     />
 
     {services.map((service, index) => (
@@ -35,7 +34,7 @@ const ServicesPage = () => (
             <span className="eyebrow">{service.name}</span>
             <h2 className="mt-4 font-serif-display text-4xl sm:text-5xl">{service.short}</h2>
             <p className="mt-5 text-[15px] leading-relaxed text-foreground/72">{service.description}</p>
-            <p className="mt-4 text-sm font-medium text-ember">Starting from {service.startingFrom}</p>
+            <p className="mt-4 text-sm font-medium text-ember">{service.offer}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {service.stack.map((tech) => (
                 <span
@@ -46,9 +45,13 @@ const ServicesPage = () => (
                 </span>
               ))}
             </div>
-            <Button asChild variant="ember" className="mt-8 rounded-full">
-              <Link to="/contact#book">Start this build</Link>
-            </Button>
+            <StartProjectButton
+              className="mt-8"
+              source={`service-${service.id}`}
+              service={serviceOptionById[service.id]}
+            >
+              Start this build
+            </StartProjectButton>
           </Reveal>
           <Reveal delay={0.08}>
             <div className="overflow-hidden rounded-[28px] border border-border/60">
@@ -70,35 +73,33 @@ const ServicesPage = () => (
             </ul>
           </div>
           <div className="glass rounded-[24px] p-6">
-            <h3 className="font-display text-lg font-semibold">How we run it</h3>
-            <ol className="mt-4 space-y-3">
-              {service.process.map((item, i) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-foreground/75">
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-gradient-primary text-[11px] font-semibold text-primary-foreground">
-                    {i + 1}
-                  </span>
+            <h3 className="font-display text-lg font-semibold">Where it shows up</h3>
+            <ul className="mt-4 space-y-3">
+              {service.deepDive.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-foreground/75">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                   {item}
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
         </div>
       </Section>
     ))}
 
-    <Section id="pricing" surface="paper">
+    <Section id="offers" surface="paper">
       <SectionHeading
         align="center"
-        eyebrow="Pricing"
+        eyebrow="This quarter"
         title={
           <>
-            Starting points, <em className="hl-ember not-italic">not a mystery rate card.</em>
+            {site.offer} on your first engagement — <em className="hl-ember not-italic">not a rate card.</em>
           </>
         }
-        body="Entry prices for a well-bounded first version. Complex billing, native modules, or multi-product roadmaps are scoped as a studio pod."
+        body="Pick the surface you need. We send a written scope. No sticker prices on this site."
       />
       <div className="mt-12 grid gap-5 lg:grid-cols-4">
-        {pricingTiers.map((tier) => (
+        {offerTiers.map((tier) => (
           <article
             key={tier.id}
             className={`glass relative flex h-full flex-col rounded-[24px] p-6 ${
@@ -112,8 +113,8 @@ const ServicesPage = () => (
             )}
             <h3 className="font-display text-xl font-semibold">{tier.name}</h3>
             <p className="mt-1 text-xs text-foreground/55">{tier.tagline}</p>
-            <div className="mt-5 font-serif-display text-3xl">{tier.price}</div>
-            <div className="text-xs text-muted-foreground">{tier.period}</div>
+            <div className="mt-5 font-serif-display text-3xl text-ember">{tier.offer}</div>
+            <div className="text-xs text-muted-foreground">First engagement this quarter</div>
             <ul className="mt-6 flex-1 space-y-2.5">
               {tier.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2 text-sm text-foreground/75">
@@ -122,36 +123,28 @@ const ServicesPage = () => (
                 </li>
               ))}
             </ul>
-            <Button
-              asChild
+            <StartProjectButton
+              className="mt-6 w-full"
               variant={tier.featured ? "ember" : "glass"}
-              className="mt-6 w-full rounded-full"
+              source={`offer-${tier.id}`}
+              service={tier.service === "custom" ? undefined : serviceOptionById[tier.service]}
+              onClick={() => trackEvent(AnalyticsEvents.PRICING_TIER_CLICKED, { tier: tier.name })}
             >
-              <Link
-                to="/contact#book"
-                onClick={() => trackEvent(AnalyticsEvents.PRICING_TIER_CLICKED, { tier: tier.name })}
-              >
-                {tier.cta}
-              </Link>
-            </Button>
+              {tier.cta}
+            </StartProjectButton>
           </article>
         ))}
       </div>
     </Section>
 
     <Section surface="dark">
-      <div className="grid gap-10 lg:grid-cols-2">
-        <Estimator />
-        <div>
-          <SectionHeading
-            eyebrow="FAQ"
-            title="Common questions about working with the studio."
-            body="Engagement model, ownership, timelines, and what happens after launch."
-          />
-          <div className="mt-8">
-            <FaqList />
-          </div>
-        </div>
+      <SectionHeading
+        eyebrow="FAQ"
+        title="Common questions about working with the studio."
+        body="Engagement model, ownership, timelines, and what happens after launch."
+      />
+      <div className="mt-8 max-w-3xl">
+        <FaqList />
       </div>
     </Section>
 
