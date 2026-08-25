@@ -32,7 +32,7 @@ export const ServicesOverview = () => {
               <TiltCard className="h-full">
                 <article className="glass-strong flex h-full flex-col overflow-hidden rounded-[28px]">
                   <div className="relative aspect-[16/9] overflow-hidden">
-                    <img src={service.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                    <img src={service.image} alt={`${service.name} service visual preview`} className="h-full w-full object-cover" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
                     <span className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-gradient-primary shadow-glow">
                       <service.icon className="h-5 w-5 text-primary-foreground" />

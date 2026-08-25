@@ -54,7 +54,7 @@ const ServicesPage = () => (
           </Reveal>
           <Reveal delay={0.08}>
             <div className="overflow-hidden rounded-[28px] border border-border/60">
-              <img src={service.image} alt="" className="aspect-[16/10] w-full object-cover" loading="lazy" />
+              <img src={service.image} alt={`${service.name} architecture and UI preview`} className="aspect-[16/10] w-full object-cover" loading="lazy" />
             </div>
           </Reveal>
         </div>

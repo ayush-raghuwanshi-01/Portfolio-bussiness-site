@@ -1,5 +1,5 @@
-import { useState, type ReactNode } from "react";
-import { Briefcase, CheckCircle2, Mail, MapPin, MessageSquare, Phone, Send, User } from "lucide-react";
+import { useId, useState, type ReactNode } from "react";
+import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, MessageSquare, Phone, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -36,6 +36,14 @@ export const LeadForm = ({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const baseId = useId();
+  const nameId = `${baseId}-name`;
+  const emailId = `${baseId}-email`;
+  const phoneId = `${baseId}-phone`;
+  const cityId = `${baseId}-city`;
+  const serviceId = `${baseId}-service`;
+  const messageId = `${baseId}-message`;
 
   const mark = (key: string, message?: string) => {
     setTouched((prev) => ({ ...prev, [key]: true }));
@@ -82,7 +90,7 @@ export const LeadForm = ({
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button asChild variant="ember" size="sm" className="rounded-full">
-            <a href={whatsappHref()} target="_blank" rel="noreferrer">
+            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer">
               WhatsApp us
             </a>
           </Button>
@@ -97,13 +105,18 @@ export const LeadForm = ({
   return (
     <form onSubmit={onSubmit} className={cn("space-y-4", className)} noValidate>
       <Field
+        id={nameId}
         label="Name"
         icon={User}
         error={errors.name}
         valid={touched.name && !errors.name && values.name.trim().length >= 2}
       >
         <Input
+          id={nameId}
           value={values.name}
+          disabled={submitting}
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? `${nameId}-error` : undefined}
           onChange={(e) => {
             const value = e.target.value;
             setValues((v) => ({ ...v, name: value }));
@@ -112,18 +125,24 @@ export const LeadForm = ({
           onBlur={() => mark("name", values.name.trim().length >= 2 ? undefined : "Name is too short")}
           placeholder="Your name"
           autoComplete="name"
+          required
         />
       </Field>
 
       <Field
+        id={emailId}
         label="Email"
         icon={Mail}
         error={errors.email}
         valid={touched.email && !errors.email && emailOk(values.email)}
       >
         <Input
+          id={emailId}
           type="email"
           value={values.email}
+          disabled={submitting}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? `${emailId}-error` : undefined}
           onChange={(e) => {
             const value = e.target.value;
             setValues((v) => ({ ...v, email: value }));
@@ -132,18 +151,24 @@ export const LeadForm = ({
           onBlur={() => mark("email", emailOk(values.email) ? undefined : "Enter a valid email")}
           placeholder="you@business.com"
           autoComplete="email"
+          required
         />
       </Field>
 
       <Field
+        id={phoneId}
         label="WhatsApp / phone"
         icon={Phone}
         error={errors.phone}
         valid={touched.phone && !errors.phone && phoneOk(values.phone)}
       >
         <Input
+          id={phoneId}
           type="tel"
           value={values.phone}
+          disabled={submitting}
+          aria-invalid={Boolean(errors.phone)}
+          aria-describedby={errors.phone ? `${phoneId}-error` : undefined}
           onChange={(e) => {
             const value = e.target.value;
             setValues((v) => ({ ...v, phone: value }));
@@ -152,17 +177,23 @@ export const LeadForm = ({
           onBlur={() => mark("phone", phoneOk(values.phone) ? undefined : "Enter a valid contact number")}
           placeholder="+91 98765 43210"
           autoComplete="tel"
+          required
         />
       </Field>
 
       <Field
+        id={cityId}
         label="City"
         icon={MapPin}
         error={errors.city}
         valid={touched.city && !errors.city && values.city.trim().length >= 2}
       >
         <Input
+          id={cityId}
           value={values.city}
+          disabled={submitting}
+          aria-invalid={Boolean(errors.city)}
+          aria-describedby={errors.city ? `${cityId}-error` : undefined}
           onChange={(e) => {
             const value = e.target.value;
             setValues((v) => ({ ...v, city: value }));
@@ -171,14 +202,17 @@ export const LeadForm = ({
           onBlur={() => mark("city", values.city.trim().length >= 2 ? undefined : "Enter your city")}
           placeholder="Your city"
           autoComplete="address-level2"
+          required
         />
       </Field>
 
-      <Field label="What do you need?" icon={Briefcase} error={errors.service}>
+      <Field id={serviceId} label="What do you need?" icon={Briefcase} error={errors.service}>
         <select
+          id={serviceId}
           value={values.service}
+          disabled={submitting}
           onChange={(e) => setValues((v) => ({ ...v, service: e.target.value as ServiceOption }))}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
         >
           {serviceOptions.map((option) => (
             <option key={option} value={option}>
@@ -189,13 +223,18 @@ export const LeadForm = ({
       </Field>
 
       <Field
+        id={messageId}
         label="A line about the work"
         icon={MessageSquare}
         error={errors.message}
         valid={touched.message && !errors.message && values.message.trim().length >= 8}
       >
         <textarea
+          id={messageId}
           value={values.message}
+          disabled={submitting}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? `${messageId}-error` : undefined}
           onChange={(e) => {
             const value = e.target.value;
             setValues((v) => ({ ...v, message: value }));
@@ -206,25 +245,29 @@ export const LeadForm = ({
           }
           placeholder="Example: coaching institute, need a 5-page site this month"
           rows={3}
-          className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+          required
         />
       </Field>
 
-      <input
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        value={values.website ?? ""}
-        onChange={(e) => setValues((v) => ({ ...v, website: e.target.value }))}
-        aria-hidden="true"
-      />
+      <div style={{ position: "absolute", left: "-9999px", opacity: 0 }} aria-hidden="true">
+        <label htmlFor={`${baseId}-hp`}>Leave this field blank</label>
+        <input
+          id={`${baseId}-hp`}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={values.website ?? ""}
+          onChange={(e) => setValues((v) => ({ ...v, website: e.target.value }))}
+        />
+      </div>
 
       <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-muted-foreground">
           Goes to our WhatsApp and {site.email}. Reply within {site.responseTime}. No newsletter.
         </p>
         <Button type="submit" variant="ember" size="lg" disabled={submitting} className="rounded-full">
-          <Send className="h-4 w-4" />
+          {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
           {submitting ? "Sending…" : "Send enquiry"}
         </Button>
       </div>
@@ -233,12 +276,14 @@ export const LeadForm = ({
 };
 
 const Field = ({
+  id,
   label,
   icon: Icon,
   error,
   valid,
   children,
 }: {
+  id: string;
   label: string;
   icon: React.ComponentType<{ className: string }>;
   error?: string;
@@ -246,7 +291,7 @@ const Field = ({
   children: ReactNode;
 }) => (
   <div className="space-y-1.5">
-    <Label className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground">
+    <Label htmlFor={id} className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground">
       <Icon className="h-3.5 w-3.5 text-primary" /> {label}
       {valid && <CheckCircle2 className="h-3.5 w-3.5 text-success" />}
     </Label>
@@ -262,7 +307,7 @@ const Field = ({
       {children}
     </div>
     {error && (
-      <p className="text-xs text-destructive" role="alert">
+      <p id={`${id}-error`} className="text-xs text-destructive" role="alert">
         {error}
       </p>
     )}
