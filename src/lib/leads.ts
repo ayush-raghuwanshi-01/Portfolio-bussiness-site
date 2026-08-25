@@ -17,6 +17,45 @@ export const leadSchema = z.object({
 export type LeadValues = z.infer<typeof leadSchema>;
 export type LeadResult = { success: boolean; error?: string };
 
+const enquiryBody = (lead: LeadInsert) =>
+  [
+    `Name: ${lead.name}`,
+    `Phone: ${lead.phone || "—"}`,
+    `Email: ${lead.email}`,
+    `City: ${lead.city || "—"}`,
+    `Need: ${lead.service || "—"}`,
+    lead.message ? `Details: ${lead.message}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+/** Direct to zenwebstudio.in@gmail.com via Web3Forms. */
+const sendToBusinessEmail = async (lead: LeadInsert): Promise<boolean> => {
+  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+  if (!accessKey) return false;
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: accessKey,
+        subject: `Zenvio Labs enquiry — ${lead.name}`,
+        from_name: "Zenvio Labs website",
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        city: lead.city,
+        service: lead.service,
+        message: enquiryBody(lead),
+      }),
+    });
+    const body = await res.json().catch(() => ({}));
+    return Boolean(res.ok && body.success);
+  } catch {
+    return false;
+  }
+};
+
 const persistViaApi = async (lead: LeadInsert): Promise<boolean> => {
   try {
     const res = await fetch("/api/leads", {
@@ -24,7 +63,9 @@ const persistViaApi = async (lead: LeadInsert): Promise<boolean> => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(lead),
     });
-    return res.ok;
+    if (!res.ok) return false;
+    const body = await res.json().catch(() => ({}));
+    return Boolean(body.notified?.email);
   } catch {
     return false;
   }
@@ -47,38 +88,6 @@ const persistViaSupabase = async (lead: LeadInsert): Promise<boolean> => {
   return true;
 };
 
-const persistViaFormSubmit = async (lead: LeadInsert): Promise<boolean> => {
-  try {
-    const res = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        city: lead.city,
-        service: lead.service,
-        _subject: `Zenvio Labs enquiry — ${lead.name}`,
-        _template: "table",
-        _replyto: lead.email,
-        message: [
-          `Name: ${lead.name}`,
-          `Phone: ${lead.phone || "—"}`,
-          `Email: ${lead.email}`,
-          `City: ${lead.city || "—"}`,
-          `Need: ${lead.service || "—"}`,
-          lead.message ? `Details: ${lead.message}` : "",
-        ]
-          .filter(Boolean)
-          .join("\n"),
-      }),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-};
-
 export const submitLead = async (lead: LeadInsert): Promise<LeadResult> => {
   if (lead.website) {
     return { success: true };
@@ -90,16 +99,14 @@ export const submitLead = async (lead: LeadInsert): Promise<LeadResult> => {
     source: lead.source || "website",
   };
 
-  const [apiOk, dbOk] = await Promise.all([persistViaApi(payload), persistViaSupabase(payload)]);
+  const [emailOk, apiOk] = await Promise.all([sendToBusinessEmail(payload), persistViaApi(payload)]);
+  void persistViaSupabase(payload);
 
-  if (apiOk || dbOk) return { success: true };
-
-  const emailOk = await persistViaFormSubmit(payload);
-  if (emailOk) return { success: true };
+  if (emailOk || apiOk) return { success: true };
 
   return {
     success: false,
-    error: `We could not send that just now. Email ${site.email} or message us on WhatsApp.`,
+    error: `Could not email ${site.email}. Add VITE_WEB3FORMS_ACCESS_KEY (see SETUP.md) or WhatsApp us.`,
   };
 };
 

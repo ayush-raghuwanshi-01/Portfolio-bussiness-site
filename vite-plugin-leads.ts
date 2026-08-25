@@ -1,8 +1,7 @@
 import fs from "node:fs";
 import path from "path";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Plugin, PreviewServer, ViteDevServer } from "vite";
-// @ts-expect-error — ESM helper shared with the Vercel function
+import { loadEnv, type Plugin, type PreviewServer, type ViteDevServer } from "vite";
 import { notifyLead } from "./server/notify-lead.mjs";
 
 type Lead = {
@@ -95,7 +94,11 @@ const handle = async (req: IncomingMessage, res: ServerResponse) => {
       return;
     }
 
-    const city = data.city ? String(data.city).slice(0, 80) : data.company ? String(data.company).slice(0, 80) : undefined;
+    const city = data.city
+      ? String(data.city).slice(0, 80)
+      : data.company
+        ? String(data.company).slice(0, 80)
+        : undefined;
 
     const lead: Lead = {
       id: crypto.randomUUID(),
@@ -112,7 +115,13 @@ const handle = async (req: IncomingMessage, res: ServerResponse) => {
 
     saveLead(lead);
     const notified = await notifyLead(lead, process.env);
-    send(res, 201, { ok: true, id: lead.id, notified });
+    const delivered = Boolean(notified?.email);
+    send(res, delivered ? 201 : 502, {
+      ok: delivered,
+      id: lead.id,
+      notified,
+      error: delivered ? undefined : "Enquiry saved locally but Gmail was not delivered.",
+    });
   } catch (error) {
     console.error("[leads-api]", error);
     send(res, 500, { ok: false, error: "Could not save lead" });
@@ -130,6 +139,10 @@ const attach = (server: ViteDevServer | PreviewServer) => {
 export function leadsApi(): Plugin {
   return {
     name: "zenwebstudio-leads-api",
+    config(_config, { mode }) {
+      const env = loadEnv(mode, process.cwd(), "");
+      Object.assign(process.env, env);
+    },
     configureServer: attach,
     configurePreviewServer: attach,
   };
