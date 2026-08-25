@@ -1,7 +1,7 @@
 import { ArrowRight, Github, Linkedin, Sparkles, Bot, Code2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
-import ayushCutout from "@/assets/ayush-main.png";
+import teamHeroImage from "@/assets/ayush-main.png";
 
 const Hero = () => {
   return (
@@ -32,17 +32,17 @@ const Hero = () => {
           <span className="eyebrow justify-center">Build · Launch · Scale</span>
 
           <h1 className="mt-7 font-serif-display text-[44px] leading-[1.02] text-foreground sm:text-[72px] lg:text-[96px]">
-            I build the <em className="hl-ember not-italic font-serif-display">products</em>
+            We build the <em className="hl-ember not-italic font-serif-display">products</em>
             <br className="hidden sm:block" />
             <span className="font-serif-display"> founders </span>
-            <em className="font-serif-display italic text-foreground/85">actually want to ship.</em>
+            <em className="font-serif-display italic">actually want.</em>
           </h1>
-
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-foreground/70 sm:text-[17px]">
-            Hey, I'm <span className="hl">Ayush</span> — a young entrepreneur, full-stack engineer
-            and growth marketer. I design, build and <span className="hl-soft">manage</span> websites,
-            software & SaaS for founders at <span className="hl-soft">honest, founder-friendly prices</span>.
-          </p>
+<p className="mx-auto mt-7 max-w-4xl text-base leading-relaxed text-foreground/90 sm:text-[20px]">
+  We are a team of <span className="hl">engineers, designers, and growth marketers</span> dedicated 
+  to helping entrepreneurs scale. From design to deployment, we build and 
+  <span className="hl-soft"> manage</span> websites, software & SaaS for founders at 
+  <span className="hl-soft"> honest, founder-friendly prices</span>.
+</p>
 
           {/* offer chips */}
           <div className="mt-8 flex flex-wrap justify-center gap-2">
@@ -65,11 +65,11 @@ const Hero = () => {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button asChild variant="ember" size="xl">
               <a href="#contact">
-                Hire Me — Let's Talk <ArrowRight className="h-4 w-4" />
+                Hire Us — Let's Talk <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
             <Button asChild variant="glass" size="xl">
-              <a href="#work">See my work</a>
+              <a href="#work">See our work</a>
             </Button>
           </div>
 
@@ -91,7 +91,7 @@ const Hero = () => {
               ))}
             </div>
             <p className="text-sm text-foreground/70">
-              <span className="font-semibold text-ember">10+ founders</span> trust Ayush to ship their next idea
+              <span className="font-semibold text-ember">10+ founders</span> trust us to ship their next idea
             </p>
           </div>
 
@@ -108,62 +108,37 @@ const Hero = () => {
         </div>
 
         {/* Showcase strip — portrait + stats card (Sheryians-style cards row) */}
-        <div className="mt-20 grid gap-5 lg:grid-cols-[1fr_1.4fr] lg:items-stretch">
-          {/* Portrait card */}
-          <div className="glass-strong relative overflow-hidden rounded-[32px] p-5">
-            <div className="absolute inset-0 bg-gradient-aurora opacity-50" />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-ember/15 to-primary/10">
-              <img
-                src={ayushCutout}
-                alt="Ayush — young entrepreneur, developer & marketer"
-                width={896}
-                height={1216}
-                className="absolute inset-0 h-full w-full object-cover object-bottom"
-              />
-              {/* floating tag */}
-              <div className="glass absolute left-4 top-4 flex items-center gap-2 rounded-2xl px-3 py-2 text-xs animate-float">
-                <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-ember">
-                  <Bot className="h-4 w-4 text-white" />
-                </span>
-                <div className="text-left">
-                  <div className="font-display text-sm font-semibold leading-tight">AI-powered build</div>
-                  <div className="text-[10px] text-foreground/60">Ship 5× faster</div>
-                </div>
-              </div>
-              <div className="glass absolute -right-1 bottom-6 flex items-center gap-2 rounded-2xl px-3 py-2 text-xs animate-float [animation-delay:-2s]">
-                <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-primary">
-                  <Sparkles className="h-4 w-4 text-white" />
-                </span>
-                <div className="text-left">
-                  <div className="font-display text-sm font-semibold leading-tight">From ₹999 / $49</div>
-                  <div className="text-[10px] text-foreground/60">Founder-friendly</div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div className="mt-20 flex flex-col items-center gap-6">
+  
 
-          {/* Stats column — big number cards */}
-          <div className="grid grid-cols-2 gap-5">
-            {[
-              { k: "10+", v: "Projects shipped", note: "Across India & overseas" },
-              { k: "5", v: "Brands managed", note: "Long-term retainers" },
-              { k: "5×", v: "Faster with AI", note: "From spec to deploy" },
-              { k: "100%", v: "Client retention", note: "Honest. On time. Always." },
-            ].map((s) => (
-              <div
-                key={s.v}
-                className="glass-strong group relative flex flex-col justify-between overflow-hidden rounded-[28px] p-6 transition-transform hover-lift"
-              >
-                <div className="font-serif-display text-5xl text-foreground sm:text-6xl">{s.k}</div>
-                <div className="mt-6">
-                  <div className="font-display text-sm font-semibold text-foreground">{s.v}</div>
-                  <div className="mt-1 text-xs text-foreground/60">{s.note}</div>
-                </div>
-                <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-ember/10 blur-2xl transition-opacity group-hover:opacity-100" />
-              </div>
-            ))}
-          </div>
+  {/* Row 2: Stats Cards Grid */}
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {[
+      { k: "10+", v: "Projects Shipped", note: "Global reach, local trust", icon: "🚀" },
+      { k: "5", v: "Active Retainers", note: "Long-term partnerships", icon: "🤝" },
+      { k: "5×", v: "Faster Deploy", note: "Leveraging modern AI", icon: "⚡" },
+      { k: "100%", v: "Client Success", note: "On time. On budget.", icon: "💎" },
+    ].map((s) => (
+      <div
+        key={s.v}
+        className="glass-strong group relative flex flex-col justify-between overflow-hidden rounded-[24px] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+      >
+        <div className="flex items-center justify-between">
+            <div className="font-serif-display text-4xl font-medium tracking-tight text-foreground sm:text-5xl">{s.k}</div>
+            <span className="text-2xl opacity-50 group-hover:opacity-100 transition-opacity">{s.icon}</span>
         </div>
+        
+        <div className="mt-8">
+          <div className="font-display text-sm font-bold uppercase tracking-wider text-foreground/90">{s.v}</div>
+          <div className="mt-1 text-xs text-foreground/50">{s.note}</div>
+        </div>
+
+        {/* Subtle decorative glow */}
+        <div className="pointer-events-none absolute -right-4 -top-4 h-20 w-20 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:bg-primary/10" />
+      </div>
+    ))}
+  </div>
+</div>
       </div>
     </section>
   );

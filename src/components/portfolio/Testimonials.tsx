@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Quote, Play, Star } from "lucide-react";
-import team from "@/assets/team-deepak.png"
+import team from "@/assets/team-photo.png"
 
 type Testimonial = {
   name: string;

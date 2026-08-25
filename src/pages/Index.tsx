@@ -18,8 +18,8 @@ const Index = () => {
       <Projects />
       <About />
       <Services />
-      <Testimonials compact />
-      <Community />
+      {/* <Testimonials compact /> */}
+      {/* <Community /> */}
       <Booking />
       <Contact />
     </main>

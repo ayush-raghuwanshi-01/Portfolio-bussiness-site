@@ -26,7 +26,7 @@ const Navbar = () => {
             <img src={logo} alt="Ayush" width={40} height={40} className="h-7 w-7 object-contain" />
           </span>
           <span className="hidden font-display text-sm font-semibold tracking-tight sm:block">
-            Ayush<span className="text-ember">.</span>
+            CompanyName<span className="text-ember">.</span>
           </span>
         </a>
 
@@ -59,7 +59,7 @@ const Navbar = () => {
             <Linkedin className="h-4 w-4" />
           </a>
           <Button asChild variant="ember" size="sm" className="hidden rounded-full sm:inline-flex">
-            <a href="/#booking">Hire Me →</a>
+            <a href="/#booking">Hire Us→</a>
           </Button>
           <button
             onClick={() => setOpen((v) => !v)}

@@ -38,13 +38,13 @@ const Services = () => (
 
         <div className="relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <span className="eyebrow">Hire me · Founder rates</span>
+            <span className="eyebrow">Hire us · Founder rates</span>
             <h2 className="mt-5 font-serif-display text-5xl text-foreground sm:text-6xl lg:text-[80px]">
-              Hire a <em className="hl-ember not-italic">young founder</em>,
+              Hire  <em className="hl-ember not-italic">Our Team</em>,
               <br /> not a slow, expensive agency.
             </h2>
             <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-foreground/85">
-              I build <span className="hl-soft">websites</span>, <span className="hl-soft">software</span> and
+              We build <span className="hl-soft">websites</span>, <span className="hl-soft">software</span> and
               <span className="hl-soft"> SaaS</span> — then use <span className="hl-soft">AI</span> to run your business alongside you. One obsessive operator,
               startup-friendly pricing, and a partner who actually picks up the phone.
             </p>
@@ -94,7 +94,7 @@ const Services = () => (
                 Starting at <span className="text-gradient">₹999 / $49</span> — pay as you grow.
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
-                Transparent packages. No agency markup. Built and managed by me, scaled by AI.
+                Transparent packages. No agency markup. Built and managed by us, scaled by AI.
               </p>
             </div>
           </div>
