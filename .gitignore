@@ -25,3 +25,6 @@ dist-ssr
 
 # Environment variables (contains Supabase keys)
 .env
+
+# Local lead store (dev / preview)
+data/leads.json

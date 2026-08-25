@@ -1,15 +1,12 @@
-/**
- * Google Analytics 4 event tracking helper.
- * Replace G-XXXXXXXXXX in index.html with your real Measurement ID.
- */
-
-export const trackEvent = (eventName: string, params?: Record<string, string | number | boolean>) => {
-  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-    (window as any).gtag("event", eventName, params);
+export const trackEvent = (
+  eventName: string,
+  params?: Record<string, string | number | boolean>,
+) => {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
   }
 };
 
-// Predefined CTA events for consistent naming
 export const AnalyticsEvents = {
   HERO_CTA_CLICKED: "hero_cta_click",
   HERO_SECONDARY_CLICKED: "hero_secondary_click",
@@ -22,3 +19,10 @@ export const AnalyticsEvents = {
   PROJECT_CLICKED: "project_click",
   PRICING_TIER_CLICKED: "pricing_tier_click",
 } as const;
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
+  }
+}
