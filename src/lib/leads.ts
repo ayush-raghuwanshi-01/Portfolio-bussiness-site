@@ -29,8 +29,33 @@ const enquiryBody = (lead: LeadInsert) =>
     .filter(Boolean)
     .join("\n");
 
-/** Direct to zenwebstudio.in@gmail.com via Web3Forms. */
-const sendToBusinessEmail = async (lead: LeadInsert): Promise<boolean> => {
+/** Direct to zenwebstudio.in@gmail.com via FormSubmit.co (no API key needed, works on static hosting). */
+const sendViaFormSubmit = async (lead: LeadInsert): Promise<boolean> => {
+  try {
+    const res = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        _subject: `Zenvio Labs enquiry — ${lead.name}`,
+        _template: "table",
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone || "—",
+        city: lead.city || "—",
+        service: lead.service || "—",
+        message: lead.message || "—",
+        source: lead.source || "website",
+      }),
+    });
+    const body = await res.json().catch(() => ({}));
+    return Boolean(res.ok && body.success);
+  } catch {
+    return false;
+  }
+};
+
+/** Direct to zenwebstudio.in@gmail.com via Web3Forms (needs access key). */
+const sendViaWeb3Forms = async (lead: LeadInsert): Promise<boolean> => {
   const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
   if (!accessKey) return false;
   try {
@@ -99,14 +124,21 @@ export const submitLead = async (lead: LeadInsert): Promise<LeadResult> => {
     source: lead.source || "website",
   };
 
-  const [emailOk, apiOk] = await Promise.all([sendToBusinessEmail(payload), persistViaApi(payload)]);
+  // Try all delivery methods in parallel — any one succeeding is enough
+  const [formSubmitOk, web3Ok, apiOk] = await Promise.all([
+    sendViaFormSubmit(payload),
+    sendViaWeb3Forms(payload),
+    persistViaApi(payload).catch(() => false),
+  ]);
+
+  // Background best-effort: Supabase (fire and forget)
   void persistViaSupabase(payload);
 
-  if (emailOk || apiOk) return { success: true };
+  if (formSubmitOk || web3Ok || apiOk) return { success: true };
 
   return {
     success: false,
-    error: `Could not email ${site.email}. Add VITE_WEB3FORMS_ACCESS_KEY (see SETUP.md) or WhatsApp us.`,
+    error: `Could not send enquiry. Please WhatsApp or email ${site.email} directly.`,
   };
 };
 
