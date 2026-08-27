@@ -54,29 +54,45 @@ const sendViaFormSubmit = async (lead: LeadInsert): Promise<boolean> => {
   }
 };
 
-/** Direct to zenwebstudio.in@gmail.com via Web3Forms (needs access key). */
+/**
+ * Direct to zenwebstudio.in@gmail.com via Web3Forms.
+ *
+ * The access key is intentionally hardcoded here. Web3Forms access keys are
+ * PUBLIC (safe to ship in browser JS) — they only identify the target inbox
+ * and cannot be used to read email. Using a constant instead of
+ * import.meta.env guarantees this works the same way locally (`npm run dev`,
+ * `npm run preview`) AND after any static deployment (Wasmer, Vercel static,
+ * Netlify, GitHub Pages, etc.) where a Node `/api/leads` server is absent.
+ */
+const WEB3FORMS_ACCESS_KEY = "90750c4e-16c9-4ebc-b45f-eb16789b6b5d";
+
 const sendViaWeb3Forms = async (lead: LeadInsert): Promise<boolean> => {
-  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-  if (!accessKey) return false;
   try {
+    // Using FormData (per Web3Forms docs / the snippet you shared) keeps
+    // things simple and avoids any JSON CORS/preflight surprises on hosts
+    // that are aggressive with static deployments.
+    const formData = new FormData();
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", `Zenvio Labs enquiry — ${lead.name}`);
+    formData.append("from_name", "Zenvio Labs website");
+    formData.append("name", lead.name);
+    formData.append("email", lead.email);
+    if (lead.phone) formData.append("phone", lead.phone);
+    if (lead.city) formData.append("city", lead.city);
+    if (lead.service) formData.append("service", lead.service);
+    formData.append("message", enquiryBody(lead));
+    // Reply-to so when you hit "reply" in Gmail it goes to the lead, not Web3Forms
+    formData.append("replyto", lead.email);
+
     const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: `Zenvio Labs enquiry — ${lead.name}`,
-        from_name: "Zenvio Labs website",
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        city: lead.city,
-        service: lead.service,
-        message: enquiryBody(lead),
-      }),
+      headers: { Accept: "application/json" },
+      body: formData,
     });
     const body = await res.json().catch(() => ({}));
     return Boolean(res.ok && body.success);
-  } catch {
+  } catch (err) {
+    console.error("[Zenvio Labs] Web3Forms failed:", err);
     return false;
   }
 };
@@ -124,17 +140,29 @@ export const submitLead = async (lead: LeadInsert): Promise<LeadResult> => {
     source: lead.source || "website",
   };
 
-  // Try all delivery methods in parallel — any one succeeding is enough
-  const [formSubmitOk, web3Ok, apiOk] = await Promise.all([
-    sendViaFormSubmit(payload),
-    sendViaWeb3Forms(payload),
-    persistViaApi(payload).catch(() => false),
-  ]);
+  // PRIMARY: Web3Forms — hardcoded key, works from browser on any host
+  // (local dev, Vercel, Wasmer static hosting, Netlify, GitHub Pages, etc.).
+  const web3Ok = await sendViaWeb3Forms(payload);
+  if (web3Ok) {
+    // Best-effort fallbacks in parallel (don't await — fire and forget)
+    void sendViaFormSubmit(payload).catch(() => false);
+    void persistViaApi(payload).catch(() => false);
+    void persistViaSupabase(payload);
+    return { success: true };
+  }
 
-  // Background best-effort: Supabase (fire and forget)
+  // FALLBACK 1: FormSubmit.co (no key, but requires one-time email activation)
+  const formSubmitOk = await sendViaFormSubmit(payload);
+  if (formSubmitOk) {
+    void persistViaSupabase(payload);
+    return { success: true };
+  }
+
+  // FALLBACK 2: /api/leads (only works when a server exists — Vercel, local vite dev)
+  const apiOk = await persistViaApi(payload).catch(() => false);
   void persistViaSupabase(payload);
 
-  if (formSubmitOk || web3Ok || apiOk) return { success: true };
+  if (apiOk) return { success: true };
 
   return {
     success: false,

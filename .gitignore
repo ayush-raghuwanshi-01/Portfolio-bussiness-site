@@ -28,3 +28,4 @@ dist-ssr
 
 # Local lead store (dev / preview)
 data/leads.json
+image-search/
