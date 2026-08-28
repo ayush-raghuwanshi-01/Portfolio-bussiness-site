@@ -6,6 +6,7 @@ import { WhyUs } from "@/components/home/WhyUs";
 import { BusinessValue } from "@/components/home/BusinessValue";
 import { SocialProof } from "@/components/home/SocialProof";
 import { TechMarquee } from "@/components/site/TechMarquee";
+import { ProjectMarquee } from "@/components/site/ProjectMarquee";
 import { CtaBand } from "@/components/site/CtaBand";
 import { site } from "@/lib/site";
 
@@ -14,6 +15,7 @@ const Index = () => (
     <Seo path="/" />
     <Hero />
     <TechMarquee />
+    <ProjectMarquee />
     <SocialProof />
     <ServicesOverview />
     <WorkHighlights />
