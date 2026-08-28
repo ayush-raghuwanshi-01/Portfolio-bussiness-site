@@ -13,9 +13,12 @@ export const PageHero = ({
   actions?: ReactNode;
 }) => (
   <section className="surface-dark relative overflow-hidden pb-16 pt-36 sm:pt-40">
-    <div className="pointer-events-none absolute inset-0 grid-bg opacity-40" />
-    <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-    <div className="pointer-events-none absolute right-0 top-20 h-64 w-64 rounded-full bg-ember/15 blur-3xl" />
+    {/* Decorative glows */}
+    <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
+    <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-primary/18 blur-3xl" />
+    <div className="pointer-events-none absolute -bottom-20 right-0 h-72 w-72 rounded-full bg-ember/10 blur-3xl" />
+    <div className="pointer-events-none absolute right-0 top-0 hidden h-48 w-48 rounded-full bg-gradient-to-bl from-emerald-500/5 to-transparent light-theme:block" />
+
     <div className="container relative">
       <Reveal>
         <span className="eyebrow">{eyebrow}</span>

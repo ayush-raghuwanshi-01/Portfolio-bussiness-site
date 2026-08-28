@@ -6,6 +6,7 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { CursorGlow } from "@/components/site/CursorGlow";
 import { LeadDialogProvider } from "@/components/site/LeadDialog";
+import { SocialRail } from "@/components/site/SocialRail";
 
 export const PageShell = ({ children }: { children: ReactNode }) => (
   <LeadDialogProvider>
@@ -17,6 +18,7 @@ export const PageShell = ({ children }: { children: ReactNode }) => (
       <CursorGlow />
       <ScrollProgress />
       <Navbar />
+      <SocialRail />
       <main id="main">{children}</main>
       <Footer />
       <WhatsAppFab />

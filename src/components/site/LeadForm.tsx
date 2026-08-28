@@ -1,5 +1,5 @@
 import { useId, useState, type ReactNode } from "react";
-import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, MessageSquare, Phone, Send, User } from "lucide-react";
+import { Briefcase, CheckCircle2, Loader2, Mail, MapPin, MessageSquare, Phone, Send, Shield, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +21,42 @@ const emptyLead = (service: ServiceOption = serviceOptions[0]): LeadValues => ({
 
 const emailOk = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 const phoneOk = (value: string) => value.trim().replace(/[^\d+]/g, "").length >= 7;
+
+const fieldCls = (hasError?: boolean, isValid?: boolean) =>
+  cn(
+    "h-12 w-full rounded-xl border bg-background/60 px-4 text-sm transition-all duration-200",
+    "placeholder:text-muted-foreground/70",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0",
+    "backdrop-blur-sm",
+    hasError
+      ? "border-destructive/60 focus-visible:ring-destructive/50 focus-visible:border-destructive"
+      : isValid
+        ? "border-emerald-500/50 focus-visible:ring-emerald-500/40 focus-visible:border-emerald-500/70"
+        : "border-border/70 focus-visible:border-ember/60 focus-visible:ring-ember/25 hover:border-border",
+  );
+
+const textareaCls = (hasError?: boolean, isValid?: boolean) =>
+  cn(
+    "w-full rounded-xl border bg-background/60 px-4 py-3 text-sm leading-relaxed transition-all duration-200",
+    "placeholder:text-muted-foreground/70",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0",
+    "backdrop-blur-sm resize-none min-h-[110px]",
+    hasError
+      ? "border-destructive/60 focus-visible:ring-destructive/50 focus-visible:border-destructive"
+      : isValid
+        ? "border-emerald-500/50 focus-visible:ring-emerald-500/40 focus-visible:border-emerald-500/70"
+        : "border-border/70 focus-visible:border-ember/60 focus-visible:ring-ember/25 hover:border-border",
+  );
+
+const selectCls = (hasError?: boolean) =>
+  cn(
+    "h-12 w-full appearance-none rounded-xl border bg-background/60 px-4 pr-10 text-sm transition-all duration-200",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0",
+    "backdrop-blur-sm bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22hsl(252%2030%25%2055%25)%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><polyline points=%226 9 12 15 18 9%22/></svg>')] bg-[length:16px] bg-[right_14px_center] bg-no-repeat",
+    hasError
+      ? "border-destructive/60 focus-visible:ring-destructive/50"
+      : "border-border/70 focus-visible:border-ember/60 focus-visible:ring-ember/25 hover:border-border",
+  );
 
 export const LeadForm = ({
   defaultService,
@@ -81,12 +117,17 @@ export const LeadForm = ({
 
   if (submitted) {
     return (
-      <div className={cn("flex flex-col items-center justify-center rounded-[24px] py-6 text-center", className)}>
-        <CheckCircle2 className="h-14 w-14 text-success" />
-        <h3 className="mt-5 font-display text-2xl font-semibold">We have your request</h3>
-        <p className="mt-3 max-w-sm text-sm text-foreground/70">
-          It has gone to our WhatsApp and email. We reply within {site.responseTime}. If it is urgent, message us
-          now.
+      <div className={cn("flex flex-col items-center justify-center rounded-[24px] py-8 text-center", className)}>
+        <div className="relative">
+          <div className="absolute inset-0 animate-ping rounded-full bg-emerald-500/25" />
+          <div className="relative grid h-20 w-20 place-items-center rounded-full bg-emerald-500/15 ring-1 ring-emerald-500/30">
+            <CheckCircle2 className="h-10 w-10 text-emerald-500" />
+          </div>
+        </div>
+        <h3 className="mt-6 font-display text-2xl font-semibold">We have your request</h3>
+        <p className="mt-3 max-w-sm text-sm leading-relaxed text-foreground/70">
+          It has reached our WhatsApp and email. We reply within {site.responseTime}. If your enquiry is urgent,
+          message us now.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button asChild variant="ember" size="sm" className="rounded-full">
@@ -104,127 +145,139 @@ export const LeadForm = ({
 
   return (
     <form onSubmit={onSubmit} className={cn("space-y-4", className)} noValidate>
-      <Field
-        id={nameId}
-        label="Name"
-        icon={User}
-        error={errors.name}
-        valid={touched.name && !errors.name && values.name.trim().length >= 2}
-      >
-        <Input
+      {/* Name + Email */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
           id={nameId}
-          value={values.name}
-          disabled={submitting}
-          aria-invalid={Boolean(errors.name)}
-          aria-describedby={errors.name ? `${nameId}-error` : undefined}
-          onChange={(e) => {
-            const value = e.target.value;
-            setValues((v) => ({ ...v, name: value }));
-            if (touched.name) mark("name", value.trim().length >= 2 ? undefined : "Name is too short");
-          }}
-          onBlur={() => mark("name", values.name.trim().length >= 2 ? undefined : "Name is too short")}
-          placeholder="Your name"
-          autoComplete="name"
-          required
-        />
-      </Field>
+          label="Your name"
+          icon={User}
+          error={errors.name}
+          valid={touched.name && !errors.name && values.name.trim().length >= 2}
+        >
+          <Input
+            id={nameId}
+            value={values.name}
+            disabled={submitting}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? `${nameId}-error` : undefined}
+            onChange={(e) => {
+              const value = e.target.value;
+              setValues((v) => ({ ...v, name: value }));
+              if (touched.name) mark("name", value.trim().length >= 2 ? undefined : "Name is too short");
+            }}
+            onBlur={() => mark("name", values.name.trim().length >= 2 ? undefined : "Name is too short")}
+            placeholder="e.g. Aarav Sharma"
+            autoComplete="name"
+            className={fieldCls(!!errors.name, touched.name && !errors.name && values.name.trim().length >= 2)}
+            required
+          />
+        </Field>
 
-      <Field
-        id={emailId}
-        label="Email"
-        icon={Mail}
-        error={errors.email}
-        valid={touched.email && !errors.email && emailOk(values.email)}
-      >
-        <Input
+        <Field
           id={emailId}
-          type="email"
-          value={values.email}
-          disabled={submitting}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? `${emailId}-error` : undefined}
-          onChange={(e) => {
-            const value = e.target.value;
-            setValues((v) => ({ ...v, email: value }));
-            if (touched.email) mark("email", emailOk(value) ? undefined : "Enter a valid email");
-          }}
-          onBlur={() => mark("email", emailOk(values.email) ? undefined : "Enter a valid email")}
-          placeholder="you@business.com"
-          autoComplete="email"
-          required
-        />
-      </Field>
+          label="Work email"
+          icon={Mail}
+          error={errors.email}
+          valid={touched.email && !errors.email && emailOk(values.email)}
+        >
+          <Input
+            id={emailId}
+            type="email"
+            value={values.email}
+            disabled={submitting}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? `${emailId}-error` : undefined}
+            onChange={(e) => {
+              const value = e.target.value;
+              setValues((v) => ({ ...v, email: value }));
+              if (touched.email) mark("email", emailOk(value) ? undefined : "Enter a valid email");
+            }}
+            onBlur={() => mark("email", emailOk(values.email) ? undefined : "Enter a valid email")}
+            placeholder="you@business.com"
+            autoComplete="email"
+            className={fieldCls(!!errors.email, touched.email && !errors.email && emailOk(values.email))}
+            required
+          />
+        </Field>
+      </div>
 
-      <Field
-        id={phoneId}
-        label="WhatsApp / phone"
-        icon={Phone}
-        error={errors.phone}
-        valid={touched.phone && !errors.phone && phoneOk(values.phone)}
-      >
-        <Input
+      {/* Phone + City */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
           id={phoneId}
-          type="tel"
-          value={values.phone}
-          disabled={submitting}
-          aria-invalid={Boolean(errors.phone)}
-          aria-describedby={errors.phone ? `${phoneId}-error` : undefined}
-          onChange={(e) => {
-            const value = e.target.value;
-            setValues((v) => ({ ...v, phone: value }));
-            if (touched.phone) mark("phone", phoneOk(value) ? undefined : "Enter a valid contact number");
-          }}
-          onBlur={() => mark("phone", phoneOk(values.phone) ? undefined : "Enter a valid contact number")}
-          placeholder="+91 98765 43210"
-          autoComplete="tel"
-          required
-        />
-      </Field>
+          label="WhatsApp / phone"
+          icon={Phone}
+          error={errors.phone}
+          valid={touched.phone && !errors.phone && phoneOk(values.phone)}
+        >
+          <Input
+            id={phoneId}
+            type="tel"
+            value={values.phone}
+            disabled={submitting}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? `${phoneId}-error` : undefined}
+            onChange={(e) => {
+              const value = e.target.value;
+              setValues((v) => ({ ...v, phone: value }));
+              if (touched.phone) mark("phone", phoneOk(value) ? undefined : "Enter a valid contact number");
+            }}
+            onBlur={() => mark("phone", phoneOk(values.phone) ? undefined : "Enter a valid contact number")}
+            placeholder="+91 98765 43210"
+            autoComplete="tel"
+            className={fieldCls(!!errors.phone, touched.phone && !errors.phone && phoneOk(values.phone))}
+            required
+          />
+        </Field>
 
-      <Field
-        id={cityId}
-        label="City"
-        icon={MapPin}
-        error={errors.city}
-        valid={touched.city && !errors.city && values.city.trim().length >= 2}
-      >
-        <Input
+        <Field
           id={cityId}
-          value={values.city}
-          disabled={submitting}
-          aria-invalid={Boolean(errors.city)}
-          aria-describedby={errors.city ? `${cityId}-error` : undefined}
-          onChange={(e) => {
-            const value = e.target.value;
-            setValues((v) => ({ ...v, city: value }));
-            if (touched.city) mark("city", value.trim().length >= 2 ? undefined : "Enter your city");
-          }}
-          onBlur={() => mark("city", values.city.trim().length >= 2 ? undefined : "Enter your city")}
-          placeholder="Your city"
-          autoComplete="address-level2"
-          required
-        />
-      </Field>
+          label="City"
+          icon={MapPin}
+          error={errors.city}
+          valid={touched.city && !errors.city && values.city.trim().length >= 2}
+        >
+          <Input
+            id={cityId}
+            value={values.city}
+            disabled={submitting}
+            aria-invalid={Boolean(errors.city)}
+            aria-describedby={errors.city ? `${cityId}-error` : undefined}
+            onChange={(e) => {
+              const value = e.target.value;
+              setValues((v) => ({ ...v, city: value }));
+              if (touched.city) mark("city", value.trim().length >= 2 ? undefined : "Enter your city");
+            }}
+            onBlur={() => mark("city", values.city.trim().length >= 2 ? undefined : "Enter your city")}
+            placeholder="e.g. Indore"
+            autoComplete="address-level2"
+            className={fieldCls(!!errors.city, touched.city && !errors.city && values.city.trim().length >= 2)}
+            required
+          />
+        </Field>
+      </div>
 
       <Field id={serviceId} label="What do you need?" icon={Briefcase} error={errors.service}>
-        <select
-          id={serviceId}
-          value={values.service}
-          disabled={submitting}
-          onChange={(e) => setValues((v) => ({ ...v, service: e.target.value as ServiceOption }))}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {serviceOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            id={serviceId}
+            value={values.service}
+            disabled={submitting}
+            onChange={(e) => setValues((v) => ({ ...v, service: e.target.value as ServiceOption }))}
+            className={selectCls(!!errors.service)}
+          >
+            {serviceOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </Field>
 
       <Field
         id={messageId}
-        label="A line about the work"
+        label="Tell us about the work"
         icon={MessageSquare}
         error={errors.message}
         valid={touched.message && !errors.message && values.message.trim().length >= 8}
@@ -243,9 +296,12 @@ export const LeadForm = ({
           onBlur={() =>
             mark("message", values.message.trim().length >= 8 ? undefined : "A little more detail, please")
           }
-          placeholder="Example: coaching institute, need a 5-page site this month"
-          rows={3}
-          className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+          placeholder="Example: coaching institute in Indore, need a 5-page site with admissions form this month"
+          rows={4}
+          className={textareaCls(
+            !!errors.message,
+            touched.message && !errors.message && values.message.trim().length >= 8,
+          )}
           required
         />
       </Field>
@@ -262,14 +318,37 @@ export const LeadForm = ({
         />
       </div>
 
-      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-muted-foreground">
+      {/* Privacy line — neutral on light, green-tinted on dark */}
+      <div className="form-trust flex items-start gap-2 rounded-xl p-3 text-xs text-foreground/65">
+        <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
+        <span>
           Goes to our WhatsApp and {site.email}. Reply within {site.responseTime}. No newsletter.
-        </p>
-        <Button type="submit" variant="ember" size="lg" disabled={submitting} className="rounded-full">
-          {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          {submitting ? "Sending…" : "Send enquiry"}
-        </Button>
+        </span>
+      </div>
+
+      <Button
+        type="submit"
+        variant="ember"
+        size="lg"
+        disabled={submitting}
+        className="group h-12 w-full rounded-full text-[15px] font-semibold shadow-ember transition-transform hover:scale-[1.01]"
+      >
+        {submitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Sending…
+          </>
+        ) : (
+          <>
+            Send enquiry
+            <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </>
+        )}
+      </Button>
+
+      <div className="flex items-center justify-center gap-3 pt-1 text-[11px] text-muted-foreground">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_hsl(158_72%_55%)]" />
+        Usually replies in under 2 hours during business hours
       </div>
     </form>
   );
@@ -285,29 +364,25 @@ const Field = ({
 }: {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className: string }>;
+  icon: React.ComponentType<{ className?: string }>;
   error?: string;
   valid?: boolean;
   children: ReactNode;
 }) => (
-  <div className="space-y-1.5">
-    <Label htmlFor={id} className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted-foreground">
-      <Icon className="h-3.5 w-3.5 text-primary" /> {label}
-      {valid && <CheckCircle2 className="h-3.5 w-3.5 text-success" />}
-    </Label>
-    <div
-      className={
-        error
-          ? "[&_input]:border-destructive [&_select]:border-destructive [&_textarea]:border-destructive"
-          : valid
-            ? "[&_input]:border-success/60 [&_select]:border-success/60 [&_textarea]:border-success/60"
-            : ""
-      }
+  <div className="space-y-2">
+    <Label
+      htmlFor={id}
+      className={cn(
+        "flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors",
+        error ? "text-destructive" : valid ? "text-emerald-500" : "text-muted-foreground",
+      )}
     >
-      {children}
-    </div>
+      <Icon className="h-3.5 w-3.5" /> {label}
+      {valid && <CheckCircle2 className="h-3.5 w-3.5" />}
+    </Label>
+    {children}
     {error && (
-      <p id={`${id}-error`} className="text-xs text-destructive" role="alert">
+      <p id={`${id}-error`} className="flex items-center gap-1 text-xs text-destructive" role="alert">
         {error}
       </p>
     )}

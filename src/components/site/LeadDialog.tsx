@@ -45,17 +45,17 @@ export const LeadDialogProvider = ({ children }: { children: ReactNode }) => {
     <LeadDialogContext.Provider value={value}>
       {children}
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="surface-paper max-h-[90vh] max-w-lg overflow-y-auto rounded-[28px] border-border p-6 sm:rounded-[28px] sm:p-8">
-          <DialogHeader>
+        <DialogContent className="glass-strong no-scrollbar max-h-[92vh] max-w-lg overflow-y-auto rounded-[28px] border-border/70 p-6 shadow-elegant sm:rounded-[32px] sm:p-8">
+          <DialogHeader className="pb-1">
             <DialogTitle className="font-serif-display text-3xl font-normal tracking-tight">
               Start a project
             </DialogTitle>
-            <DialogDescription className="text-[15px] leading-relaxed text-foreground/70">
+            <DialogDescription className="text-[14px] leading-relaxed text-foreground/70">
               Name, phone, city, and what you need. It goes to our WhatsApp and email. We reply within{" "}
               {site.responseTime}.
             </DialogDescription>
           </DialogHeader>
-          <div className="mt-2">
+          <div className="mt-4">
             <LeadForm key={`${open}-${service}`} defaultService={service} />
           </div>
         </DialogContent>
