@@ -6,7 +6,10 @@ export const WorkCard = ({ item, detailed = false }: { item: CaseStudy; detailed
     <div className="relative aspect-[16/10] overflow-hidden">
       <img
         src={item.cover}
-        alt={`${item.title} preview`}
+        alt={`${item.title} — ${item.client} case study preview`}
+        width={960}
+        height={600}
+        decoding="async"
         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         loading="lazy"
       />

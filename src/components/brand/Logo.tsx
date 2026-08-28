@@ -46,12 +46,14 @@ export const Logo = ({ className, markClassName, wordmark = true }: LogoProps) =
           src={LOGO_PNG}
           alt=""
           aria-hidden="true"
+          width={36}
+          height={36}
+          decoding="async"
           onError={(e) => {
             // PNG not uploaded yet — hide the <img> and reveal the SVG fallback
-            (e.currentTarget as HTMLImageElement).style.display = "none";
-            const fallback = (e.currentTarget.parentElement as HTMLElement | null)?.querySelector(
-              "[data-logo-fallback]",
-            ) as HTMLElement | null;
+            const img = e.currentTarget;
+            img.style.display = "none";
+            const fallback = img.parentElement?.querySelector<HTMLElement>("[data-logo-fallback]");
             if (fallback) fallback.style.display = "";
           }}
           className={cn(

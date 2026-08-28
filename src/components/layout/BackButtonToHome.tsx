@@ -4,28 +4,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 const INNER_PATHS = new Set(["/services", "/work", "/about", "/contact", "/privacy", "/terms"]);
 
 /**
- * Intercepts the browser/OS back button (desktop Alt+Left, mobile hardware
- * back, swipe-back) while on an inner page and redirects to the home page
- * instead of walking back through history or exiting the site.
+ * Intercepts the browser back button / Android hardware-back button while the
+ * user is on an inner page and redirects to the home page (`/`).
  *
- * Strategy: whenever an inner page mounts, push a single sentinel history
- * entry pointing to the same URL. The next popstate (back) lands on the
- * original entry of the same page — we detect that and navigate home via
- * `replace: true` so no extra history entry is left.
+ * Covers:
+ *  - Desktop Alt+Left / Backspace-when-focused-on-body
+ *  - Mobile hardware back
+ *  - Swipe-back gestures
+ *  - Deep-link arrivals (typing `/services` directly, external share links) —
+ *    a single sentinel history entry is pushed so the first back press is
+ *    intercepted rather than immediately exiting the site.
+ *
+ * In-app `<Link>` clicks (including the logo) are unaffected — they use
+ * normal router navigation.
  */
 export function BackButtonToHome() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const pushedRef = useRef<string | null>(null);
+  const sentinelPushedRef = useRef(false);
 
   useEffect(() => {
-    if (!INNER_PATHS.has(pathname)) {
-      pushedRef.current = null;
+    const onInner = INNER_PATHS.has(pathname);
+    if (!onInner) {
+      sentinelPushedRef.current = false;
       return;
     }
 
-    window.history.pushState({ __zenvio_backhome: pathname }, "", pathname);
-    pushedRef.current = pathname;
+    // If there's no prior in-app entry (deep link arrival) push a sentinel so
+    // the first popstate is delivered to us instead of leaving the site.
+    if (window.history.state?.__zenvio_sentinel !== true) {
+      window.history.replaceState({ __zenvio_sentinel: true }, "", pathname);
+      window.history.pushState({ __zenvio_inner: true, path: pathname }, "", pathname);
+      sentinelPushedRef.current = true;
+    }
 
     const onPop = () => {
       navigate("/", { replace: true });
@@ -34,12 +45,6 @@ export function BackButtonToHome() {
     window.addEventListener("popstate", onPop);
     return () => {
       window.removeEventListener("popstate", onPop);
-      // If we're unmounting because the user navigated forward in-app (e.g.
-      // clicked the logo to go home, or clicked another nav link), clean up
-      // the sentinel entry so the history stack stays tidy.
-      if (pushedRef.current === pathname) {
-        window.history.back();
-      }
     };
   }, [pathname, navigate]);
 
