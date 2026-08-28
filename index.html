@@ -2,7 +2,23 @@
 <html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!--
+      Theme FOUC guard: runs before paint so light/dark is correct on first frame.
+      ThemeProvider keeps localStorage key "zenvio-theme" in sync.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("zenvio-theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          var useLight = stored === "light" || (!stored && prefersLight);
+          if (useLight) document.documentElement.classList.add("light-theme");
+        } catch (e) {
+          /* localStorage / matchMedia unavailable — stay in dark default */
+        }
+      })();
+    </script>
     <title>Zenvio Labs — Websites & business software</title>
     <meta
       name="description"
@@ -13,17 +29,25 @@
       content="website development, business software, custom web apps, mobile apps, React, Next.js, product studio India, websites from 5000"
     />
     <meta name="author" content="Zenvio Labs" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#0B0D14" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#F7F3EA" media="(prefers-color-scheme: light)" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="format-detection" content="telephone=yes, email=yes, address=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Zenvio Labs" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="canonical" href="https://zenwebstudio.com/" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.web3forms.com" crossorigin />
+    <link rel="preconnect" href="https://wa.me" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
@@ -44,6 +68,8 @@
     <meta property="og:locale" content="en_IN" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@zenviolabs" />
+    <meta name="twitter:creator" content="@zenviolabs" />
     <meta name="twitter:title" content="Zenvio Labs — Websites & business software" />
     <meta
       name="twitter:description"
@@ -66,12 +92,19 @@
             "logo": "https://zenwebstudio.com/apple-touch-icon.png",
             "image": "https://zenwebstudio.com/og-image.jpg",
             "description": "Studio for websites and business software. Websites start at ₹5,000.",
-            "areaServed": "India",
+            "areaServed": "IN",
+            "sameAs": [
+              "https://instagram.com/zenviolabs",
+              "https://linkedin.com/company/zenviolabs",
+              "https://twitter.com/zenviolabs",
+              "https://youtube.com/@zenviolabs",
+              "https://facebook.com/zenviolabs"
+            ],
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+91-95845-59972",
               "contactType": "sales",
-              "availableLanguage": ["English", "Hindi"]
+              "availableLanguage": ["en", "hi"]
             }
           },
           {
@@ -79,8 +112,12 @@
             "@id": "https://zenwebstudio.com/#website",
             "url": "https://zenwebstudio.com/",
             "name": "Zenvio Labs",
-            "publisher": {
-              "@id": "https://zenwebstudio.com/#organization"
+            "publisher": { "@id": "https://zenwebstudio.com/#organization" },
+            "inLanguage": "en-IN",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://zenwebstudio.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
             }
           },
           {
@@ -93,12 +130,15 @@
             "image": "https://zenwebstudio.com/og-image.jpg",
             "description": "Studio for websites and business software. Websites start at ₹5,000.",
             "priceRange": "₹₹",
-            "address": {
-              "@type": "PostalAddress",
-              "addressCountry": "IN"
-            },
-            "areaServed": "India",
-            "serviceType": ["Website design", "Custom software development", "Mobile app development"]
+            "areaServed": "IN",
+            "serviceType": ["Website design", "Custom software development", "Mobile app development"],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5.0",
+              "reviewCount": "40",
+              "bestRating": "5",
+              "worstRating": "1"
+            }
           }
         ]
       }

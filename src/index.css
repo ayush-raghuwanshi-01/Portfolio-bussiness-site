@@ -136,13 +136,21 @@
 
   * { @apply border-border; }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    /* Better mobile viewport handling: dvh accounts for dynamic browser chrome */
+    min-height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv11", "ss02";
     letter-spacing: -0.011em;
     background-attachment: fixed;
+    min-height: 100dvh;
+    overflow-x: clip;
   }
 
   /* DARK mode body: subtle colored radial glows */
@@ -347,25 +355,6 @@
     border-radius: 0.4em;
     font-weight: 600;
   }
-
-  /* Back-to-home link used on inner page heroes */
-  .back-home-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: hsl(var(--muted-foreground));
-    text-decoration: none;
-    transition: color 0.2s ease, transform 0.2s ease;
-    margin-bottom: 1rem;
-  }
-  .back-home-link:hover {
-    color: hsl(var(--ember));
-    transform: translateX(-2px);
-  }
-  .light-theme .back-home-link { color: hsl(220 10% 45%); }
-  .light-theme .back-home-link:hover { color: hsl(14 85% 45%); }
 
   /* ===== HERO BACKGROUND HELPER CLASSES ===== */
   .hero-grid-bg { opacity: 0.22; }
