@@ -7,7 +7,7 @@ import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import { site } from "@/lib/site";
 import { HeroVisual } from "@/components/home/HeroVisual";
 
-const pills = [
+const services = [
   { icon: AppWindow, label: "Websites" },
   { icon: Workflow, label: "Business software" },
   { icon: Smartphone, label: "Mobile apps" },
@@ -20,73 +20,66 @@ const trustPoints = [
 ];
 
 export const Hero = () => (
-  <section className="relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
-    {/* Decorative background (theme-adaptive) */}
+  <section className="hero relative isolate overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pb-24 lg:pt-36">
     <div className="pointer-events-none absolute inset-0 -z-10">
       <div className="absolute inset-0 grid-bg hero-grid-bg" />
       <div className="absolute left-1/2 top-0 h-[420px] w-[700px] -translate-x-1/2 rounded-full hero-primary-glow blur-[120px]" />
       <div className="absolute -left-20 bottom-0 h-[300px] w-[300px] rounded-full hero-green-glow blur-[110px]" />
-      {/* Light mode: subtle decorative dots top-right instead of a murky blob */}
       <div aria-hidden className="hero-dots absolute"><span /></div>
-      {/* Dark mode: ember accent bottom-right */}
       <div className="dark-ember-glow absolute -right-24 bottom-10 hidden h-[280px] w-[280px] rounded-full blur-[110px] md:block" />
     </div>
 
     <div className="container relative">
-      <div className="mb-8 flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500 backdrop-blur-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          {site.availability}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground/70 backdrop-blur-sm">
-          <Sparkles className="h-3 w-3 text-ember" />
-          {site.locationLine}
-        </span>
-      </div>
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(400px,0.92fr)] lg:gap-12 xl:gap-16">
+        <div className="hero__content">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              {site.availability}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground/70 backdrop-blur-sm">
+              <Sparkles className="h-3 w-3 text-ember" />
+              {site.locationLine}
+            </span>
+          </div>
 
-      {/* Two-column split */}
-      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="animate-fade-up lg:col-span-6">
-          <span className="eyebrow">Product studio</span>
-          <h1 className="mt-6 font-serif-display text-[42px] leading-[1.02] text-foreground sm:text-6xl lg:text-[76px]">
+          <span className="eyebrow mt-7">Product studio</span>
+          <h1 className="mt-5 max-w-[790px] font-serif-display text-[clamp(2.7rem,6vw,4.9rem)] leading-[0.98] text-foreground">
             Websites that <em className="hl-ember not-italic">convert</em>.
-            <br />
-            Software that <em className="hl-green not-italic">scales</em>.
+            <span className="block">Software that <em className="hl-green not-italic">scales</em>.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-foreground/75">
+          <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-foreground/75 sm:text-[17px]">
             {site.name} is a small engineering team building fast, beautiful{" "}
             <span className="hl-green-soft">websites</span>, internal tools, and{" "}
             <span className="hl-soft">mobile apps</span> for shops, institutes, clinics,
-            and growing companies across India. No templates, no bloat — just honest
-            work that loads in under a second and makes you look professional.
+            and growing companies across India.
           </p>
 
-          {/* Trust bullets */}
-          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
-            {trustPoints.map((t) => (
-              <li key={t} className="flex items-start gap-2 text-[13px] text-foreground/70">
+          <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+            {trustPoints.map((point) => (
+              <li key={point} className="flex items-start gap-2 text-[13px] leading-snug text-foreground/70">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                {t}
+                {point}
               </li>
             ))}
           </ul>
 
           <div className="mt-7 flex flex-wrap gap-2">
-            {pills.map((pill) => (
+            {services.map((service) => (
               <span
-                key={pill.label}
+                key={service.label}
                 className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-3.5 py-1.5 text-xs font-medium text-foreground/85 shadow-sm backdrop-blur-md"
               >
-                <pill.icon className="h-3.5 w-3.5 text-ember" />
-                {pill.label}
+                <service.icon className="h-3.5 w-3.5 text-ember" />
+                {service.label}
               </span>
             ))}
           </div>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Magnetic>
               <StartProjectButton source="hero" size="xl" className="group">
                 Start a project
@@ -110,15 +103,14 @@ export const Hero = () => (
             No spam, no newsletter.
           </p>
 
-          {/* Micro proof row */}
-          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-foreground/55">
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-foreground/55">
             <span className="flex items-center gap-1.5">
               <span className="flex -space-x-2">
-                {["#22c55e", "#f97316", "#7C6BFF", "#06b6d4"].map((c) => (
+                {["#22c55e", "#f97316", "#7C6BFF", "#06b6d4"].map((color) => (
                   <span
-                    key={c}
+                    key={color}
                     className="inline-block h-5 w-5 rounded-full border-2 border-background"
-                    style={{ background: c }}
+                    style={{ background: color }}
                   />
                 ))}
               </span>
@@ -134,8 +126,7 @@ export const Hero = () => (
           </div>
         </div>
 
-        {/* Right column */}
-        <div className="relative lg:col-span-6">
+        <div className="hero__visual-wrap">
           <HeroVisual />
         </div>
       </div>
