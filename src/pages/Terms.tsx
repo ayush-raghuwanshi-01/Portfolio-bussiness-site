@@ -7,7 +7,7 @@ const TermsPage = () => (
   <>
     <Seo
       title="Terms of Use"
-      description="Terms for using the Zenvio Labs website and requesting project work."
+      description="Terms for using the ZenVioLabs website and requesting project work."
       path="/terms"
     />
     <PageHero eyebrow="Legal" title="Terms of use." body={`Last updated 25 August 2026.`} />

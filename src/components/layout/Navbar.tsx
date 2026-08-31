@@ -46,7 +46,7 @@ export const Navbar = () => {
           scrolled && "shadow-elegant",
         )}
       >
-        <Link to="/" aria-label="Zenvio Labs home" className="pl-1" onClick={() => setOpen(false)}>
+        <Link to="/" aria-label="ZenVioLabs home" className="pl-1" onClick={() => setOpen(false)}>
           <Logo wordmark className="[&>span:last-child]:hidden sm:[&>span:last-child]:inline" />
         </Link>
 

@@ -36,7 +36,7 @@ const sendViaFormSubmit = async (lead: LeadInsert): Promise<boolean> => {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
-        _subject: `Zenvio Labs enquiry — ${lead.name}`,
+        _subject: `ZenVioLabs enquiry — ${lead.name}`,
         _template: "table",
         name: lead.name,
         email: lead.email,
@@ -73,8 +73,8 @@ const sendViaWeb3Forms = async (lead: LeadInsert): Promise<boolean> => {
     // that are aggressive with static deployments.
     const formData = new FormData();
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-    formData.append("subject", `Zenvio Labs enquiry — ${lead.name}`);
-    formData.append("from_name", "Zenvio Labs website");
+    formData.append("subject", `ZenVioLabs enquiry — ${lead.name}`);
+    formData.append("from_name", "ZenVioLabs website");
     formData.append("name", lead.name);
     formData.append("email", lead.email);
     if (lead.phone) formData.append("phone", lead.phone);
@@ -92,7 +92,7 @@ const sendViaWeb3Forms = async (lead: LeadInsert): Promise<boolean> => {
     const body = await res.json().catch(() => ({}));
     return Boolean(res.ok && body.success);
   } catch (err) {
-    console.error("[Zenvio Labs] Web3Forms failed:", err);
+    console.error("[ZenVioLabs] Web3Forms failed:", err);
     return false;
   }
 };
@@ -123,7 +123,7 @@ const persistViaSupabase = async (lead: LeadInsert): Promise<boolean> => {
     },
   ]);
   if (error) {
-    console.error("[Zenvio Labs] Supabase insert error:", error.message);
+    console.error("[ZenVioLabs] Supabase insert error:", error.message);
     return false;
   }
   return true;

@@ -1,55 +1,350 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const LogoMark = () => {
-  const [imgOk, setImgOk] = useState(true);
+// Stunning Brand Name Animation - The Main Focal Point
+const BrandNameAnimation = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [time, setTime] = useState(0);
+  
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight,
+      });
+    };
+    
+    let frameCount = 0;
+    const animate = () => {
+      frameCount++;
+      if (frameCount % 2 === 0) setTime(t => t + 0.02);
+      requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const letterVariants = {
+    hidden: { opacity: 0, y: 50, rotateX: -90 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.8,
+        ease: [0.215, 0.61, 0.355, 1],
+      },
+    }),
+  };
+
+  const brandName = "ZenVioLabs".split("");
+
   return (
-    <>
-      {imgOk && (
-        <img
-          src="/zenvio-logo.png"
-          alt="Zenvio Labs"
-          onError={() => setImgOk(false)}
-          className="relative h-32 w-32 drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)] sm:h-36 sm:w-36"
-          style={{
-            animation: "zShimmer 5s ease-in-out infinite",
-            borderRadius: "18%",
-            objectFit: "cover",
+    <div 
+      ref={containerRef}
+      className="relative flex flex-col items-center justify-center"
+      style={{ perspective: "2000px" }}
+    >
+      {/* Main Brand Name with 3D Flip Animation */}
+      <div className="relative flex items-center justify-center">
+        {brandName.map((letter, i) => (
+          <motion.div
+            key={i}
+            custom={i}
+            initial="hidden"
+            animate="visible"
+            variants={letterVariants}
+            className="relative"
+            style={{ 
+              transformStyle: "preserve-3d",
+              transform: `translateZ(${Math.sin(time + i * 0.5) * 20}px)`,
+            }}
+          >
+            <motion.span
+              className="inline-block bg-gradient-to-b from-white via-gray-100 to-gray-300 bg-clip-text font-display text-5xl font-black tracking-wider text-transparent sm:text-6xl md:text-7xl lg:text-8xl"
+              style={{
+                textShadow: "none",
+                filter: `drop-shadow(0 0 20px rgba(124, 107, 255, ${0.3 + Math.sin(time * 2 + i) * 0.2})) drop-shadow(0 0 40px rgba(124, 107, 255, ${0.2 + Math.sin(time * 2 + i) * 0.1}))`,
+              }}
+              animate={{
+                scale: [1, 1.02, 1],
+                rotateY: [0, 5, 0, -5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.05,
+              }}
+            >
+              {letter}
+            </motion.span>
+            
+            {/* Letter Glow Effect */}
+            <motion.div
+              className="absolute inset-0 -z-10 blur-xl"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                delay: i * 0.15,
+              }}
+              style={{
+                background: i < 3 
+                  ? "radial-gradient(circle, rgba(249, 115, 22, 0.8))" 
+                  : i < 6 
+                    ? "radial-gradient(circle, rgba(34, 197, 94, 0.8))"
+                    : "radial-gradient(circle, rgba(124, 107, 255, 0.8))",
+                borderRadius: "50%",
+              }}
+            />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Animated Underline */}
+      <motion.div 
+        className="mt-2 h-1 w-0 rounded-full"
+        initial={{ width: 0 }}
+        animate={{ width: "100%" }}
+        transition={{ delay: 1.2, duration: 1, ease: "easeOut" }}
+        style={{
+          background: "linear-gradient(90deg, #f97316, #22c55e, #7C6BFF, #f97316)",
+          backgroundSize: "200% 100%",
+          animation: "gradientFlow 3s linear infinite",
+        }}
+      />
+
+      {/* Tagline with fade in */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="mt-4 text-center"
+      >
+        <span className="bg-gradient-to-r from-gray-400 via-gray-300 to-gray-400 bg-clip-text font-light tracking-[0.3em] text-transparent sm:text-lg md:text-xl uppercase">
+          Design · Develop · Grow
+        </span>
+      </motion.div>
+
+      {/* Particle Effects Around Text */}
+      {[...Array(30)].map((_, i) => {
+        const angle = (i / 30) * Math.PI * 2 + time * 0.2;
+        const radius = 150 + Math.sin(time + i * 0.3) * 30;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        
+        return (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: 2 + (i % 3),
+              height: 2 + (i % 3),
+              background: i % 3 === 0 
+                ? "#f97316" 
+                : i % 3 === 1 
+                  ? "#22c55e" 
+                  : "#7C6BFF",
+              boxShadow: `0 0 ${4 + (i % 3) * 2}px ${
+                i % 3 === 0 
+                  ? "#f97316" 
+                  : i % 3 === 1 
+                    ? "#22c55e" 
+                    : "#7C6BFF"
+              }`,
+              left: "50%",
+              top: "50%",
+              marginLeft: -1,
+              marginTop: -1,
+            }}
+            animate={{
+              x: [0, x, 0],
+              y: [0, y, 0],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.5, 1.5, 0.5],
+            }}
+            transition={{
+              duration: 4 + (i % 3),
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.1,
+            }}
+          />
+        );
+      })}
+
+      <style>{`
+        @keyframes gradientFlow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+// ZVL Logo Animation - Above Brand Name
+const ZVLLogoAnimation = () => {
+  const [time, setTime] = useState(0);
+  
+  useEffect(() => {
+    let frameCount = 0;
+    const animate = () => {
+      frameCount++;
+      if (frameCount % 3 === 0) setTime(t => t + 0.015);
+      requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, []);
+
+  return (
+    <div className="relative mb-6 flex items-center justify-center" style={{ perspective: "1000px" }}>
+      {/* Floating Rings */}
+      <motion.div
+        className="absolute h-32 w-32 rounded-full border border-purple-500/30"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        style={{ borderStyle: "dashed" }}
+      />
+      <motion.div
+        className="absolute h-40 w-40 rounded-full border border-green-500/20"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
+      
+      {/* ZVL Letters with Merge Animation */}
+      <div className="relative flex items-center">
+        {/* Z */}
+        <motion.svg
+          viewBox="0 0 50 50"
+          className="h-12 w-12 sm:h-14 sm:w-14"
+          animate={{
+            x: [0, -5, 0],
+            rotateZ: [-3, 3, -3],
+            scale: [1, 1.1, 1],
           }}
-        />
-      )}
-      {!imgOk && (
-        <svg
-          viewBox="0 0 80 80"
-          className="relative h-32 w-32 drop-shadow-[0_6px_18px_rgba(0,0,0,0.5)] sm:h-36 sm:w-36"
-          style={{ animation: "zShimmer 5s ease-in-out infinite" }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          style={{ zIndex: 3 }}
         >
           <defs>
-            <linearGradient id="zmetal" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#FFF4D6" />
-              <stop offset="35%" stopColor="#FFD27A" />
-              <stop offset="60%" stopColor="#F4B740" />
-              <stop offset="100%" stopColor="#A47218" />
-            </linearGradient>
-            <linearGradient id="zshine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
-              <stop offset="45%" stopColor="#ffffff" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="zedges" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#FFE9B0" />
-              <stop offset="100%" stopColor="#8C5A0C" />
-            </linearGradient>
-            <linearGradient id="zslash" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="hsl(158 72% 65%)" />
-              <stop offset="100%" stopColor="hsl(16 92% 68%)" />
+            <linearGradient id="zGradNew" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#fbbf24" />
             </linearGradient>
           </defs>
-          <path d="M16 20h48l-25 21h25V62H16l25-21H16V20z" fill="url(#zedges)" stroke="#6A4508" strokeWidth="1.5" />
-          <path d="M18 22h44l-25 21h25V60H18l25-21H18V22z" fill="url(#zmetal)" />
-          <path d="M19.2 61.2L60.8 20" stroke="url(#zslash)" strokeWidth="1.4" strokeLinecap="round" opacity="0.9" />
-          <path d="M18 22h44l-25 21h25V60H18l25-21H18V22z" fill="url(#zshine)" opacity="0.55" />
-        </svg>
-      )}
-    </>
+          <path
+            d="M8 12 L42 12 L42 18 L20 38 L42 38 L42 44 L8 44 L8 38 L30 18 L8 18 Z"
+            fill="url(#zGradNew)"
+            filter="drop-shadow(0 0 10px #f97316)"
+          />
+        </motion.svg>
+
+        {/* V */}
+        <motion.svg
+          viewBox="0 0 50 50"
+          className="h-14 w-14 sm:h-16 sm:w-16"
+          animate={{
+            y: [-3, 3, -3],
+            rotateY: [0, 15, 0, -15, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.1 }}
+          style={{ zIndex: 4, marginLeft: "-4px", marginRight: "-4px" }}
+        >
+          <defs>
+            <linearGradient id="vGradNew" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#22c55e" />
+              <stop offset="100%" stopColor="#4ade80" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M8 12 L18 12 L25 32 L32 12 L42 12 L30 44 L20 44 Z"
+            fill="url(#vGradNew)"
+            filter="drop-shadow(0 0 12px #22c55e)"
+          />
+        </motion.svg>
+
+        {/* L */}
+        <motion.svg
+          viewBox="0 0 50 50"
+          className="h-12 w-12 sm:h-14 sm:w-14"
+          animate={{
+            x: [0, 5, 0],
+            rotateZ: [3, -3, 3],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+          style={{ zIndex: 3 }}
+        >
+          <defs>
+            <linearGradient id="lGradNew" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#7C6BFF" />
+              <stop offset="100%" stopColor="#a78bfa" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M10 12 L20 12 L20 32 L38 32 L38 44 L10 44 Z"
+            fill="url(#lGradNew)"
+            filter="drop-shadow(0 0 10px #7C6BFF)"
+          />
+        </motion.svg>
+
+        {/* Energy Connection */}
+        <motion.div
+          className="absolute -bottom-2 left-0 h-0.5 w-full"
+          style={{
+            background: "linear-gradient(90deg, #f97316, #22c55e, #7C6BFF)",
+          }}
+          animate={{
+            scaleX: [0.8, 1, 0.8],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      </div>
+
+      {/* Floating Particles */}
+      {[...Array(12)].map((_, i) => {
+        const angle = (i / 12) * Math.PI * 2 + time;
+        const radius = 60 + Math.sin(time * 2 + i) * 10;
+        return (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: 3,
+              height: 3,
+              background: i % 3 === 0 ? "#f97316" : i % 3 === 1 ? "#22c55e" : "#7C6BFF",
+              boxShadow: `0 0 8px ${i % 3 === 0 ? "#f97316" : i % 3 === 1 ? "#22c55e" : "#7C6BFF"}`,
+              left: "50%",
+              top: "50%",
+            }}
+            animate={{
+              x: [0, Math.cos(angle) * radius],
+              y: [0, Math.sin(angle) * radius],
+              opacity: [0.3, 1, 0.3],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+              delay: i * 0.1,
+            }}
+          />
+        );
+      })}
+    </div>
   );
 };
 
@@ -57,7 +352,6 @@ export const HeroVisual = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [tilt, setTilt] = useState({ rx: 4, ry: -8 });
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const logoRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
   // Pointer parallax + smooth lerp toward target
@@ -73,8 +367,8 @@ export const HeroVisual = () => {
   useEffect(() => {
     let rx = tilt.rx;
     let ry = tilt.ry;
-    const targetRx = mouse.y * -16 + 4;
-    const targetRy = mouse.x * 20 - 6;
+    const targetRx = mouse.y * -12 + 4;
+    const targetRy = mouse.x * 15 - 6;
     const animate = () => {
       rx += (targetRx - rx) * 0.08;
       ry += (targetRy - ry) * 0.08;
@@ -88,31 +382,21 @@ export const HeroVisual = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mouse.x, mouse.y]);
 
-  // Pre-compute satellite positions so React doesn't re-render them
+  // Pre-compute satellite positions
   const satellites = useMemo(
     () =>
-      Array.from({ length: 12 }).map((_, i) => ({
-        angle: (i / 12) * Math.PI * 2,
+      Array.from({ length: 16 }).map((_, i) => ({
+        angle: (i / 16) * Math.PI * 2,
         size: 2 + (i % 3),
         color:
           i % 3 === 0
-            ? "hsl(158 72% 60%)"
+            ? "hsl(24 95% 55%)"
             : i % 3 === 1
-              ? "hsl(248 86% 72%)"
-              : "hsl(16 92% 66%)",
-        orbit: 180 + (i % 4) * 18,
-        speed: 18 + (i % 5) * 6,
-        delay: i * -1.3,
-        glow: i % 4 === 0,
-      })),
-    [],
-  );
-
-  const sparks = useMemo(
-    () =>
-      Array.from({ length: 6 }).map((_, i) => ({
-        angle: (i / 6) * Math.PI * 2 + Math.PI / 12,
-        len: 14 + (i % 3) * 6,
+              ? "hsl(142 70% 50%)"
+              : "hsl(248 86% 70%)",
+        orbit: 200 + (i % 4) * 20,
+        speed: 15 + (i % 5) * 4,
+        delay: i * -1.2,
       })),
     [],
   );
@@ -122,301 +406,192 @@ export const HeroVisual = () => {
       ref={frameRef}
       onMouseMove={onMove}
       onMouseLeave={() => setMouse({ x: 0, y: 0 })}
-      className="relative mx-auto flex h-full w-full max-w-[580px] flex-col items-center"
-      style={{ perspective: "1800px" }}
+      className="relative mx-auto flex h-full w-full max-w-[700px] flex-col items-center justify-center"
+      style={{ perspective: "1500px" }}
     >
-      {/* === 3D Animated Z Logo Scene === */}
-      <div
-        className="relative flex h-[340px] w-full items-center justify-center sm:h-[420px]"
+      {/* Main Content Container with 3D Tilt */}
+      <motion.div
+        className="relative flex flex-col items-center"
         style={{
           transformStyle: "preserve-3d",
           transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
-          transition: "transform 0.1s linear",
         }}
       >
-        {/* Conic gradient glow plate behind logo */}
+        {/* Background Glow Effects */}
         <div
           aria-hidden
-          className="absolute h-[360px] w-[360px] rounded-full opacity-80 sm:h-[420px] sm:w-[420px]"
+          className="absolute inset-0 -z-10 rounded-full opacity-60 blur-3xl"
           style={{
-            background:
-              "conic-gradient(from 0deg, hsl(248 86% 66% / 0.55), hsl(158 72% 55% / 0.35), hsl(16 92% 60% / 0.45), hsl(188 92% 50% / 0.35), hsl(248 86% 66% / 0.55))",
-            filter: "blur(70px)",
-            animation: "spin-slow 28s linear infinite",
-            transform: "translateZ(-30px)",
+            background: "radial-gradient(ellipse at center, hsl(248 86% 50% / 0.4) 0%, transparent 70%)",
+            transform: "translateZ(-100px)",
           }}
         />
-
-        {/* Inner soft glow */}
         <div
           aria-hidden
-          className="absolute h-[240px] w-[240px] rounded-full bg-white/40 blur-[60px] dark:bg-white/5 sm:h-[280px] sm:w-[280px]"
-          style={{ transform: "translateZ(-20px)" }}
+          className="absolute -left-20 top-20 -z-10 h-40 w-40 rounded-full opacity-40 blur-3xl"
+          style={{ background: "radial-gradient(circle, hsl(24 95% 55% / 0.5), transparent)" }}
+        />
+        <div
+          aria-hidden
+          className="absolute -right-20 bottom-20 -z-10 h-40 w-40 rounded-full opacity-40 blur-3xl"
+          style={{ background: "radial-gradient(circle, hsl(142 70% 50% / 0.5), transparent)" }}
         />
 
-        {/* Twinkling stars / satellites orbiting at different speeds */}
+        {/* ZVL Logo Animation */}
+        <ZVLLogoAnimation />
+
+        {/* Brand Name Animation - THE MAIN FOCAL POINT */}
+        <BrandNameAnimation />
+
+        {/* Orbital Rings */}
         {satellites.map((s, i) => (
-          <div
+          <motion.div
             key={i}
             aria-hidden
-            className="absolute left-1/2 top-1/2"
+            className="absolute left-1/2 top-1/2 rounded-full"
             style={{
               width: s.size,
               height: s.size,
+              background: s.color,
+              boxShadow: `0 0 ${s.size * 2}px ${s.color}`,
               marginLeft: -s.size / 2,
               marginTop: -s.size / 2,
-              transformStyle: "preserve-3d",
-              animation: `satOrbit${i % 3} ${s.speed}s linear infinite`,
-              animationDelay: `${s.delay}s`,
-              transform: `translateZ(${20 + (i % 4) * 10}px)`,
             }}
-          >
-            <span
-              className="block h-full w-full rounded-full"
-              style={{
-                background: s.color,
-                boxShadow: s.glow ? `0 0 14px 2px ${s.color}` : `0 0 6px ${s.color}`,
-              }}
-            />
-            <style>{`
-              @keyframes satOrbit${i % 3} {
-                from { transform: rotate(${s.angle}rad) translateX(${s.orbit}px) rotate(0deg) translateZ(${20 + (i % 4) * 10}px); }
-                to   { transform: rotate(${s.angle + Math.PI * 2}rad) translateX(${s.orbit}px) rotate(-360deg) translateZ(${20 + (i % 4) * 10}px); }
-              }
-            `}</style>
-          </div>
+            animate={{
+              x: [
+                0,
+                Math.cos(s.angle + time * 0.1) * s.orbit,
+                Math.cos(s.angle + time * 0.1 + Math.PI * 2) * s.orbit,
+                0,
+              ],
+              y: [
+                0,
+                Math.sin(s.angle + time * 0.1) * s.orbit,
+                Math.sin(s.angle + time * 0.1 + Math.PI * 2) * s.orbit,
+                0,
+              ],
+              opacity: [0.4, 1, 0.4],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: s.speed,
+              repeat: Infinity,
+              ease: "linear",
+              delay: s.delay,
+            }}
+          />
         ))}
 
-        {/* Orbital ring 1 — ember, tilted strongly */}
-        <div
-          aria-hidden
-          className="absolute h-[340px] w-[340px] rounded-full sm:h-[400px] sm:w-[400px]"
-          style={{
-            transform: "rotateX(72deg) rotateY(8deg) translateZ(10px)",
-            transformStyle: "preserve-3d",
-            border: "1.5px solid hsl(16 92% 60% / 0.45)",
-            animation: "ringSpin1 18s linear infinite",
-          }}
-        >
-          <span
-            className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rounded-full bg-ember"
-            style={{ boxShadow: "0 0 24px 4px hsl(16 92% 60% / 0.9)" }}
-          />
-        </div>
-        {/* Orbital ring 2 — green, reverse */}
-        <div
-          aria-hidden
-          className="absolute h-[300px] w-[300px] rounded-full sm:h-[350px] sm:w-[350px]"
-          style={{
-            transform: "rotateX(60deg) rotateY(-18deg) translateZ(30px)",
-            border: "1.5px solid hsl(158 72% 50% / 0.5)",
-            animation: "ringSpin2 22s linear infinite reverse",
-          }}
-        >
-          <span
-            className="absolute -top-2 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-emerald-400"
-            style={{ boxShadow: "0 0 24px 4px hsl(158 72% 55% / 0.9)" }}
-          />
-        </div>
-        {/* Orbital ring 3 — primary purple, tilted differently */}
-        <div
-          aria-hidden
-          className="absolute h-[380px] w-[380px] rounded-full border border-dashed sm:h-[450px] sm:w-[450px]"
-          style={{
-            borderColor: "hsl(248 86% 70% / 0.35)",
-            transform: "rotateX(78deg) rotateY(40deg) translateZ(-10px)",
-            animation: "ringSpin3 36s linear infinite",
-          }}
-        >
-          <span
-            className="absolute -top-1.5 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-primary"
-            style={{ boxShadow: "0 0 16px 3px hsl(248 86% 70% / 0.9)" }}
-          />
-        </div>
-        {/* Orbital ring 4 — cyan, equatorial (flat) */}
-        <div
-          aria-hidden
-          className="absolute h-[270px] w-[270px] rounded-full sm:h-[320px] sm:w-[320px]"
-          style={{
-            border: "1px solid hsl(188 92% 60% / 0.5)",
-            transform: "translateZ(40px)",
-            animation: "ringSpin4 14s linear infinite",
-          }}
+        {/* Orbital Ring Elements */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-500/20"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green-500/15"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-orange-500/15"
+          style={{ borderStyle: "dashed" }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Circuit lines radiating from logo */}
+        {/* Animated Circuit Lines */}
         <svg
-          aria-hidden
-          viewBox="0 0 400 400"
-          className="absolute h-[380px] w-[380px] opacity-70 sm:h-[460px] sm:w-[460px]"
-          style={{ transform: "translateZ(-10px)" }}
+          className="absolute inset-0 h-full w-full opacity-30"
+          viewBox="0 0 500 500"
+          style={{ transform: "translateZ(-50px)" }}
         >
           <defs>
-            <linearGradient id="cgrad" x1="0" x2="1">
-              <stop offset="0%" stopColor="hsl(158 72% 60% / 0.0)" />
-              <stop offset="40%" stopColor="hsl(158 72% 60% / 0.8)" />
-              <stop offset="100%" stopColor="hsl(248 86% 70%)" />
+            <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="hsl(248 86% 70%)" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="hsl(142 70% 50%)" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="hsl(24 95% 55%)" stopOpacity="0.8" />
             </linearGradient>
           </defs>
-          <g stroke="url(#cgrad)" strokeWidth="1" fill="none">
-            {Array.from({ length: 10 }).map((_, i) => {
-              const angle = (i / 10) * Math.PI * 2;
-              const x1 = 200 + Math.cos(angle) * 80;
-              const y1 = 200 + Math.sin(angle) * 80;
-              const mid = 120 + (i % 3) * 18;
-              const x2 = 200 + Math.cos(angle) * mid;
-              const y2 = 200 + Math.sin(angle) * mid;
-              const x3 = 200 + Math.cos(angle) * (mid + 40);
-              const y3 = 200 + Math.sin(angle) * (mid + 40);
-              return (
-                <g key={i}>
-                  <path
-                    d={`M${x1},${y1} L${x2},${y2} L${x3},${y3}`}
-                    strokeDasharray="4 4"
-                    style={{
-                      animation: `dashFlow ${6 + (i % 4)}s linear infinite`,
-                      strokeDashoffset: 0,
-                    }}
-                  />
-                  <circle
-                    cx={x3}
-                    cy={y3}
-                    r="2.5"
-                    fill={i % 2 ? "hsl(158 72% 60%)" : "hsl(248 86% 70%)"}
-                  />
-                </g>
-              );
-            })}
-          </g>
+          {[...Array(8)].map((_, i) => {
+            const angle = (i / 8) * Math.PI * 2;
+            const x1 = 250 + Math.cos(angle) * 100;
+            const y1 = 250 + Math.sin(angle) * 100;
+            const x2 = 250 + Math.cos(angle) * 180;
+            const y2 = 250 + Math.sin(angle) * 180;
+            return (
+              <g key={i}>
+                <motion.path
+                  d={`M${x1},${y1} L${x2},${y2}`}
+                  stroke="url(#circuitGrad)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: [0, 1, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
+                />
+                <motion.circle
+                  cx={x2}
+                  cy={y2}
+                  r="3"
+                  fill="url(#circuitGrad)"
+                  animate={{ scale: [0.5, 1.5, 0.5], opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }}
+                />
+              </g>
+            );
+          })}
         </svg>
 
-        {/* Spark lines shooting out from logo corners */}
-        {sparks.map((s, i) => (
-          <div
-            key={`sp-${i}`}
-            aria-hidden
-            className="absolute left-1/2 top-1/2 origin-left"
+        {/* Floating Spark Effects */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`spark-${i}`}
+            className="absolute h-1 w-8 rounded-full"
             style={{
-              width: s.len,
-              height: 2,
-              transform: `translate(-50%,-50%) rotate(${s.angle}rad) translateX(110px) translateZ(50px)`,
-              background:
-                "linear-gradient(90deg, hsl(248 86% 70% / 0.9), hsl(158 72% 60% / 0))",
-              animation: `sparkPulse ${2 + (i % 3)}s ease-in-out ${i * 0.3}s infinite`,
-              opacity: 0.7,
+              background: "linear-gradient(90deg, transparent, hsl(248 86% 70% / 0.8), transparent)",
+              left: "50%",
+              top: "50%",
+              originX: 0,
+            }}
+            animate={{
+              x: [-100, 0, 100],
+              y: [-50, 0, 50],
+              opacity: [0, 1, 0],
+              rotate: i * 45,
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.25,
             }}
           />
         ))}
+      </motion.div>
 
-        {/* The 3D Logo Mark */}
-        <div
-          ref={logoRef}
-          className="relative"
-          style={{
-            transform: "translateZ(90px)",
-            transformStyle: "preserve-3d",
-            animation: "logoFloat 6s ease-in-out infinite",
-          }}
+      {/* Live Badge */}
+      <motion.div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 backdrop-blur-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.5 }}
+      >
+        <motion.span
+          className="relative flex h-2 w-2"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
         >
-          {/* Outermost rotating halo */}
-          <div
-            aria-hidden
-            className="absolute inset-[-28px] rounded-[36px]"
-            style={{
-              background:
-                "conic-gradient(from 0deg, transparent, hsl(248 86% 70% / 0.5), transparent 40%, hsl(158 72% 55% / 0.5), transparent 70%)",
-              animation: "spin-slow 8s linear infinite",
-              filter: "blur(14px)",
-            }}
-          />
-
-          {/* Back plate (shadow depth) */}
-          <div
-            aria-hidden
-            className="absolute inset-2 rounded-[28px]"
-            style={{
-              transform: "translateZ(-18px)",
-              background: "hsl(232 50% 8%)",
-              filter: "blur(14px)",
-              opacity: 0.55,
-            }}
-          />
-
-          {/* Main gradient cube plate */}
-          <div className="relative grid h-52 w-52 place-items-center rounded-[28px] bg-gradient-to-br from-[#7C6BFF] via-[#4F46E5] to-[#1E1B4B] shadow-[0_40px_90px_-10px_hsl(248_86%_50%/0.65)] sm:h-60 sm:w-60">
-            {/* Gloss top highlight */}
-            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/20 via-transparent to-transparent" />
-            {/* Bottom shadow */}
-            <div className="absolute inset-x-2 bottom-2 h-10 rounded-b-[22px] bg-gradient-to-t from-black/40 to-transparent" />
-            {/* Gold rim */}
-            <div className="absolute inset-0 rounded-[28px] ring-1 ring-amber-300/60" />
-            {/* Inner border shine */}
-            <div className="absolute inset-[3px] rounded-[25px] ring-1 ring-white/10" />
-
-            {/* Center mark — user's PNG logo if available, otherwise a stylised Z */}
-            <LogoMark />
-
-            {/* Pulsing green LIVE dot top-right */}
-            <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-black/30 px-2 py-1 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_2px_hsl(158_72%_60%)]" />
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-300">
-                Live
-              </span>
-            </div>
-
-            {/* Corner sparkle */}
-            <svg
-              aria-hidden
-              viewBox="0 0 20 20"
-              className="absolute -left-3 -top-3 h-5 w-5 text-amber-200"
-              style={{ animation: "sparkle 3s ease-in-out infinite" }}
-            >
-              <path
-                d="M10 0 L12 8 L20 10 L12 12 L10 20 L8 12 L0 10 L8 8 Z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-
-          {/* Floating tag chip below logo */}
-          <div
-            className="absolute left-1/2 top-[calc(100%+14px)] flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-md"
-            style={{ transform: "translate(-50%, 0) translateZ(60px)" }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_hsl(158_72%_60%)]" />
-            <span className="font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-white/85">
-              Design · Develop · Grow
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes logoFloat {
-          0%, 100% { transform: translateZ(90px) translateY(0) rotateY(-3deg) rotateX(0deg); }
-          50%      { transform: translateZ(90px) translateY(-16px) rotateY(3deg) rotateX(-1deg); }
-        }
-        @keyframes zShimmer {
-          0%, 100% { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)) brightness(1); }
-          50%      { filter: drop-shadow(0 6px 22px rgba(255,200,90,0.4)) brightness(1.08); }
-        }
-        @keyframes ringSpin1 { from { transform: rotateX(72deg) rotateY(8deg) rotateZ(0deg) translateZ(10px);} to { transform: rotateX(72deg) rotateY(8deg) rotateZ(360deg) translateZ(10px);} }
-        @keyframes ringSpin2 { from { transform: rotateX(60deg) rotateY(-18deg) rotateZ(0deg) translateZ(30px);} to { transform: rotateX(60deg) rotateY(-18deg) rotateZ(360deg) translateZ(30px);} }
-        @keyframes ringSpin3 { from { transform: rotateX(78deg) rotateY(40deg) rotateZ(0deg) translateZ(-10px);} to { transform: rotateX(78deg) rotateY(40deg) rotateZ(-360deg) translateZ(-10px);} }
-        @keyframes ringSpin4 { from { transform: rotateZ(0deg) translateZ(40px);} to { transform: rotateZ(360deg) translateZ(40px);} }
-        @keyframes dashFlow { to { stroke-dashoffset: -40; } }
-        @keyframes sparkPulse {
-          0%, 100% { opacity: 0.15; transform: translate(-50%,-50%) rotate(var(--r)) translateX(110px) scaleX(0.7); }
-          50%      { opacity: 0.9; transform: translate(-50%,-50%) rotate(var(--r)) translateX(130px) scaleX(1.1); }
-        }
-        @keyframes sparkle {
-          0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
-          50%      { opacity: 1; transform: scale(1.15) rotate(20deg); }
-        }
-      `}</style>
+          <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#22c55e]" />
+        </motion.span>
+        <span className="text-xs font-medium uppercase tracking-widest text-emerald-400">
+          Live Studio
+        </span>
+      </motion.div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const NotFound = () => {
 
   return (
     <>
-      <Seo title="Page not found" description="That page does not exist on Zenvio Labs." path={location.pathname} />
+      <Seo title="Page not found" description="That page does not exist on ZenVioLabs." path={location.pathname} />
       <section className="flex min-h-[70vh] items-center justify-center px-6 pt-28">
         <div className="max-w-lg text-center">
           <span className="eyebrow justify-center">404</span>

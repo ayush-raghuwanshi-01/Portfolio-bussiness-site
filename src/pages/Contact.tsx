@@ -11,7 +11,7 @@ const ContactPage = () => (
   <>
     <Seo
       title="Contact"
-      description={`Contact Zenvio Labs. WhatsApp ${site.phoneDisplay} or email ${site.email}. We reply within 24 hours.`}
+      description={`Contact ZenVioLabs. WhatsApp ${site.phoneDisplay} or email ${site.email}. We reply within 24 hours.`}
       path="/contact"
     />
     <PageHero

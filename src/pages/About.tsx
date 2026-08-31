@@ -12,7 +12,7 @@ const AboutPage = () => (
   <>
     <Seo
       title="About"
-      description="Zenvio Labs is a three-person engineering studio. We build websites and business software for companies across India."
+      description="ZenVioLabs is a three-person engineering studio. We build websites and business software for companies across India."
       path="/about"
     />
     <PageHero
@@ -31,7 +31,7 @@ const AboutPage = () => (
           <div className="overflow-hidden rounded-[28px] border border-border/60">
             <img
               src={teamPhoto}
-              alt="Zenvio Labs team"
+              alt="ZenVioLabs team"
               className="aspect-[4/5] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/5]"
             />
           </div>
