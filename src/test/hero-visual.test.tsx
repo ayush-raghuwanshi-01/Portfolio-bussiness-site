@@ -10,11 +10,15 @@ beforeEach(() => {
 });
 
 describe("HeroVisual", () => {
-  it("renders the focus brand and does not throw for missing time state", () => {
-    render(<HeroVisual />);
+  it("renders the Z logo scene without throwing", () => {
+    const { container } = render(<HeroVisual />);
 
-    // "ZenVioLabs" is split into individual letters, so check a sample of it.
-    expect(screen.getAllByText("Z").length).toBeGreaterThan(0);
-    expect(screen.getByText("Live Studio")).toBeInTheDocument();
+    // The old Z logo mark scene is back: the hero shows the brand tagline chip
+    // ("Design · Develop · Grow") and the "Live" badge on the logo cube.
+    expect(screen.getByText("Design · Develop · Grow")).toBeInTheDocument();
+    expect(screen.getByText("Live")).toBeInTheDocument();
+
+    // The animated scene is built from the logo cube plate and its orbital rings.
+    expect(container.querySelectorAll("svg").length).toBeGreaterThan(0);
   });
 });
