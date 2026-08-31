@@ -24,6 +24,19 @@ describe("submitLead", () => {
     expect(lead.website).toBeUndefined();
   });
 
+  it("preserves the honeypot field when mapping form values", () => {
+    const lead = valuesToLead({
+      name: "Jordan Patel",
+      email: "jordan@acme.dev",
+      phone: "+919876543210",
+      city: "Pune",
+      service: "Website",
+      message: "Need a 5-page site for our institute",
+      website: "https://spam.test",
+    });
+    expect(lead.website).toBe("https://spam.test");
+  });
+
   it("silently accepts honeypot submissions", async () => {
     const result = await submitLead({
       name: "Bot",

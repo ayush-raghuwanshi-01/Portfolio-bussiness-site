@@ -22,7 +22,7 @@ export const LeadDialogProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   const openLeadDialog = useCallback((next?: ServiceOption) => {
-    if (next) setService(next);
+    setService(next ?? serviceOptions[0]);
     setOpen(true);
   }, []);
 

@@ -12,21 +12,25 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const STORAGE_KEY = "zenvio-theme";
 
-const getInitialTheme = (): Theme => {
-  if (typeof window === "undefined") return "dark";
+const getStoredTheme = (): Theme | null => {
+  if (typeof window === "undefined") return null;
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark") return stored;
+    return stored === "light" || stored === "dark" ? stored : null;
   } catch {
-    /* ignore */
+    return null;
   }
-  // Default: match user preference (our current look is dark-first)
+};
+
+const getSystemTheme = (): Theme => {
+  if (typeof window === "undefined") return "dark";
   if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
   return "dark";
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme());
+  const [theme, setThemeState] = useState<Theme>(() => getStoredTheme() ?? getSystemTheme());
+  const [hasStoredPreference, setHasStoredPreference] = useState(() => getStoredTheme() !== null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -35,31 +39,41 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     } else {
       root.classList.remove("light-theme");
     }
+  }, [theme]);
+
+  useEffect(() => {
     try {
-      window.localStorage.setItem(STORAGE_KEY, theme);
+      if (hasStoredPreference) {
+        window.localStorage.setItem(STORAGE_KEY, theme);
+      } else {
+        window.localStorage.removeItem(STORAGE_KEY);
+      }
     } catch {
       /* ignore */
     }
-  }, [theme]);
+  }, [theme, hasStoredPreference]);
 
-  // Listen for OS preference changes if user hasn't explicitly chosen
+  // Listen for OS preference changes until the user explicitly picks a theme.
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: light)");
     const handler = (e: MediaQueryListEvent) => {
-      try {
-        const stored = window.localStorage.getItem(STORAGE_KEY);
-        if (stored === "light" || stored === "dark") return; // user chose explicitly
-      } catch {
-        /* ignore */
+      if (!hasStoredPreference) {
+        setThemeState(e.matches ? "light" : "dark");
       }
-      setThemeState(e.matches ? "light" : "dark");
     };
     mq.addEventListener?.("change", handler);
     return () => mq.removeEventListener?.("change", handler);
+  }, [hasStoredPreference]);
+
+  const setTheme = useCallback((t: Theme) => {
+    setHasStoredPreference(true);
+    setThemeState(t);
   }, []);
 
-  const setTheme = useCallback((t: Theme) => setThemeState(t), []);
-  const toggleTheme = useCallback(() => setThemeState((t) => (t === "dark" ? "light" : "dark")), []);
+  const toggleTheme = useCallback(() => {
+    setHasStoredPreference(true);
+    setThemeState((t) => (t === "dark" ? "light" : "dark"));
+  }, []);
 
   const value = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme, toggleTheme, setTheme]);
 
