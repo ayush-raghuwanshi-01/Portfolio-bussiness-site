@@ -1,11 +1,11 @@
 export const site = {
-  name: "Zenvio Labs",
-  legalName: "Zenvio Labs",
-  shortName: "Zenvio",
+  name: "ZenVioLabs",
+  legalName: "ZenVioLabs",
+  shortName: "ZenVio",
   tagline: "Websites and software for your business.",
   headline: "Websites and business software, built for growing companies.",
   description:
-    "Zenvio Labs builds websites and business software for shops, institutes, clinics, and growing companies across India. Websites start at ₹5,000.",
+    "ZenVioLabs builds websites and business software for shops, institutes, clinics, and growing companies across India. Websites start at ₹5,000.",
   url: "https://zenwebstudio.com",
   email: "zenwebstudio.in@gmail.com",
   phoneDisplay: "+91 95845 59972",
@@ -62,11 +62,11 @@ export const techStack = [
 export const whatsappHref = (message?: string) => {
   const text =
     message ??
-    "Hi Zenvio Labs — I would like a website / software for my business.";
+    "Hi ZenVioLabs — I would like a website / software for my business.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 };
 
-export const mailHref = (subject = "Project enquiry — Zenvio Labs") =>
+export const mailHref = (subject = "Project enquiry — ZenVioLabs") =>
   `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
 
 export const absoluteUrl = (path = "/") => {
@@ -87,7 +87,7 @@ export const formatLeadMessage = (lead: {
   source?: string;
 }) =>
   [
-    "New enquiry — Zenvio Labs",
+    "New enquiry — ZenVioLabs",
     "",
     `Name: ${lead.name}`,
     `Phone: ${lead.phone || "—"}`,

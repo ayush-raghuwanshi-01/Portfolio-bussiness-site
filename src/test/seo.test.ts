@@ -3,17 +3,17 @@ import { absoluteUrl, mailHref, pageTitle, site, whatsappHref } from "@/lib/site
 
 describe("SEO and URL helpers", () => {
   it("formats page titles correctly with brand name", () => {
-    expect(pageTitle("Services")).toBe("Services — Zenvio Labs");
-    expect(pageTitle("Work")).toBe("Work — Zenvio Labs");
-    expect(pageTitle("About")).toBe("About — Zenvio Labs");
-    expect(pageTitle("Contact")).toBe("Contact — Zenvio Labs");
-    expect(pageTitle("Privacy Policy")).toBe("Privacy Policy — Zenvio Labs");
-    expect(pageTitle("Terms of Use")).toBe("Terms of Use — Zenvio Labs");
+    expect(pageTitle("Services")).toBe("Services — ZenVioLabs");
+    expect(pageTitle("Work")).toBe("Work — ZenVioLabs");
+    expect(pageTitle("About")).toBe("About — ZenVioLabs");
+    expect(pageTitle("Contact")).toBe("Contact — ZenVioLabs");
+    expect(pageTitle("Privacy Policy")).toBe("Privacy Policy — ZenVioLabs");
+    expect(pageTitle("Terms of Use")).toBe("Terms of Use — ZenVioLabs");
   });
 
   it("formats the default root title with tagline/headline", () => {
     const rootTitle = pageTitle();
-    expect(rootTitle).toContain("Zenvio Labs");
+    expect(rootTitle).toContain("ZenVioLabs");
     expect(rootTitle).toContain(site.headline);
   });
 

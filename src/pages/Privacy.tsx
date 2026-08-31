@@ -7,7 +7,7 @@ const PrivacyPage = () => (
   <>
     <Seo
       title="Privacy Policy"
-      description="How Zenvio Labs collects and uses information submitted through the website."
+      description="How ZenVioLabs collects and uses information submitted through the website."
       path="/privacy"
     />
     <PageHero eyebrow="Legal" title="Privacy policy." body={`Last updated 25 August 2026. Questions: ${site.email}.`} />

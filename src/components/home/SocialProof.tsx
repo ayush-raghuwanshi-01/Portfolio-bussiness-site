@@ -14,7 +14,7 @@ const stats = [
 const testimonials = [
   {
     quote:
-      "Our coaching institute went from 12 enquiries a month to 80+ after the new site. Admissions doubled in one quarter. Zenvio actually answers WhatsApp at 11 PM — that's rare.",
+      "Our coaching institute went from 12 enquiries a month to 80+ after the new site. Admissions doubled in one quarter. ZenVioLabs actually answers WhatsApp at 11 PM — that's rare.",
     name: "Prabha Sharma",
     role: "Director, Prabha Coaching Classes",
     initials: "PS",

@@ -9,7 +9,7 @@ const WorkPage = () => (
   <>
     <Seo
       title="Work"
-      description="Studio builds from Zenvio Labs — websites, business software, and mobile. Honest labels. No fake live-client metrics."
+      description="Studio builds from ZenVioLabs — websites, business software, and mobile. Honest labels. No fake live-client metrics."
       path="/work"
     />
     <PageHero

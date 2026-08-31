@@ -4,9 +4,9 @@ import { services } from "@/data/services";
 import { caseStudies } from "@/data/work";
 import { leadSchema } from "@/lib/leads";
 
-describe("Zenvio Labs brand", () => {
+describe("ZenVioLabs brand", () => {
   it("uses company identity, not a personal portfolio", () => {
-    expect(site.name).toBe("Zenvio Labs");
+    expect(site.name).toBe("ZenVioLabs");
     expect(site.email).toBe("zenwebstudio.in@gmail.com");
     expect(site.tagline.toLowerCase()).not.toContain("hire me");
     expect(site.location).toMatch(/India/);
@@ -16,7 +16,7 @@ describe("Zenvio Labs brand", () => {
   });
 
   it("titles pages with the studio name", () => {
-    expect(pageTitle("Services")).toBe("Services — Zenvio Labs");
+    expect(pageTitle("Services")).toBe("Services — ZenVioLabs");
   });
 });
 

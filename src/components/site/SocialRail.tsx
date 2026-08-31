@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Twitter, Youtube, Facebook, MessageCircle } from "lucide-react";
+import { Instagram, Linkedin, Twitter, MessageCircle } from "lucide-react";
 import { whatsappHref } from "@/lib/site";
 
 type Social = {
@@ -8,13 +8,10 @@ type Social = {
   highlight?: boolean;
 };
 
-// NOTE: Replace placeholder URLs with real handles once you have them.
 const socials: Social[] = [
-  { label: "Instagram", href: "https://instagram.com/zenviolabs", Icon: Instagram },
-  { label: "LinkedIn", href: "https://linkedin.com/company/zenviolabs", Icon: Linkedin },
-  { label: "X / Twitter", href: "https://twitter.com/zenviolabs", Icon: Twitter },
-  { label: "YouTube", href: "https://youtube.com/@zenviolabs", Icon: Youtube },
-  { label: "Facebook", href: "https://facebook.com/zenviolabs", Icon: Facebook },
+  { label: "Instagram", href: "https://www.instagram.com/zenviolabs.in/", Icon: Instagram },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/zenvio-labs", Icon: Linkedin },
+  { label: "X / Twitter", href: "https://x.com/ZenVioLabs", Icon: Twitter },
   { label: "WhatsApp", href: whatsappHref(), Icon: MessageCircle, highlight: true },
 ];
 
