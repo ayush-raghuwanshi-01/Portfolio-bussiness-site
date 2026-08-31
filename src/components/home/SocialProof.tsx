@@ -5,27 +5,27 @@ import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 
 const stats = [
-  { k: 40, suffix: "+", v: "Happy clients", note: "Across 9+ Indian states" },
-  { k: 65, suffix: "+", v: "Projects shipped", note: "Websites, apps & tools" },
+  { k: 100, suffix: "%", v: "Custom solutions", note: "Built for your exact needs" },
+  { k: 10, suffix: "+", v: "Projects shipped", note: "Websites, apps & tools" },
   { k: 98, suffix: "%", v: "On-time delivery", note: "Against written quotes" },
-  { k: 5000, prefix: "₹", suffix: "", v: "Starting price", note: "1 year online included" },
+  { k: 5000, prefix: "₹", suffix: "", v: "Starting price", note: "1 year online included"},
 ];
 
 const testimonials = [
   {
     quote:
-      "Our coaching institute went from 12 enquiries a month to 80+ after the new site. Admissions doubled in one quarter. ZenVioLabs actually answers WhatsApp at 11 PM — that's rare.",
+      "ZenVioLabs Built a Professional Modern Website for our Prabha Foundation",
     name: "Prabha Sharma",
-    role: "Director, Prabha Coaching Classes",
+    role: "Director, Prabha Foundation",
     initials: "PS",
     color: "from-emerald-500 to-teal-500",
     rating: 5,
   },
   {
     quote:
-      "They rebuilt our gym website in 9 days. Page load went from 8 seconds to under 1 second, and our form leads tripled in the first month. No jargon, no upsells.",
-    name: "Rohit Verma",
-    role: "Owner, FitZone Gym",
+      "They rebuilt our gym website in a weak. Page load went from 8 seconds to under 1 second, and our form leads tripled in the first month. No jargon, no upsells.",
+    name: "Annand Sharma",
+    role: "Owner, Muscle Mania GYM",
     initials: "RV",
     color: "from-orange-500 to-rose-500",
     rating: 5,
@@ -51,14 +51,14 @@ const testimonials = [
 ];
 
 const logos = [
-  "FitZone Gym",
-  "Prabha Classes",
-  "Iyer Dental",
-  "Mehta Dist.",
+  "Muscle Mania Gym",
+  "Prabha Foundation",
+  "Ecommerse Store",
+  "Home Shine",
   "Asklytics",
-  "ShopDesi",
-  "Studio Aura",
-  "NexusCare",
+  "Employe Management",
+  "School Website",
+  "Contact Manager App",
 ];
 
 const useCountUp = (target: number, start: boolean, duration = 1600) => {

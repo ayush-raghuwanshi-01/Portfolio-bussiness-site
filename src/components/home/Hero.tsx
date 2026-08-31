@@ -89,13 +89,13 @@ export const Hero = () => (
               </Button>
             </Magnetic>
           </div>
-          <p className="mt-3 text-xs text-foreground/55">
+          <p className="mt-8 text-xs text-foreground/70">
             One short form → lands on our WhatsApp + email. Reply within{" "}
             <span className="font-semibold text-emerald-500">{site.responseTime}</span>.
             No spam, no newsletter.
           </p>
 
-          {/* Micro proof row */}
+          {/* Micro proof row
           <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-foreground/55">
             <span className="flex items-center gap-1.5">
               <span className="flex -space-x-2">
@@ -116,7 +116,7 @@ export const Hero = () => (
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
               Starts at {site.startingPrice}
             </span>
-          </div>
+          </div> */}
         </div>
 
         {/* Right column */}
