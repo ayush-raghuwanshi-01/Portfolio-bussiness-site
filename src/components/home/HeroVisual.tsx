@@ -383,11 +383,11 @@ export const HeroVisual = () => {
 
           {/* Floating tag chip below logo */}
           <div
-            className="absolute left-1/2 top-[calc(100%+14px)] flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-md"
+            className="absolute left-1/2 top-[calc(100%+14px)] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-md"
             style={{ transform: "translate(-50%, 0) translateZ(60px)" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_hsl(158_72%_60%)]" />
-            <span className="font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-white/85">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_10px_hsl(158_72%_60%)]" />
+            <span className="whitespace-nowrap font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-white/85">
               Design · Develop · Grow
             </span>
           </div>
