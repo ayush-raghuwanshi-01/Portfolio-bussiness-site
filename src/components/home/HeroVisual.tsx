@@ -1,8 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import gymImg from "@/assets/gym-project.jpg";
-import asklyticsImg from "@/assets/asklytics-project.jpg";
-import prabhaImg from "@/assets/project-prabha.jpg";
-import ecommerceImg from "@/assets/Ecommerse-project.jpg";
 
 const LogoMark = () => {
   const [imgOk, setImgOk] = useState(true);
@@ -57,25 +53,12 @@ const LogoMark = () => {
   );
 };
 
-const slides = [
-  { img: gymImg, label: "Gym & Fitness", tag: "Business Website" },
-  { img: ecommerceImg, label: "E-commerce Store", tag: "Online Shop" },
-  { img: prabhaImg, label: "Prabha — Coaching", tag: "Institute Site" },
-  { img: asklyticsImg, label: "Asklytics SaaS", tag: "Business Software" },
-];
-
 export const HeroVisual = () => {
-  const [active, setActive] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [tilt, setTilt] = useState({ rx: 4, ry: -8 });
   const frameRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const id = setInterval(() => setActive((a) => (a + 1) % slides.length), 3800);
-    return () => clearInterval(id);
-  }, []);
 
   // Pointer parallax + smooth lerp toward target
   const onMove = (e: React.MouseEvent) => {
@@ -409,75 +392,6 @@ export const HeroVisual = () => {
             </span>
           </div>
         </div>
-      </div>
-
-      {/* === Squarespace-style floating image cards carousel === */}
-      <div className="relative mt-2 h-[150px] w-full sm:h-[170px]">
-        {slides.map((slide, i) => {
-          const offset = (i - active + slides.length) % slides.length;
-          let transform = "";
-          let opacity = 0;
-          let z = 0;
-          if (offset === 0) {
-            transform = "translate(-50%, 0) scale(1)";
-            opacity = 1;
-            z = 30;
-          } else if (offset === 1 || offset === slides.length - 1) {
-            const dir = offset === 1 ? 1 : -1;
-            transform = `translate(calc(-50% + ${dir * 130}px), 12px) scale(0.86)`;
-            opacity = 0.55;
-            z = 20;
-          } else if (offset === 2 || offset === slides.length - 2) {
-            const dir = offset === 2 ? 1 : -1;
-            transform = `translate(calc(-50% + ${dir * 240}px), 22px) scale(0.72)`;
-            opacity = 0.25;
-            z = 10;
-          } else {
-            opacity = 0;
-          }
-          return (
-            <div
-              key={slide.label}
-              onClick={() => setActive(i)}
-              role="button"
-              aria-label={`${slide.label} — ${slide.tag}`}
-              className="absolute left-1/2 top-0 h-[150px] w-[240px] cursor-pointer overflow-hidden rounded-2xl border border-border/60 bg-card shadow-elegant transition-all duration-700 sm:h-[170px] sm:w-[280px]"
-              style={{ transform, opacity, zIndex: z }}
-            >
-              <img
-                src={slide.img}
-                alt={slide.label}
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
-                    {slide.tag}
-                  </p>
-                  <p className="text-sm font-semibold text-white">{slide.label}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Carousel dots */}
-      <div className="mt-4 flex gap-2">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Show project ${i + 1}`}
-            onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all ${
-              i === active
-                ? "w-8 bg-gradient-to-r from-emerald-400 to-emerald-500 shadow-[0_0_10px_hsl(158_72%_55%/0.9)]"
-                : "w-2 bg-foreground/25 hover:bg-foreground/50"
-            }`}
-          />
-        ))}
       </div>
 
       <style>{`

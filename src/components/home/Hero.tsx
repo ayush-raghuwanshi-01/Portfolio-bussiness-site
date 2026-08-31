@@ -20,7 +20,7 @@ const trustPoints = [
 ];
 
 export const Hero = () => (
-  <section className="relative isolate overflow-hidden pb-20 pt-32 sm:pt-36">
+  <section className="relative isolate overflow-hidden pb-20 pt-32 sm:pt-26">
     {/* Decorative background (theme-adaptive) */}
     <div className="pointer-events-none absolute inset-0 -z-10">
       <div className="absolute inset-0 grid-bg hero-grid-bg" />
@@ -33,35 +33,20 @@ export const Hero = () => (
     </div>
 
     <div className="container relative">
-      <div className="mb-8 flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500 backdrop-blur-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          {site.availability}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-foreground/70 backdrop-blur-sm">
-          <Sparkles className="h-3 w-3 text-ember" />
-          {site.locationLine}
-        </span>
-      </div>
-
+    
       {/* Two-column split */}
-      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="animate-fade-up lg:col-span-6">
-          <span className="eyebrow">Product studio</span>
-          <h1 className="mt-6 font-serif-display text-[42px] leading-[1.02] text-foreground sm:text-6xl lg:text-[76px]">
+      <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="animate-fade-up lg:col-span-7">
+          <h1 className="mt-6 font-serif-display text-[42px] leading-[1.02] text-foreground sm:text-6xl lg:text-[65px]">
             Websites that <em className="hl-ember not-italic">convert</em>.
             <br />
             Software that <em className="hl-green not-italic">scales</em>.
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-foreground/75">
-            {site.name} is a small engineering team building fast, beautiful{" "}
-            <span className="hl-green-soft">websites</span>, internal tools, and{" "}
-            <span className="hl-soft">mobile apps</span> for shops, institutes, clinics,
-            and growing companies across India. No templates, no bloat — just honest
-            work that loads in under a second and makes you look professional.
+          <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-foreground/75">
+            {site.name} is a small engineering team building,
+            <span className="hl-green-soft">websites</span>, 
+            <span className="hl-green-soft">mobile apps</span>,  <span className="hl-green-soft">Software Solutions</span> for shops, institutes, clinics,
+            and growing companies across India.
           </p>
 
           {/* Trust bullets */}
@@ -135,7 +120,7 @@ export const Hero = () => (
         </div>
 
         {/* Right column */}
-        <div className="relative lg:col-span-6">
+        <div className="relative lg:col-span-5">
           <HeroVisual />
         </div>
       </div>
