@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
 // Stunning Brand Name Animation - The Main Focal Point
 const BrandNameAnimation = () => {
@@ -29,7 +29,7 @@ const BrandNameAnimation = () => {
     };
   }, []);
 
-  const letterVariants = {
+  const letterVariants: Variants = {
     hidden: { opacity: 0, y: 50, rotateX: -90 },
     visible: (i: number) => ({
       opacity: 1,
@@ -38,7 +38,7 @@ const BrandNameAnimation = () => {
       transition: {
         delay: i * 0.1,
         duration: 0.8,
-        ease: [0.215, 0.61, 0.355, 1],
+        ease: [0.215, 0.61, 0.355, 1] as const,
       },
     }),
   };
@@ -351,8 +351,22 @@ const ZVLLogoAnimation = () => {
 export const HeroVisual = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [tilt, setTilt] = useState({ rx: 4, ry: -8 });
+  const [time, setTime] = useState(0);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
+
+  // Slow time value used by the orbiting/satellite effects below.
+  useEffect(() => {
+    let frame = 0;
+    let rafId = 0;
+    const tick = () => {
+      frame += 1;
+      if (frame % 2 === 0) setTime((t) => t + 0.02);
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
 
   // Pointer parallax + smooth lerp toward target
   const onMove = (e: React.MouseEvent) => {

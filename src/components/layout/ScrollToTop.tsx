@@ -29,7 +29,7 @@ export const ScrollToTop = () => {
     };
 
     // Try scrolling immediately, then retry after a short delay for lazy-loaded content
-    const timers: NodeJS.Timeout[] = [];
+    const timers: number[] = [];
     
     // Immediate attempt
     scrollToElement();
