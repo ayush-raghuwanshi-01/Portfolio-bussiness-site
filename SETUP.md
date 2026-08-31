@@ -11,15 +11,25 @@
 | Offer | Websites start at ₹5,000 (one year online) |
 | Domain | https://zenwebstudio.com |
 
-Enquiries go to `zenwebstudio.in@gmail.com`. Confirm the first FormSubmit mail in that inbox.
+Enquiries go to `zenwebstudio.in@gmail.com`. The browser form uses Web3Forms (primary, built in) then FormSubmit.co (fallback) — confirm the first FormSubmit mail in that inbox if Web3Forms is ever unavailable.
 
 ## Enquiries → WhatsApp + email
 
-The project form posts to `/api/leads`. That route emails **zenwebstudio.in@gmail.com** and, if configured, WhatsApps **+91 95845 59972**. You then close the deal yourself.
+The home / contact form calls Web3Forms from the browser using the public key in `src/lib/leads.ts`. On success it also best-effort posts to `/api/leads` for record keeping/WhatsApp. If Web3Forms fails, FormSubmit.co is used, then `/api/leads`.
 
-### Email (required once)
+On Vercel/local, `/api/leads` emails **zenwebstudio.in@gmail.com** (via Gmail app password or Web3Forms) and, if configured, WhatsApps **+91 95845 59972**. The browser path works without these env vars; set them only if you also want the server route to deliver.
 
-FormSubmit sends the first enquiry to `zenwebstudio.in@gmail.com` with a **confirm this address** link. Open that mail once. After that, every form lands in the inbox.
+### Email (optional server route)
+
+For the `/api/leads` route, set either:
+
+```
+GMAIL_APP_PASSWORD=your-16-char-gmail-app-password
+# OR
+WEB3FORMS_ACCESS_KEY=your-web3forms-access-key
+```
+
+Web3Forms sends the first enquiry to `zenwebstudio.in@gmail.com` with a **confirm this address** link. Open that mail once. After that, every form lands in the inbox.
 
 ### WhatsApp (2 minutes, free)
 
