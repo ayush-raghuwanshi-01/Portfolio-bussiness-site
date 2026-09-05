@@ -76,7 +76,7 @@ A “app” they mean in Bhopal is often: **website that works on phone + WhatsA
 
 ## How to build so you don’t eat the fee
 
-1. **One template** for all ₹5–10k jobs (same layout, swap logo/colours/text/photos). Do not use the ZenWebStudio Three.js marketing stack per client.
+1. **One template** for all ₹5–10k jobs (same layout, swap logo/colours/text/photos). Do not use the ZenVioLabs Three.js marketing stack per client.
 2. AI writes Hindi/English copy from their 8 WhatsApp lines + 8 photos.
 3. Static site (HTML or simple Next/Astro) → Vercel + their domain.
 4. WhatsApp click-to-chat with **their** number, not yours.
@@ -121,6 +121,6 @@ Meanwhile           →  1 real job ₹50k–1.5L (ops / coaching portal)
 3. [ ] Sheet row: name, phone, paid, domain choice (.in cheaper)
 4. [ ] Ask: 8 photos, 8 lines (timings, address, 3 services, WhatsApp number)
 5. [ ] Pick template, one builder, 48h staging link
-6. [ ] Launch + “Google pe ZenWebStudio Bhopal review” + “1 dost ka number”
+6. [ ] Launch + “Google pe ZenVioLabs Bhopal review” + “1 dost ka number”
 
 Two paying clients beat a perfect prototype. Take them. Keep hosting cheap. Do not build apps at this price.

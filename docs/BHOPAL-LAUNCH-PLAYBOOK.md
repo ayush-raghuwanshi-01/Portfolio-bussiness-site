@@ -1,4 +1,4 @@
-# ZenWebStudio — Hard-Truth Launch Playbook
+# ZenVioLabs — Hard-Truth Launch Playbook
 **Bhopal, Madhya Pradesh · 3 engineers · prototype website + Business WhatsApp**
 
 Written as an operating brief for Ayush Raghuwanshi, Deepak Tripathi, and Shubham Mishra.
@@ -18,8 +18,8 @@ The good news: this is the normal starting point. The studios that survive in MP
 
 | Asset | Status | Verdict |
 | --- | --- | --- |
-| Brand name **ZenWebStudio** | Consistent across site, SEO, JSON-LD | Keep. Short, pronounceable, works in Hindi and English. |
-| Domain `zenwebstudio.com` | Claimed in SEO; public page is still “coming soon” | **Must go live this week** or stop using the URL. |
+| Brand name **ZenVioLabs** | Consistent across site, SEO, JSON-LD | Keep. Short, pronounceable, works in Hindi and English. |
+| Domain `zenviolabs.wasmer.app` | Claimed in SEO; public page is still “coming soon” | **Must go live this week** or stop using the URL. |
 | Email `zenwebstudio.in@gmail.com` | Printed everywhere | Live Gmail for enquiries until a domain mailbox exists. |
 | WhatsApp `+91 95845 59972` | FAB + contact + wa.me deep links | Your **real** sales channel. Treat it as the CRM. |
 | Positioning | Web / Mobile / SaaS / Cloud, “India · Remote-first” | Too wide. Hides Bhopal. Wrong for first 10 clients. |
@@ -30,7 +30,7 @@ The good news: this is the normal starting point. The studios that survive in MP
 | `/api/leads` | Vite middleware → `data/leads.json` | Works in `npm run dev` / `preview` only. **Not a production API.** `vercel.json` is SPA rewrite only. |
 | Supabase | SQL + RLS insert-only, optional env | Required for production. Not configured. |
 | Analytics | `G-XXXXXXXXXX` placeholder | Shipping fake GA is worse than none. |
-| Social | `github.com/zenwebstudio`, `linkedin.com/company/zenwebstudio` | If these 404, every footer click burns trust. |
+| Social | `github.com/zenviolabs`, `linkedin.com/company/zenviolabs` | If these 404, every footer click burns trust. |
 | Legal pages | Privacy + Terms, India-governed | Thin but enough for a site. **Not a client contract.** |
 | GST / CIN / Udyam / address | Absent | You cannot look like a vendor to a CA, factory, or coaching institute. |
 
@@ -139,7 +139,7 @@ Until then you are still decorating.
 
 **Website / ops (the prototype is not production)**
 
-- Point `zenwebstudio.com` DNS to the host. Enable HTTPS.
+- Point `zenviolabs.wasmer.app` DNS to the host. Enable HTTPS.
 - Mailbox **zenwebstudio.in@gmail.com**. Later move to a domain address if you buy Google Workspace / Zoho.
 - **Kill placeholder GA** or put a real GA4 ID.
 - **Wire Supabase** (`VITE_SUPABASE_URL`, anon key, run `001_leads.sql`) **and** a webhook/email on insert. Otherwise production forms lie: `submitLead` needs API **or** Supabase; Vercel has no `/api/leads`.
@@ -230,7 +230,7 @@ This is the part that pays rent. Website polish does not.
 
 Each of the three of you writes **50 names**: family, college, previous internships, landlords, gym trainers, coaching teachers, CAs, cousins in business. That is 150. You do not ask “koi kaam hai?” You ask:
 
-> Bhai, hum teen log Bhopal mein software/website firm start kar rahe hain (ZenWebStudio). Aapke circle mein koi shop, clinic, coaching, gym, factory hai jiski site purani hai ya WhatsApp pe chal rahi hai? Bas 1 naam.
+> Bhai, hum teen log Bhopal mein software/website firm start kar rahe hain (ZenVioLabs). Aapke circle mein koi shop, clinic, coaching, gym, factory hai jiski site purani hai ya WhatsApp pe chal rahi hai? Bas 1 naam.
 
 Target: **15 introductions**. Convert 2–3 into paid Spark Sites. This is how 80% of first agencies start. Skipping it because it feels “unprofessional” is ego.
 
@@ -248,7 +248,7 @@ Walk **MP Nagar Zone 1/2, Arera Colony, Kolar Road, Bittan Market, 10 No. Market
 
 Script (60 seconds, Hindi, standing):
 
-> Namaste, main Ayush, ZenWebStudio, yahin Bhopal se. Aapki Google listing / website dekhi — form kaam nahi kar raha / mobile pe toot rahi hai. Hum 14 din mein nayi site + WhatsApp button, ₹29,900, aadha ab aadha launch pe. 2 minute dikhaun?
+> Namaste, main Ayush, ZenVioLabs, yahin Bhopal se. Aapki Google listing / website dekhi — form kaam nahi kar raha / mobile pe toot rahi hai. Hum 14 din mein nayi site + WhatsApp button, ₹29,900, aadha ab aadha launch pe. 2 minute dikhaun?
 
 Leave a **one-pager** (phone, QR to WhatsApp, 3 prices). Do not pitch SaaS to a namkeen shop.
 
@@ -378,7 +378,7 @@ If week 3 has **zero rupees** and you have been “improving the site,” the pr
 
 - [ ] Founders’ 2-hour meeting: wedge (Spark Site + gym/clinic), prices, equity, who answers WhatsApp.
 - [ ] Start GST + current account process (CA in Bhopal, ₹3–8k including GST filing setup).
-- [ ] Buy/connect Google Workspace or Zoho on zenwebstudio.com.
+- [ ] Buy/connect Google Workspace or Zoho on zenviolabs.wasmer.app.
 - [ ] Wire Supabase leads + notification to WhatsApp/email.
 - [ ] Remove fake GA and dead social links.
 

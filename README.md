@@ -1,6 +1,6 @@
-# Zenvio Labs
+# ZenVioLabs
 
-Marketing site for **Zenvio Labs** — a studio for websites and business software. Websites start at ₹5,000.
+Marketing site for **ZenVioLabs** — a studio for websites and business software. Websites start at ₹5,000.
 
 ## Pages
 
