@@ -1,15 +1,15 @@
-# Zenvio Labs — production setup
+# ZenVioLabs — production setup
 
 ## Brand (on the site)
 
 | Setting | Value |
 | --- | --- |
-| Company | Zenvio Labs |
+| Company | ZenVioLabs |
 | Email | zenwebstudio.in@gmail.com |
 | WhatsApp | +91 95845 59972 |
 | Location | India |
 | Offer | Websites start at ₹5,000 (one year online) |
-| Domain | https://zenwebstudio.com |
+| Domain | https://zenviolabs.wasmer.app |
 
 Enquiries go to `zenwebstudio.in@gmail.com`. The browser form uses Web3Forms (primary, built in) then FormSubmit.co (fallback) — confirm the first FormSubmit mail in that inbox if Web3Forms is ever unavailable.
 

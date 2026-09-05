@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://zenwebstudio.com/sitemap.xml
+Sitemap: https://zenviolabs.wasmer.app/sitemap.xml

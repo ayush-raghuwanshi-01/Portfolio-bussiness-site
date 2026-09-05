@@ -6,7 +6,7 @@ export const site = {
   headline: "Websites and business software, built for growing companies.",
   description:
     "ZenVioLabs builds websites and business software for shops, institutes, clinics, and growing companies across India. Websites start at ₹5,000.",
-  url: "https://zenwebstudio.com",
+  url: "https://zenviolabs.wasmer.app",
   email: "zenwebstudio.in@gmail.com",
   phoneDisplay: "+91 95845 59972",
   phoneTel: "+919584559972",

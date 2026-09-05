@@ -1,4 +1,4 @@
-# ZenWebStudio — Do-this launch checklist
+# ZenVioLabs — Do-this launch checklist
 
 Three people. Tick in order. Do not redesign the website until **Day 1–2 money + inbox** are done.
 
@@ -47,20 +47,20 @@ Go to a **Bhopal CA** with Aadhaar + PAN of all 3. Budget ~₹3,000–8,000 for 
 
 This is how clients reach you.
 
-- [ ] Domain `zenwebstudio.com` DNS live (not “coming soon”)
+- [ ] Domain `zenviolabs.wasmer.app` DNS live (not “coming soon”)
 - [ ] Mailbox **zenwebstudio.in@gmail.com** (check it daily)
 - [ ] All 3 can read mail; **only Ayush replies** (cc others)
 - [ ] WhatsApp Business (not personal):
-  - [ ] Business name: **ZenWebStudio**
+  - [ ] Business name: **ZenVioLabs**
   - [ ] Category: Software company / Website designer
   - [ ] Address: Bhopal, MP
   - [ ] Hours: Mon–Sat 10:00–19:00 IST
   - [ ] Description: *Bhopal team. Website + business software. 14 days. Written price.*
   - [ ] Catalog: Spark Site · Growth Site · Ops App
-  - [ ] Greeting: *Namaste, ZenWebStudio. Website ya app — 2 line mein bataiye, price bhej dete hain.*
+  - [ ] Greeting: *Namaste, ZenVioLabs. Website ya app — 2 line mein bataiye, price bhej dete hain.*
 - [ ] Saved replies (create all 4 now) — copy from § Scripts
 - [ ] Google Business Profile:
-  - [ ] Name **ZenWebStudio** (exact match with site)
+  - [ ] Name **ZenVioLabs** (exact match with site)
   - [ ] Category: **Software company** + Website designer
   - [ ] City **Bhopal** — real pin, real phone `+91 95845 59972`
   - [ ] WhatsApp button on
@@ -178,7 +178,7 @@ WhatsApp / door / form
 
 ```
 Namaste [Name], Ayush here — Deepak aur Shubham ke saath Bhopal mein
-ZenWebStudio start kiya hai. Hum shops, coaching, clinic, gym ke liye
+ZenVioLabs start kiya hai. Hum shops, coaching, clinic, gym ke liye
 14 din mein website banate hain (code aapke naam pe).
 
 Aapke circle mein koi hai jiski site purani hai, Google pe nahi dikhti,
@@ -188,7 +188,7 @@ ya sirf WhatsApp pe chal rahi hai? Bas 1 naam chahiye. Dhanyavaad.
 ### B — Door (60 seconds)
 
 ```
-Namaste, main Ayush, ZenWebStudio, yahin Bhopal se.
+Namaste, main Ayush, ZenVioLabs, yahin Bhopal se.
 Aapki Google listing / website dekhi — mobile pe [toot rahi hai / form nahi jaata].
 Hum 14 din mein nayi site + WhatsApp button, ₹29,900 + GST,
 aadha ab, aadha launch pe. 2 minute dikhaun? Number de dijiye, sample bhejta hoon.
@@ -197,7 +197,7 @@ aadha ab, aadha launch pe. 2 minute dikhaun? Number de dijiye, sample bhejta hoo
 ### C — After they give a number
 
 ```
-Namaste [Name], Ayush — ZenWebStudio. Aaj mile the.
+Namaste [Name], Ayush — ZenVioLabs. Aaj mile the.
 Spark Site: 5–7 page, mobile, WhatsApp button, 14 din, ₹29,900 + GST.
 50% advance, 50% launch. Scope likh ke PDF bhej sakta hoon.
 Aapki 2-line need bhej dijiye: kya dikhana hai + kab tak.
@@ -226,7 +226,7 @@ Agar pehle burn ho chuke ho to baat karein — otherwise all the best.
 
 ```
 [Name] ji, site live hai: [URL]
-1 minute: Google pe “ZenWebStudio Bhopal” search karke 2-line review?
+1 minute: Google pe “ZenVioLabs Bhopal” search karke 2-line review?
 Aur 1 dost / dukandaar jisko site chahiye — intro kar doge?
 Agar chhote changes chahiye, Care plan ₹15,000/month.
 ```

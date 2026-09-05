@@ -18,13 +18,13 @@ describe("SEO and URL helpers", () => {
   });
 
   it("constructs valid absolute canonical URLs", () => {
-    expect(absoluteUrl("/")).toBe("https://zenwebstudio.com/");
-    expect(absoluteUrl("")).toBe("https://zenwebstudio.com/");
-    expect(absoluteUrl("/services")).toBe("https://zenwebstudio.com/services");
-    expect(absoluteUrl("services")).toBe("https://zenwebstudio.com/services");
-    expect(absoluteUrl("/work")).toBe("https://zenwebstudio.com/work");
-    expect(absoluteUrl("/about")).toBe("https://zenwebstudio.com/about");
-    expect(absoluteUrl("/contact")).toBe("https://zenwebstudio.com/contact");
+    expect(absoluteUrl("/")).toBe("https://zenviolabs.wasmer.app/");
+    expect(absoluteUrl("")).toBe("https://zenviolabs.wasmer.app/");
+    expect(absoluteUrl("/services")).toBe("https://zenviolabs.wasmer.app/services");
+    expect(absoluteUrl("services")).toBe("https://zenviolabs.wasmer.app/services");
+    expect(absoluteUrl("/work")).toBe("https://zenviolabs.wasmer.app/work");
+    expect(absoluteUrl("/about")).toBe("https://zenviolabs.wasmer.app/about");
+    expect(absoluteUrl("/contact")).toBe("https://zenviolabs.wasmer.app/contact");
   });
 
   it("generates correct WhatsApp links with encoded message", () => {

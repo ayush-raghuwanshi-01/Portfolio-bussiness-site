@@ -63,7 +63,7 @@ const handle = async (req: IncomingMessage, res: ServerResponse) => {
   }
 
   if (req.method === "GET") {
-    send(res, 200, { ok: true, service: "zenwebstudio-leads", count: loadLeads().length });
+    send(res, 200, { ok: true, service: "zenviolabs-leads", count: loadLeads().length });
     return;
   }
 
@@ -138,7 +138,7 @@ const attach = (server: ViteDevServer | PreviewServer) => {
 
 export function leadsApi(): Plugin {
   return {
-    name: "zenwebstudio-leads-api",
+    name: "zenviolabs-leads-api",
     config(_config, { mode }) {
       const env = loadEnv(mode, process.cwd(), "");
       Object.assign(process.env, env);
