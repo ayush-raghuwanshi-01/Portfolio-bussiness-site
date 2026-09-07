@@ -27,11 +27,15 @@ path and send everyone to the home page.
 
 | Layer | File | Host |
 | --- | --- | --- |
-| Primary | `settings/config.toml` → `page-fallback = "/public/index.html"` | **Wasmer Edge** (`zenviolabs.wasmer.app`) — Static Web Server serves the app shell with 200 for any missing path |
+| Primary | `settings/config.toml` → `[[advanced.rewrites]]` per page **+** `page-fallback = "/public/index.html"` | **Wasmer Edge** (`zenviolabs.wasmer.app`) — Static Web Server serves the app shell with 200 for the real pages, and for anything else, so unknown URLs get your branded 404 view |
 | Primary | `Staticfile` → `root: dist` | Wasmer Edge — publish the Vite build, not the repo root |
-| Safety net | `dist/404.html` (generated at build time by `vite-plugin-spa-fallback.ts`) | Hosts that only offer a custom error page: GitHub Pages, nginx `error_page`, S3/CloudFront, and Wasmer via `page404` |
+| Safety net | `dist/404.html` (generated at build time by `vite-plugin-spa-fallback.ts`) + `page404` | Hosts that only offer a custom error page: GitHub Pages, nginx `error_page`, S3/CloudFront |
 | Netlify | `public/_redirects` → `/* /index.html 200` | Netlify |
 | Vercel | `vercel.json` → rewrite to `/index.html`, `/api/*` untouched | Vercel (also keeps the optional `/api/leads` function working) |
+
+The per-route rewrites are listed explicitly rather than as a `/**` catch-all on purpose: a
+typo'd image or a stale hashed bundle should keep a genuine 404 status instead of being served
+HTML, which is how a site ends up with thousands of soft 404s in Search Console.
 
 `src/lib/routes.ts` is the single source of truth for which paths are pages. `App.tsx` renders
 its `<Route>`s from it, and `src/test/routing.test.ts` fails if the navbar or `public/sitemap.xml`
@@ -54,19 +58,24 @@ config got deleted.
 
 ## Deploying to Wasmer Edge
 
-Wasmer serves the directory named in `Staticfile` (`dist`) and reads `settings/config.toml`.
-Run this from the **repository root**, after `npm run build`:
+Wasmer serves the directory named in `Staticfile` (`dist`) using the server settings in
+`settings/config.toml`. From the **repository root**:
 
 ```bash
-wasmer deploy            # publishes dist + settings/config.toml to the existing app
+npm run verify:deploy   # builds, then cold-loads every route the way the edge does
+wasmer deploy           # publishes dist/ + settings/config.toml to the existing app
 ```
 
-If your app was created without the static-website template wiring, recreate the config in the
-same place:
+`wasmer deploy` must run from the repo root — the `Staticfile` and `settings/` next to it are
+what make the deep links work, so deploying `dist/` alone (or a copy of it in another folder)
+ships the pages without the routing rules.
+
+If the app was ever created without the static-website wiring, recreate it in place and keep the
+committed files:
 
 ```bash
-wasmer app create --template static-website   # answers: don't deploy yet
-# keep Staticfile -> root: dist and settings/config.toml as committed
+wasmer app create --template static-website   # answer "don't deploy yet"
+# Staticfile -> root: dist and settings/config.toml stay as committed
 npm run build && wasmer deploy
 ```
 
@@ -79,6 +88,16 @@ curl -o /dev/null -w "%{http_code}\n" https://zenviolabs.wasmer.app/services   #
 Also check it in a browser: open `/contact`, refresh, and confirm the contact page is still
 there. Then check a genuinely bad path — `https://zenviolabs.wasmer.app/nope` should now show
 the branded in-app 404 view (with "Back home" / "Contact" buttons) instead of the host's page.
+
+If the **home page** goes blank right after this change and the browser console asks for
+`/src/main.tsx`, the edge published the repo root — whose `index.html` is the Vite *dev* entry —
+instead of `dist/`. That means `Staticfile` wasn't picked up: run `wasmer deploy` from the repo
+root (not from `dist/`, and not from a copy of the build in another folder) and confirm the
+deployed `index.html` references `/assets/index-*.js`.
+
+If `/nope` renders your app but `/services` only works through the error page (HTTP 404 with the
+site inside it), the mount point differs from `/public`: change `page-fallback` to `"/index.html"`
+and the per-route `destination` values to `"/index.html"`, then redeploy.
 
 ## If you cannot redeploy the config
 

@@ -2,17 +2,17 @@
 /**
  * Pre-deploy check for the "refresh on a sub-page gives 404" bug.
  *
- * It builds nothing — run `npm run build` first (or use `npm run verify:deploy`).
- * What it does:
- *   1. dist/404.html must exist and be a real app shell (see vite-plugin-spa-fallback.ts).
- *   2. Every asset the shell references must exist, otherwise a fallback page would boot
- *      to a blank screen instead of the router.
- *   3. Serves dist/ over HTTP using the same resolution order as Wasmer's
- *      `wasmer/static-web-server` (real file -> page-fallback with 200 -> page404) and
- *      requests every route in src/lib/routes.ts. Each must return 200 + the shell.
- *   4. Confirms the host fallback configs in the repo still declare an SPA rewrite.
+ * Run `npm run verify:deploy` (it builds first). What it checks:
+ *   1. dist/404.html exists and is a real app shell (vite-plugin-spa-fallback.ts).
+ *   2. Every asset the shell references exists — otherwise a fallback page would boot to
+ *      a blank screen instead of the router.
+ *   3. settings/config.toml declares a rewrite for every route in src/lib/routes.ts.
+ *   4. dist/ served over HTTP with the same resolution order as Wasmer's
+ *      `wasmer/static-web-server` (rewrites -> real file -> page-fallback -> page404),
+ *      cold-loading each route: every one must return 200 + the app shell.
+ *   5. The other hosts' fallback files in the repo still declare an SPA rewrite.
  *
- * Exit code is non-zero on the first failure so it can gate a deploy.
+ * Exits non-zero on the first problem so it can gate a deploy.
  */
 import fs from "node:fs";
 import http from "node:http";
@@ -43,18 +43,18 @@ const fail = (msg) => {
 };
 const assert = (cond, msg) => (cond ? ok(msg) : fail(msg));
 
-/* ---------------------------------------------------------------- 1 + 2. artifacts */
+/* ------------------------------------------------------------------- 1 + 2. artifacts */
 
 console.log("\nBuild output");
 if (!fs.existsSync(path.join(dist, "index.html"))) {
-  fail(`dist/index.html missing — run \`npm run build\` first`);
+  fail("dist/index.html missing — run `npm run build` first");
   console.log(`\n\x1b[31m${failures.length} problem(s)\x1b[0m\n`);
   process.exit(1);
 }
 
 const shell = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 const fallback404 = path.join(dist, "404.html");
-assert(fs.existsSync(fallback404), "dist/404.html exists (custom error page for hosts without page-fallback)");
+assert(fs.existsSync(fallback404), "dist/404.html exists (error page for hosts without rewrite support)");
 if (fs.existsSync(fallback404)) {
   const body = fs.readFileSync(fallback404, "utf8");
   assert(/<div id="root">/.test(body), "dist/404.html is an app shell, not a stub");
@@ -67,33 +67,60 @@ for (const ref of referenced) {
   assert(fs.existsSync(path.join(dist, ref)), `asset resolves: ${ref}`);
 }
 
-/* ------------------------------------------------------------------- 3. serve + probe */
+/* ------------------------------------------------------------------- 3. host contract */
 
 const configToml = fs.readFileSync(path.join(root, "settings/config.toml"), "utf8");
 const pageFallback = /^\s*page-fallback\s*=\s*"([^"]+)"/m.exec(configToml)?.[1];
 const page404 = /^\s*page404\s*=\s*"([^"]+)"/m.exec(configToml)?.[1];
-assert(Boolean(pageFallback), `settings/config.toml sets page-fallback (${pageFallback ?? "nothing"})`);
 
-// Wasmer mounts the Staticfile root at /public, so translate the config path into dist/.
+const routePaths = [...fs.readFileSync(path.join(root, "src/lib/routes.ts"), "utf8")
+  .matchAll(/\{\s*path:\s*"([^"]+)"/g)]
+  .map((m) => m[1])
+  .filter((p) => p !== "*"); // "*" is the in-app catch-all, not a URL
+
+const advanced = configToml.slice(configToml.indexOf("[advanced]"));
+const rewrites = new Map(
+  [...advanced.matchAll(/source\s*=\s*"([^"]+)"\s*\n\s*destination\s*=\s*"([^"]+)"/g)].map(([, s, d]) => [s, d]),
+);
+
+console.log("\nHost fallback contract (settings/config.toml)");
+assert(routePaths.length > 0, `${routePaths.length} route(s) to serve`);
+for (const route of routePaths) {
+  assert(rewrites.get(route) === "/index.html", `rewrite for ${route} -> /index.html`);
+}
+assert(
+  rewrites.size > 0 && ![...rewrites.keys()].some((s) => s.includes("**")),
+  "rewrites are per-route, not a /** catch-all (missing assets must keep a real 404)",
+);
+assert(Boolean(pageFallback), `page-fallback catch-all -> ${pageFallback ?? "MISSING"}`);
+assert(Boolean(page404), `page404 safety net -> ${page404 ?? "MISSING"}`);
+
+// Wasmer mounts the Staticfile root at /public, so translate config paths into dist/.
 const toDist = (p) => path.join(dist, p.replace(/^\/public\/?/, "").replace(/^\.\/?/, ""));
+
+/* ----------------------------------------------------------------- 4. serve and probe */
 
 const server = http.createServer((req, res) => {
   const url = decodeURIComponent((req.url ?? "/").split("?")[0].split("#")[0]);
   const target = path.join(dist, url);
   const isFile = fs.existsSync(target) && fs.statSync(target).isFile();
-  const wantsHtml = (req.headers.accept ?? "").includes("text/html") || req.method === "GET";
+  const wantsHtml = (req.headers.accept ?? "").includes("text/html");
 
   const send = (file, status) => {
     res.writeHead(status, { "content-type": MIME[path.extname(file)] ?? "application/octet-stream" });
     fs.createReadStream(file).pipe(res);
   };
 
+  // Static Web Server applies rewrites before consulting the filesystem.
+  if (req.method === "GET" && rewrites.has(url)) {
+    const rewritten = toDist(rewrites.get(url));
+    if (fs.existsSync(rewritten)) return send(rewritten, 200);
+  }
   if (isFile) return send(target, 200);
   if (url.endsWith("/")) {
     const index = path.join(target, "index.html");
     if (fs.existsSync(index)) return send(index, 200);
   }
-  // static-web-server: page-fallback only rewrites 404s for HTML-ish GET requests.
   if (pageFallback && req.method === "GET" && wantsHtml) {
     const fb = toDist(pageFallback);
     if (fs.existsSync(fb)) return send(fb, 200);
@@ -108,28 +135,26 @@ const server = http.createServer((req, res) => {
 
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const base = `http://127.0.0.1:${server.address().port}`;
-
-const routePaths = [...fs.readFileSync(path.join(root, "src/lib/routes.ts"), "utf8")
-  .matchAll(/\{\s*path:\s*"([^"]+)"/g)]
-  .map((m) => m[1])
-  .filter((p) => p !== "*"); // "*" is the in-app catch-all, not a URL
+const html = { headers: { accept: "text/html,application/xhtml+xml" } };
 
 console.log("\nCold loads through the host fallback (what a refresh does)");
 for (const route of routePaths) {
-  const res = await fetch(base + route, { headers: { accept: "text/html,application/xhtml+xml" } });
+  const res = await fetch(base + route, html);
   const text = await res.text();
   const shellServed = text.includes('<div id="root">') && text.includes("assets/index-");
   const verdict = shellServed
     ? res.status === 200
       ? "app shell, HTTP 200"
-      : `app shell but HTTP ${res.status} — soft 404, search engines will drop the page`
+      : `app shell served, but HTTP ${res.status} — the error page is doing the work, not the rewrite`
     : "server error page, not the app — the router never boots";
   assert(res.status === 200 && shellServed, `${route} -> ${verdict}`);
 }
 
-const bogus = await fetch(base + "/definitely-not-a-page", { headers: { accept: "text/html" } });
-assert(bogus.status === 200, `/definitely-not-a-page -> HTTP ${bogus.status} (in-app 404 view takes over)`);
-await bogus.text();
+const bogus = await fetch(base + "/definitely-not-a-page", html);
+assert(
+  bogus.status === 200 && (await bogus.text()).includes('<div id="root">'),
+  `/definitely-not-a-page -> HTTP ${bogus.status} (in-app 404 view takes over)`,
+);
 
 const api = await fetch(base + "/api/leads", {
   method: "POST",
@@ -138,10 +163,14 @@ const api = await fetch(base + "/api/leads", {
 });
 assert(api.status === 404 || api.status === 405, `POST /api/leads -> HTTP ${api.status} (not swallowed as HTML)`);
 
-/* ------------------------------------------------------------------- 4. host configs */
+const missingAsset = await fetch(base + "/assets/does-not-exist.js", { headers: { accept: "*/*" } });
+assert(missingAsset.status === 404, `missing hashed asset -> HTTP ${missingAsset.status} (real 404, not HTML)`);
 
-console.log("\nHost fallback configuration");
-assert(/\/\*\s+\/index\.html\s+200/.test(fs.readFileSync(path.join(root, "public/_redirects"), "utf8")), "Netlify: public/_redirects rewrites with 200");
+/* ------------------------------------------------------------------- 5. other hosts */
+
+console.log("\nOther hosts in the repo");
+const netlify = fs.readFileSync(path.join(root, "public/_redirects"), "utf8");
+assert(/\/\*\s+\/index\.html\s+200/.test(netlify), "Netlify: public/_redirects rewrites with 200");
 const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
 const spa = (vercel.rewrites ?? []).find((r) => r.destination === "/index.html");
 assert(Boolean(spa), `Vercel: vercel.json rewrites ${spa ? spa.source : "(missing)"} -> /index.html`);

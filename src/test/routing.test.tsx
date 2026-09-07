@@ -48,6 +48,16 @@ describe("SPA deep links — route table", () => {
     expect(wasmer).toMatch(/^\s*page404\s*=\s*"\.\/404\.html"/m);
     expect(repoFile("Staticfile")).toMatch(/^\s*root:\s*dist\s*$/m);
 
+    // Each page also needs an explicit rewrite, or the server answers 404 before React
+    // loads. Adding a route to src/lib/routes.ts without one fails here.
+    const advanced = wasmer.slice(wasmer.indexOf("[advanced]"));
+    const rewritten = new Set(
+      [...advanced.matchAll(/source\s*=\s*"([^"]+)"\s*\n\s*destination\s*=\s*"\/index\.html"/g)].map((m) => m[1]),
+    );
+    for (const route of appRoutePaths) {
+      expect(rewritten, `${route} has no rewrite in settings/config.toml`).toContain(route);
+    }
+
     // Vercel — rewrite to the app shell, but keep /api/leads on the serverless function.
     const vercel = JSON.parse(repoFile("vercel.json")) as { rewrites?: { source: string; destination: string }[] };
     const spa = vercel.rewrites?.find((rule) => rule.destination === "/index.html");
