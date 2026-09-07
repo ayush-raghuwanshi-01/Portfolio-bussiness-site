@@ -1,0 +1,45 @@
+# Wasmer Edge serves this site with `wasmer/static-web-server` (Static Web Server).
+# The directory named in `Staticfile` (dist) is mounted at /public, and the server is
+# started with `-w /settings/config.toml`, so this file is what actually controls
+# routing on zenviolabs.wasmer.app.
+#
+# WHY page-fallback IS REQUIRED
+# /services, /work, /about, /contact, /privacy, /terms are React Router routes — they
+# are not files on disk. On in-app navigation the browser never asks the server
+# anything, so everything looks fine. But a refresh (or a link pasted into WhatsApp /
+# opened in a new tab / loaded by Google) sends GET /services to the server, which
+# looks for dist/services, finds nothing, and answers a hard 404 before React can boot.
+# page-fallback makes the server answer with the app shell (index.html) and a 200
+# status, leaving the URL untouched so the router can render the right page.
+#
+# `public/_redirects` (Netlify) and `vercel.json` (Vercel) do the same job on those
+# hosts — Wasmer ignores both of them, which is why the file sitting in the deploy
+# folder changes nothing.
+
+[general]
+
+#### Address & root dir — keep /public: it is where Wasmer mounts `Staticfile`'s root.
+host = "::"
+port = 8080
+root = "/public"
+
+#### SPA deep links -> index.html with HTTP 200.
+#### Give an absolute path inside the package: Static Web Server resolves this
+#### independently of `root`, so "./index.html" is not equivalent.
+page-fallback = "/public/index.html"
+
+#### Second safety net for hosts that only offer a custom error page (GitHub Pages,
+#### nginx `error_page`, plain Apache, …). dist/404.html is generated at build time as
+#### a copy of index.html — see vite-plugin-spa-fallback.ts. A relative path here is
+#### resolved under `root`, so it stays correct even if the mount point changes.
+page404 = "./404.html"
+
+#### Headers & size
+log-level = "error"
+cache-control-headers = true
+compression = true
+
+#### Do not expose the file tree, and never list a directory instead of falling back.
+directory-listing = false
+redirect-trailing-slash = true
+index-files = "index.html"

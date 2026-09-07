@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { leadsApi } from "./vite-plugin-leads";
+import { spaFallback } from "./vite-plugin-spa-fallback";
 
 export default defineConfig(({ mode }) => ({
   server: {
@@ -30,7 +31,7 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
-  plugins: [react(), leadsApi(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), leadsApi(), spaFallback(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
