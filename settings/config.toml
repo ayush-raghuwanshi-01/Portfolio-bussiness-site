@@ -1,0 +1,86 @@
+# Wasmer Edge serves this site with `wasmer/static-web-server` (Static Web Server).
+# The directory named in `Staticfile` (dist) is mounted at /public, and the server starts
+# with `-w /settings/config.toml`, so this file is what actually controls routing on
+# zenviolabs.wasmer.app.
+#
+# WHY ANY OF THIS IS REQUIRED
+# /services, /work, /about, /contact, /privacy, /terms are React Router routes — they are
+# not files on disk. On in-app navigation the browser never asks the server anything, so
+# everything looks fine. A refresh (or a link pasted into WhatsApp, or a Google result)
+# sends GET /services to the server, which looks for dist/services, finds nothing, and
+# answers a hard 404 before React can boot. src/pages/NotFound.tsx cannot help: your code
+# is not running yet.
+#
+# `public/_redirects` (Netlify) and `vercel.json` (Vercel) do this job on those hosts —
+# Wasmer reads both as ordinary text files, which is why a _redirects sitting in the
+# deploy folder changes nothing.
+#
+# THREE LAYERS, SOFTEST TO HARDEST DEPENDENCY
+# 1. [[advanced.rewrites]] below  — the exact fix: serves index.html for the real pages
+#    with status 200, and the paths are root-relative so they are correct however Wasmer
+#    mounts the package. Keep in sync with src/lib/routes.ts (a test enforces it).
+# 2. page-fallback               — catch-all for anything else, so a typo URL still shows
+#    the branded in-app 404 view instead of the server's.
+# 3. page404 + dist/404.html     — for hosts with no rewrite support at all (GitHub Pages,
+#    nginx `error_page`); 404.html is copied from index.html at build time.
+
+[general]
+
+#### Address & root dir — /public is where Wasmer mounts `Staticfile`'s root.
+host = "::"
+port = 8080
+root = "/public"
+
+#### Catch-all: unknown paths render the app, whose router shows NotFound.
+#### If /nope ever comes back as a blank page rather than the branded 404 view, this path
+#### did not resolve — try page-fallback = "/index.html".
+page-fallback = "/public/index.html"
+
+#### Last resort, and the only mechanism some hosts offer. A relative path here is
+#### resolved under `root`, so it stays correct even if the mount point changes.
+page404 = "./404.html"
+
+#### Headers & size
+log-level = "error"
+cache-control-headers = true
+compression = true
+
+#### Do not expose the file tree, and never list a directory instead of falling back.
+directory-listing = false
+redirect-trailing-slash = true
+index-files = "index.html"
+
+[advanced]
+
+### Deep links -> app shell with HTTP 200 (a redirect would drop the path and land
+### visitors on the home page, which is the wrong fix).
+### One entry per page in src/lib/routes.ts. Missing assets and typo URLs are deliberately
+### NOT rewritten here, so they keep a real 404 status instead of becoming soft 404s.
+
+[[advanced.rewrites]]
+source = "/"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/services"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/work"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/about"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/contact"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/privacy"
+destination = "/index.html"
+
+[[advanced.rewrites]]
+source = "/terms"
+destination = "/index.html"

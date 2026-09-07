@@ -19,5 +19,5 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "vite-plugin-leads.ts", "server/notify-lead.mjs"]
+  "include": ["vite.config.ts", "vite-plugin-leads.ts", "vite-plugin-spa-fallback.ts", "server/notify-lead.mjs"]
 }

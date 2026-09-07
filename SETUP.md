@@ -64,7 +64,11 @@ Run `supabase/migrations/001_leads.sql` only if you use Supabase. Analytics load
 
 ```bash
 npm test
-npm run build
+npm run verify:deploy
 ```
+
+`verify:deploy` builds and then cold-loads every route the way Wasmer Edge does, so a missing
+SPA fallback (refresh on `/services` → `404 Not Found`) is caught before you ship. See
+`docs/SPA-ROUTING-HOSTING.md`.
 
 Open the live domain, submit the form, check WhatsApp and email.

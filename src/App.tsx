@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,15 +8,7 @@ import { PageShell } from "@/components/layout/PageShell";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { BackButtonToHome } from "@/components/layout/BackButtonToHome";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-
-const Index = lazy(() => import("./pages/Index.tsx"));
-const ServicesPage = lazy(() => import("./pages/Services.tsx"));
-const WorkPage = lazy(() => import("./pages/Work.tsx"));
-const AboutPage = lazy(() => import("./pages/About.tsx"));
-const ContactPage = lazy(() => import("./pages/Contact.tsx"));
-const PrivacyPage = lazy(() => import("./pages/Privacy.tsx"));
-const TermsPage = lazy(() => import("./pages/Terms.tsx"));
-const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+import { lazyRoutes } from "@/lib/routes";
 
 const queryClient = new QueryClient();
 
@@ -38,14 +30,9 @@ const App = () => (
           <PageShell>
             <Suspense fallback={<RouteFallback />}>
               <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/services" element={<ServicesPage />} />
-                <Route path="/work" element={<WorkPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/privacy" element={<PrivacyPage />} />
-                <Route path="/terms" element={<TermsPage />} />
-                <Route path="*" element={<NotFound />} />
+                {lazyRoutes.map(({ path, Component }) => (
+                  <Route key={path} path={path} element={<Component />} />
+                ))}
               </Routes>
             </Suspense>
           </PageShell>
